@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.53">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; UART Serial Communication using STM32 HAL – Embedded C Programming Lab Manual</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../exercises/2_gpio.html" rel="next">
+<link href="../exercises.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Embedded C Programming Lab Manual</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Using STMCube IDE with STM HAL</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/1_uart.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/2_gpio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><b>Using Arduino IDE with stm32duino</b></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">2.1</span> Objective:</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">2.2</span> Materials:</a></li>
+  <li><a href="#cubemx-configuration" id="toc-cubemx-configuration" class="nav-link" data-scroll-target="#cubemx-configuration"><span class="header-section-number">2.3</span> CubeMX Configuration:</a>
+  <ul class="collapse">
+  <li><a href="#create-a-new-project" id="toc-create-a-new-project" class="nav-link" data-scroll-target="#create-a-new-project">1. Create a New Project:</a></li>
+  <li><a href="#enable-usart3-peripheral" id="toc-enable-usart3-peripheral" class="nav-link" data-scroll-target="#enable-usart3-peripheral">2. Enable USART3 Peripheral:</a></li>
+  <li><a href="#uart-configuration" id="toc-uart-configuration" class="nav-link" data-scroll-target="#uart-configuration">3. UART Configuration:</a></li>
+  <li><a href="#configure-clock" id="toc-configure-clock" class="nav-link" data-scroll-target="#configure-clock">4. Configure Clock:</a></li>
+  <li><a href="#enable-nvic-settings-optional-for-interrupts" id="toc-enable-nvic-settings-optional-for-interrupts" class="nav-link" data-scroll-target="#enable-nvic-settings-optional-for-interrupts">5. Enable NVIC Settings (Optional for Interrupts):</a></li>
+  <li><a href="#generate-code" id="toc-generate-code" class="nav-link" data-scroll-target="#generate-code">6. Generate Code:</a></li>
+  </ul></li>
+  <li><a href="#explanation-of-key-functions" id="toc-explanation-of-key-functions" class="nav-link" data-scroll-target="#explanation-of-key-functions"><span class="header-section-number">2.4</span> Explanation of Key Functions:</a></li>
+  <li><a href="#tasks-and-sample-io-behavior" id="toc-tasks-and-sample-io-behavior" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior"><span class="header-section-number">2.5</span> Tasks and Sample IO Behavior:</a>
+  <ul class="collapse">
+  <li><a href="#task-1-simple-uart-communication" id="toc-task-1-simple-uart-communication" class="nav-link" data-scroll-target="#task-1-simple-uart-communication">Task 1: Simple UART Communication</a></li>
+  <li><a href="#task-2-implement-a-loopback-test" id="toc-task-2-implement-a-loopback-test" class="nav-link" data-scroll-target="#task-2-implement-a-loopback-test">Task 2: Implement a Loopback Test</a></li>
+  <li><a href="#task-3-send-a-string-every-1-second-using-timer-interrupt" id="toc-task-3-send-a-string-every-1-second-using-timer-interrupt" class="nav-link" data-scroll-target="#task-3-send-a-string-every-1-second-using-timer-interrupt">Task 3: Send a String Every 1 Second Using Timer Interrupt</a></li>
+  <li><a href="#task-4-interrupt-based-uart-communication" id="toc-task-4-interrupt-based-uart-communication" class="nav-link" data-scroll-target="#task-4-interrupt-based-uart-communication">Task 4: Interrupt-Based UART Communication</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">2.6</span> Conclusion:</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="objective" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">2.1</span> Objective:</h2>
+<p>By the end of this exercise, students will: - Understand the basics of UART communication. - Configure UART using STM32 HAL in CubeIDE for the STM Nucleo-144 F767ZI board. - Transmit and receive data over USART3(It will be set to Asynchronous mode). - Implement simple communication between the STM32 microcontroller and a serial terminal on a PC.</p>
+</section>
+<section id="materials" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">2.2</span> Materials:</h2>
+<ul>
+<li>STM Nucleo-144 F767ZI development board.</li>
+<li>USB to TTL Serial converter (or onboard ST-LINK USB).</li>
+<li>CubeIDE installed on the PC.</li>
+<li>Serial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).</li>
+</ul>
+</section>
+<section id="cubemx-configuration" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="cubemx-configuration"><span class="header-section-number">2.3</span> CubeMX Configuration:</h2>
+<section id="create-a-new-project" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-project">1. Create a New Project:</h3>
+<ul>
+<li>Launch CubeIDE and create a new project.</li>
+<li>Select the STM32F767ZI microcontroller (or the STM Nucleo-144 F767ZI board).</li>
+</ul>
+</section>
+<section id="enable-usart3-peripheral" class="level3">
+<h3 class="anchored" data-anchor-id="enable-usart3-peripheral">2. Enable USART3 Peripheral:</h3>
+<ul>
+<li>In the <strong>Pinout &amp; Configuration</strong> tab, enable <code>USART3</code> and set mode to Asynchronous.</li>
+<li>Assign the appropriate pins for TX (PD8) and RX (PD9) for USART3.</li>
+</ul>
+</section>
+<section id="uart-configuration" class="level3">
+<h3 class="anchored" data-anchor-id="uart-configuration">3. UART Configuration:</h3>
+<ul>
+<li>Set Baud Rate to <strong>9600</strong>.</li>
+<li>Configure <strong>8 data bits</strong>, <strong>No parity</strong>, and <strong>1 stop bit</strong>.</li>
+<li>Enable both <strong>Transmit</strong> and <strong>Receive</strong>.</li>
+</ul>
+</section>
+<section id="configure-clock" class="level3">
+<h3 class="anchored" data-anchor-id="configure-clock">4. Configure Clock:</h3>
+<ul>
+<li>Ensure the system clock is properly set to the required frequency (e.g., 216 MHz for STM32F767ZI).</li>
+</ul>
+</section>
+<section id="enable-nvic-settings-optional-for-interrupts" class="level3">
+<h3 class="anchored" data-anchor-id="enable-nvic-settings-optional-for-interrupts">5. Enable NVIC Settings (Optional for Interrupts):</h3>
+<ul>
+<li>If using interrupts, enable <strong>USART3 global interrupt</strong>.</li>
+</ul>
+</section>
+<section id="generate-code" class="level3">
+<h3 class="anchored" data-anchor-id="generate-code">6. Generate Code:</h3>
+<ul>
+<li>Click <strong>Project &gt; Generate Code</strong> to create the project with the configured USART settings.</li>
+</ul>
+</section>
+</section>
+<section id="explanation-of-key-functions" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">2.4</span> Explanation of Key Functions:</h2>
+<p>Explanations of these functions can be found in the <a href="https://www.st.com/resource/en/user_manual/dm00154093-description-of-stm32f1-hal-and-lowlayer-drivers-stmicroelectronics.pdf#38%20HAL%20UART%20Generic%20Driver">UM1850</a></p>
+<ol type="1">
+<li><strong>HAL_UART_Transmit:</strong>
+<ul>
+<li><p>This function sends data through the UART peripheral.</p></li>
+<li><p>Syntax:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> data<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"Hello, UART!"</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Transmit the message</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li><strong>HAL_UART_Receive:</strong>
+<ul>
+<li><p>This function receives data through the UART peripheral.</p></li>
+<li><p>Syntax:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> buffer<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>Example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">10</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Receive data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li><strong>HAL_UART_Receive_IT:</strong>
+<ul>
+<li><p>This function enables interrupt-based data reception.</p></li>
+<li><p>It allows the microcontroller to handle data asynchronously.</p></li>
+<li><p>Syntax:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> buffer<span class="op">,</span> length<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li><strong>HAL_TIM_Base_Start_IT:</strong>
+<ul>
+<li><p>Used to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.</p></li>
+<li><p>Example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span>  <span class="co">// Start timer 3 in interrupt mode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul></li>
+<li><strong>HAL_TIM_PeriodElapsedCallback:</strong>
+<ul>
+<li>This function is called when a timer interrupt occurs.</li>
+<li>It can be used to perform tasks at specific intervals, such as sending a string over UART.</li>
+</ul></li>
+</ol>
+</section>
+<section id="tasks-and-sample-io-behavior" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="tasks-and-sample-io-behavior"><span class="header-section-number">2.5</span> Tasks and Sample IO Behavior:</h2>
+<section id="task-1-simple-uart-communication" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-simple-uart-communication">Task 1: Simple UART Communication</h3>
+<ul>
+<li>Transmit a string (“Hello, UART!”) from the STM32 to the PC serial terminal via USART3.</li>
+</ul>
+<section id="code-example" class="level4">
+<h4 class="anchored" data-anchor-id="code-example">Code Example:</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"Hello, UART!"</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Transmit the message</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sample-io" class="level4">
+<h4 class="anchored" data-anchor-id="sample-io">Sample IO:</h4>
+<ul>
+<li><strong>Output</strong>: The string “Hello, UART!” appears in the serial terminal on the PC.</li>
+</ul>
+</section>
+</section>
+<section id="task-2-implement-a-loopback-test" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-implement-a-loopback-test">Task 2: Implement a Loopback Test</h3>
+<ul>
+<li>Modify the code so that the STM32 receives data from the serial terminal and echoes it back.</li>
+</ul>
+<section id="code-example-1" class="level4">
+<h4 class="anchored" data-anchor-id="code-example-1">Code Example:</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span>  <span class="co">// Buffer to store received data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Receive data from the serial terminal</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Echo the received data back to the terminal</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sample-io-1" class="level4">
+<h4 class="anchored" data-anchor-id="sample-io-1">Sample IO:</h4>
+<ul>
+<li><strong>Input</strong>: If you type “STM32” in the serial terminal.</li>
+<li><strong>Output</strong>: “STM32” is echoed back to the terminal.</li>
+</ul>
+</section>
+</section>
+<section id="task-3-send-a-string-every-1-second-using-timer-interrupt" class="level3">
+<h3 class="anchored" data-anchor-id="task-3-send-a-string-every-1-second-using-timer-interrupt">Task 3: Send a String Every 1 Second Using Timer Interrupt</h3>
+<ul>
+<li>Use a timer interrupt to send a string (“STM32 Timer Test”) every 1 second.</li>
+</ul>
+<section id="code-example-2" class="level4">
+<h4 class="anchored" data-anchor-id="code-example-2">Code Example:</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Start timer in interrupt mode</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback function</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM3<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Send message every second</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"STM32 Timer Test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sample-io-2" class="level4">
+<h4 class="anchored" data-anchor-id="sample-io-2">Sample IO:</h4>
+<ul>
+<li><strong>Output</strong>: The string “STM32 Timer Test” is sent to the serial terminal every second.</li>
+</ul>
+</section>
+</section>
+<section id="task-4-interrupt-based-uart-communication" class="level3">
+<h3 class="anchored" data-anchor-id="task-4-interrupt-based-uart-communication">Task 4: Interrupt-Based UART Communication</h3>
+<ul>
+<li>Configure UART communication using interrupts to receive and echo data asynchronously.</li>
+</ul>
+<section id="code-example-3" class="level4">
+<h4 class="anchored" data-anchor-id="code-example-3">Code Example:</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Start interrupt-based reception</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Interrupt callback function</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_UART_RxCpltCallback<span class="op">(</span>UART_HandleTypeDef <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>huart<span class="op">-&gt;</span>Instance <span class="op">==</span> USART3<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Echo received data</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Restart reception</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="sample-io-3" class="level4">
+<h4 class="anchored" data-anchor-id="sample-io-3">Sample IO:</h4>
+<ul>
+<li><strong>Input</strong>: Type “STM32” in the serial terminal.</li>
+<li><strong>Output</strong>: Each character is echoed back immediately, as data is received and transmitted using interrupts.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">2.6</span> Conclusion:</h2>
+<p>In this exercise, you explored USART serial communication on the STM Nucleo-144 F767ZI board using STM32 HAL in CubeIDE. We covered two primary communication methods: <strong>polling</strong> and <strong>interrupts</strong>.</p>
+<ul>
+<li><p><strong>Polling</strong> was demonstrated using functions like <code>HAL_UART_Transmit</code> and <code>HAL_UART_Receive</code>, where the microcontroller continuously checks for data transmission or reception. While simple to implement, polling can block the CPU, preventing it from executing other tasks while waiting for the communication to complete.</p></li>
+<li><p><strong>Interrupts</strong>, on the other hand, were introduced as a more efficient method of handling USART communication. In interrupt-based communication, the CPU can perform other tasks while waiting for data. When data is ready, an interrupt is triggered, and the appropriate callback function handles the data. This method enhances system performance and responsiveness, especially in real-time applications.</p></li>
+</ul>
+<p>By implementing both approaches, you gained a clear understanding of how to manage serial communication effectively in embedded systems, choosing between polling and interrupts depending on system requirements. These concepts are crucial for building efficient, responsive applications in embedded environments.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../exercises.html" class="pagination-link" aria-label="List of exercises">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../exercises/2_gpio.html" class="pagination-link" aria-label="3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
