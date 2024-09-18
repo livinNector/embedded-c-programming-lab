@@ -1,0 +1,18 @@
+# List of exercises
+
+
+1. Using STMCube IDE with STM HAL
+   1. UART - Hello world
+      1. Transmit - Simple UART Transmission
+      2. Loopback 
+      3. With Timer Interrupt(Optional)
+      4. Interrupt based UART(Optional)
+   2. GPIO - Led blink - Clock counter
+      1. Using HAL_Delay
+      2. Using Timer Interrupts
+      3. Using External(Pushbutton) Interrupts
+2. Using Arduino IDE with STM32duino
+   1. Interfacing with Sensors
+      1. Ultrasonic sensor for distance measurement - HC-SR04 
+      2. Temperature measurement using I2C - MCP9808
+      3. Accelerometer and gyroscope - MPU-6050

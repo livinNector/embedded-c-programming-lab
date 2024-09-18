@@ -1,0 +1,20 @@
+# Preface {.unnumbered}
+
+This book has the list of exercises for the Embedded C Programming Lab manual.
+
+## IDEs
+
+- STMCube IDE with STM HAL
+- Arduino IDE (V2) with Stm32duino
+
+## Development board
+
+The exercise here are implemented using STM Nucleo-144 F767ZI development board.
+
+## Components
+- Built-in LEDs and Pushbutton
+- Built-in Serial UART
+- Ultrasonic sensor - HC-SR04 
+- Temperature Sensor - MCP9808
+- Accelerometer and gyroscope - MPU-6050
+
