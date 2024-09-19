@@ -5,28 +5,28 @@ book:
   title: "Embedded C Programming Lab Manual"
   author: "Livin Nector D"
   date: "9/18/2024"
+  cover-image: cover.png
   chapters:
     - index.qmd
     - exercises.qmd
-    - part: "**Using STMCube IDE with STM HAL**"
+    - part: "**Using STMCubeIDE with STM HAL**"
       chapters:
-        - exercises/1_uart.md
-        - exercises/2_gpio.md
-    - part: arduino_ide_with_stm32duino.qmd
+        - getting_started/stmcube_ide_getting_started.qmd
+        - exercises/1_uart.qmd
+        - exercises/2_gpio.qmd
+    - part: "**Using Arduino IDE with stm32duino**"
       chapters: 
-        - exercises/3_ultrasonic_sensor.md
-        - exercises/4_temperature_sensor_i2c.md
-        - exercises/5_accelgyro_i2c.md
+        - getting_started/arduino_ide_with_stm32duino.qmd
+        - exercises/3_ultrasonic_sensor.qmd
+        - exercises/4_temperature_sensor_i2c.qmd
+        - exercises/5_accelgyro_i2c.qmd
 
     - summary.qmd
     - references.qmd
+  favicon: logo.ico
 
 bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
-
-
-website: 
-  favicon: logo.ico
+    theme: flatly

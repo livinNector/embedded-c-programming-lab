@@ -1,5 +1,3 @@
----
-title: "<b>Using Arduino IDE with stm32duino</b>"
----
+# Arduino IDE: Getting Started and How-tos
 
 Refer the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started) wiki page from the stm32duino for how to setup Arduino IDE for stm boards.
