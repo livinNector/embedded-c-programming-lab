@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; 3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt – Embedded C Programming Lab Manual</title>
+<title>4&nbsp; 3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../arduino_ide_with_stm32duino.html" rel="next">
+<link href="../getting_started/arduino_ide_with_stm32duino.html" rel="next">
 <link href="../exercises/1_uart.html" rel="prev">
+<link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -103,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -115,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/2_gpio.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/2_gpio.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Using STMCube IDE with STM HAL</strong></span></a>
+ <span class="menu-text"><strong>Using STMCubeIDE with STM HAL</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -163,22 +193,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../exercises/1_uart.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/2_gpio.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><b>Using Arduino IDE with stm32duino</b></span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Using Arduino IDE with stm32duino</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -186,20 +222,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../getting_started/arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Arduino IDE: Getting Started and How-tos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
   </div>
 </li>
       </ul>
@@ -207,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,32 +268,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">3.1</span> Objective:</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">3.2</span> Materials:</a></li>
-  <li><a href="#cubemx-configuration" id="toc-cubemx-configuration" class="nav-link" data-scroll-target="#cubemx-configuration"><span class="header-section-number">3.3</span> CubeMX Configuration:</a>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">4.1</span> Objective:</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">4.2</span> Materials:</a></li>
+  <li><a href="#cubemx-configuration" id="toc-cubemx-configuration" class="nav-link" data-scroll-target="#cubemx-configuration"><span class="header-section-number">4.3</span> CubeMX Configuration:</a>
   <ul class="collapse">
   <li><a href="#gpio-configuration-for-leds" id="toc-gpio-configuration-for-leds" class="nav-link" data-scroll-target="#gpio-configuration-for-leds">1. GPIO Configuration for LEDs:</a></li>
-  <li><a href="#timer-configuration-for-task-2" id="toc-timer-configuration-for-task-2" class="nav-link" data-scroll-target="#timer-configuration-for-task-2">2. Timer Configuration (For Task 2):</a></li>
+  <li><a href="#tim7-configuration-for-task-2" id="toc-tim7-configuration-for-task-2" class="nav-link" data-scroll-target="#tim7-configuration-for-task-2">2. TIM7 Configuration (For Task 2)</a></li>
   <li><a href="#button-configuration-for-task-3" id="toc-button-configuration-for-task-3" class="nav-link" data-scroll-target="#button-configuration-for-task-3">3. Button Configuration (For Task 3):</a></li>
   <li><a href="#generate-code" id="toc-generate-code" class="nav-link" data-scroll-target="#generate-code">4. Generate Code:</a></li>
   </ul></li>
-  <li><a href="#explanation-of-key-functions" id="toc-explanation-of-key-functions" class="nav-link" data-scroll-target="#explanation-of-key-functions"><span class="header-section-number">3.4</span> Explanation of Key Functions:</a></li>
-  <li><a href="#tasks-and-sample-io-behavior" id="toc-tasks-and-sample-io-behavior" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior"><span class="header-section-number">3.5</span> Tasks and Sample IO Behavior:</a>
+  <li><a href="#explanation-of-key-functions" id="toc-explanation-of-key-functions" class="nav-link" data-scroll-target="#explanation-of-key-functions"><span class="header-section-number">4.4</span> Explanation of Key Functions:</a></li>
+  <li><a href="#tasks-and-sample-io-behavior" id="toc-tasks-and-sample-io-behavior" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior"><span class="header-section-number">4.5</span> Tasks and Sample IO Behavior:</a>
   <ul class="collapse">
   <li><a href="#task-1-3-bit-led-counter-using-hal-delay-and-for-loop" id="toc-task-1-3-bit-led-counter-using-hal-delay-and-for-loop" class="nav-link" data-scroll-target="#task-1-3-bit-led-counter-using-hal-delay-and-for-loop">Task 1: 3-bit LED Counter Using HAL Delay and For Loop</a></li>
   <li><a href="#task-2-3-bit-led-counter-using-timer-interrupt" id="toc-task-2-3-bit-led-counter-using-timer-interrupt" class="nav-link" data-scroll-target="#task-2-3-bit-led-counter-using-timer-interrupt">Task 2: 3-bit LED Counter Using Timer Interrupt</a></li>
   <li><a href="#task-3-3-bit-led-counter-with-push-button-interrupt-and-debounce" id="toc-task-3-3-bit-led-counter-with-push-button-interrupt-and-debounce" class="nav-link" data-scroll-target="#task-3-3-bit-led-counter-with-push-button-interrupt-and-debounce">Task 3: 3-bit LED Counter with Push Button Interrupt and Debounce</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.6</span> Conclusion:</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">4.6</span> Conclusion:</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/2_gpio.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/2_gpio.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></h1>
 </div>
 
 
@@ -268,12 +310,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objective" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">3.1</span> Objective:</h2>
-<p>By the end of this exercise, students will: - Implement a binary counter using three LEDs (LD1, LD2, LD3) on the STM Nucleo-144 F767ZI board. - Explore three methods of controlling the LEDs: using <strong>HAL delay</strong> and <strong>for loops</strong>, <strong>timer interrupts</strong>, and <strong>push button interrupts</strong>. - Understand the difference between using blocking delays, interrupt-driven operations, and external interrupts in embedded systems.</p>
+<section id="objective" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">4.1</span> Objective:</h2>
+<p>By the end of this exercise, students will:</p>
+<ul>
+<li>Implement a binary counter using three LEDs (LD1, LD2, LD3) on the STM Nucleo-144 F767ZI board.</li>
+<li>Explore three methods of controlling the LEDs: using <strong>HAL delay</strong> and <strong>for loops</strong>, <strong>timer interrupts</strong>, and <strong>push button interrupts</strong>.</li>
+<li>Understand the difference between using blocking delays, interrupt-driven operations, and external interrupts in embedded systems.</li>
+</ul>
 </section>
-<section id="materials" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">3.2</span> Materials:</h2>
+<section id="materials" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">4.2</span> Materials:</h2>
 <ul>
 <li>STM Nucleo-144 F767ZI development board.</li>
 <li>Onboard user LEDs:
@@ -287,8 +334,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <hr>
 </section>
-<section id="cubemx-configuration" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="cubemx-configuration"><span class="header-section-number">3.3</span> CubeMX Configuration:</h2>
+<section id="cubemx-configuration" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="cubemx-configuration"><span class="header-section-number">4.3</span> CubeMX Configuration:</h2>
 <section id="gpio-configuration-for-leds" class="level3">
 <h3 class="anchored" data-anchor-id="gpio-configuration-for-leds">1. GPIO Configuration for LEDs:</h3>
 <ul>
@@ -296,20 +343,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>LD2 (Blue)</strong>: Set PB7 as a GPIO Output.</li>
 <li><strong>LD3 (Red)</strong>: Set PB14 as a GPIO Output.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are using the default peripheral configuration it should be already set this way.</p>
+</div>
+</div>
 </section>
-<section id="timer-configuration-for-task-2" class="level3">
-<h3 class="anchored" data-anchor-id="timer-configuration-for-task-2">2. Timer Configuration (For Task 2):</h3>
+<section id="tim7-configuration-for-task-2" class="level3">
+<h3 class="anchored" data-anchor-id="tim7-configuration-for-task-2">2. TIM7 Configuration (For Task 2)</h3>
 <ul>
-<li>Enable <strong>TIM3</strong> (or any other available timer).</li>
+<li>Enable <strong>TIM7</strong> (or any other available timer).</li>
 <li>Configure the timer with a <strong>prescaler</strong> and <strong>period</strong> to generate an interrupt every 1 second.</li>
-<li>Enable the <strong>Update Interrupt</strong> for the timer (TIM3).</li>
+<li>In the <strong>Parameter Settings</strong>, set the following configuration.
+<ul>
+<li>Prescaler - 40000-1</li>
+<li>Counter Mode - Up</li>
+<li>Counter Period - 2000-1</li>
+<li><span class="math display">\[\begin{align*}\text{Interrupt Interval} &amp;= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &amp;=\frac{2000 \times 40000}{96\times10^6}=1 \text{s}\end{align*}\]</span></li>
+</ul></li>
+<li>In the <strong>NVIC Settings</strong>, enable the TIM7 global interrupt.</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are selecting TIM7 for timer as it is one of the basic timers. It uses the APB1 timer clock source as the clock source (Refer <a href="https://www.st.com/resource/en/datasheet/stm32f767zi.pdf#Figure%202.%20STM32F765xx,%20STM32F767xx,%20STM32F768Ax,%20and%20STM32F769xx%20block%20diagram">this block diagram</a> and <a href="https://www.st.com/resource/en/datasheet/stm32f767zi.pdf#3.23%20Timers%20and%20watchdogs">this section</a>).</p>
+<p>The frequency of the APB1 timer clock can be verified using the <strong>Clock Configuration</strong> tab.</p>
+</div>
+</div>
 </section>
 <section id="button-configuration-for-task-3" class="level3">
 <h3 class="anchored" data-anchor-id="button-configuration-for-task-3">3. Button Configuration (For Task 3):</h3>
 <ul>
-<li>Set <strong>PC13</strong> (USER_BUTTON) as a GPIO Input.</li>
-<li>Enable the <strong>EXTI Line 13</strong> interrupt for the button in the <strong>NVIC Settings</strong>.</li>
+<li>Set <strong>PC13</strong> (USER_BUTTON) as a GPIO Input(If default configurations of peripherals are used ith will be already enabled).</li>
+<li>Enable the <strong>EXTI Line [15:10]</strong> interrupt for the button in the <strong>NVIC Settings</strong>.</li>
 </ul>
 </section>
 <section id="generate-code" class="level3">
@@ -320,16 +401,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="explanation-of-key-functions" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">3.4</span> Explanation of Key Functions:</h2>
+<section id="explanation-of-key-functions" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">4.4</span> Explanation of Key Functions:</h2>
 <ol type="1">
-<li><strong>HAL_Delay:</strong>
+<li><p><strong>HAL_Delay</strong></p>
 <ul>
 <li><p>Generates a blocking delay, pausing program execution for the specified number of milliseconds.</p></li>
 <li><p>Syntax:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HAL_Delay<span class="op">(</span>milliseconds<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
-<li><strong>HAL_GPIO_WritePin:</strong>
+<li><p><strong>HAL_GPIO_WritePin</strong></p>
 <ul>
 <li><p>Sets the state of a GPIO pin to HIGH or LOW, used to control the LEDs.</p></li>
 <li><p>Syntax:</p>
@@ -338,35 +419,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> GPIO_PIN_SET<span class="op">);</span>  <span class="co">// Set PB0 (LD1) to HIGH</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// Set PB0 (LD1) to LOW</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
-<li><strong>HAL_TIM_Base_Start_IT:</strong>
+<li><p><strong>HAL_TIM_Base_Start_IT</strong></p>
 <ul>
 <li><p>Starts a timer in interrupt mode.</p></li>
 <li><p>Syntax:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span>  <span class="co">// Start TIM3 in interrupt mode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim7<span class="op">);</span>  <span class="co">// Start TIM7 in interrupt mode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
-<li><strong>HAL_TIM_PeriodElapsedCallback:</strong>
+<li><p><strong>HAL_TIM_PeriodElapsedCallback</strong></p>
 <ul>
 <li><p>The interrupt callback function triggered when the timer reaches the specified period.</p></li>
 <li><p>Syntax:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
-<li><strong>HAL_GPIO_EXTI_IRQHandler:</strong>
+<li><p><strong>HAL_GPIO_EXTI_Callback</strong></p>
 <ul>
-<li><p>Handles external interrupt requests for GPIO pins.</p></li>
-<li><p>Syntax:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_GPIO_EXTI_IRQHandler<span class="op">(</span><span class="dt">uint16_t</span> GPIO_Pin<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul></li>
-<li>**__HAL_GPIO_EXTI_CLEAR_IT:**
-<ul>
-<li><p>Clears the pending bit for the external interrupt line.</p></li>
-<li><p>Syntax:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>__HAL_GPIO_EXTI_CLEAR_IT<span class="op">(</span>GPIO_Pin<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><p>The interrupt callback function triggered when the external interrupt occurs.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_GPIO_EXTI_Callback<span class="op">(</span><span class="dt">uint16_t</span> GPIO_Pin<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul></li>
 </ol>
 <hr>
 </section>
-<section id="tasks-and-sample-io-behavior" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="tasks-and-sample-io-behavior"><span class="header-section-number">3.5</span> Tasks and Sample IO Behavior:</h2>
+<section id="tasks-and-sample-io-behavior" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="tasks-and-sample-io-behavior"><span class="header-section-number">4.5</span> Tasks and Sample IO Behavior:</h2>
 <section id="task-1-3-bit-led-counter-using-hal-delay-and-for-loop" class="level3">
 <h3 class="anchored" data-anchor-id="task-1-3-bit-led-counter-using-hal-delay-and-for-loop">Task 1: 3-bit LED Counter Using HAL Delay and For Loop</h3>
 <ul>
@@ -380,32 +454,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example" class="level4">
 <h4 class="anchored" data-anchor-id="code-example">Code Example</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"main.h"</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint8_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 3-bit counter</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> increment_counter<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="op">(</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> <span class="dv">8</span><span class="op">;</span>  <span class="co">// Increment counter and wrap around using modulo</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set LED states based on counter value</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    HAL_Init<span class="op">();</span>  <span class="co">// Initialize the HAL Library</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    SystemClock_Config<span class="op">();</span>  <span class="co">// Configure the system clock</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    MX_GPIO_Init<span class="op">();</span>  <span class="co">// Initialize GPIO for LEDs</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// 3-bit binary counter loop (0 to 7)</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">uint8_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            increment_counter<span class="op">();</span>  <span class="co">// Update LED states based on counter value</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            HAL_Delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>  <span class="co">// 1-second delay</span></span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> WHILE */</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      <span class="co">// 3-bit binary counter loop (0 to 7)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="cf">for</span> <span class="op">(</span><span class="dt">uint8_t</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">8</span><span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>i <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>i <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>i <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        HAL_Delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>  <span class="co">// 1-second delay</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>      <span class="op">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> WHILE */</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 3 */</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 3 */</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io">Sample IO:</h4>
@@ -437,40 +501,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example-1" class="level4">
 <h4 class="anchored" data-anchor-id="code-example-1">Code Example</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"main.h"</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint8_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 3-bit counter</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> increment_counter<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="op">(</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> <span class="dv">8</span><span class="op">;</span>  <span class="co">// Increment counter and wrap around using modulo</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set LED states based on counter value</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    HAL_Init<span class="op">();</span>  <span class="co">// Initialize the HAL Library</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    SystemClock_Config<span class="op">();</span>  <span class="co">// Configure the system clock</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    MX_GPIO_Init<span class="op">();</span>  <span class="co">// Initialize GPIO for LEDs</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    MX_TIM3_Init<span class="op">();</span>  <span class="co">// Initialize Timer (TIM3)</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Start the timer in interrupt mode</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Infinite loop</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">// No additional logic needed in the main loop, everything is handled in the timer interrupt</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM3<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        increment_counter<span class="op">();</span>  <span class="co">// Update LED states based on counter value</span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> PV */</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint8_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 3-bit counter</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> PV */</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 0 */</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> increment_counter<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="op">(</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> <span class="dv">8</span><span class="op">;</span>  <span class="co">// Increment counter and wrap around using modulo</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set LED states based on counter value</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 0 */</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 2 */</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Start timer in interrupt mode</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim7<span class="op">);</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 2 */</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 4 */</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM7<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        increment_counter<span class="op">();</span>  <span class="co">// Update LED states based on counter value</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 4 */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io-1" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io-1">Sample IO:</h4>
@@ -503,63 +564,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example-2" class="level4">
 <h4 class="anchored" data-anchor-id="code-example-2">Code Example</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"main.h"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DEBOUNCE_DELAY_MS </span><span class="dv">50</span><span class="pp">  </span><span class="co">// Debounce delay in milliseconds</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint8_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 3-bit counter</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint32_t</span> last_interrupt_time <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// Last interrupt time in milliseconds</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> increment_counter<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="op">(</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> <span class="dv">8</span><span class="op">;</span>  <span class="co">// Increment counter and wrap around using modulo</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set LED states based on counter value</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> delay_ms<span class="op">(</span><span class="dt">uint32_t</span> ms<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    HAL_Delay<span class="op">(</span>ms<span class="op">);</span>  <span class="co">// Simple delay function using HAL_Delay</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    HAL_Init<span class="op">();</span>  <span class="co">// Initialize the HAL Library</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    SystemClock_Config<span class="op">();</span>  <span class="co">// Configure the system clock</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    MX_GPIO_Init<span class="op">();</span>  <span class="co">// Initialize GPIO for LEDs and Button</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    MX_TIM3_Init<span class="op">();</span>  <span class="co">// Initialize Timer (TIM3)</span></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Start the timer in interrupt mode</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Infinite loop</span></span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">// No additional logic needed in the main loop, everything is handled in interrupts</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback</span></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM3<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Timer interrupt logic can be added here if needed</span></span>
-<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="co">// Button interrupt callback</span></span>
-<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> EXTI15_10_IRQHandler<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>    <span class="dt">uint32_t</span> current_time <span class="op">=</span> HAL_GetTick<span class="op">();</span>  <span class="co">// Get current time in milliseconds</span></span>
-<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Check if the interrupt is from the button pin (PC13) and debounce</span></span>
-<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>__HAL_GPIO_EXTI_GET_IT<span class="op">(</span>GPIO_PIN_13<span class="op">)</span> <span class="op">!=</span> RESET<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Simple debounce logic</span></span>
-<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">((</span>current_time <span class="op">-</span> last_interrupt_time<span class="op">)</span> <span class="op">&gt;</span> DEBOUNCE_DELAY_MS<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>            last_interrupt_time <span class="op">=</span> current_time<span class="op">;</span>  <span class="co">// Update last interrupt time</span></span>
-<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>            __HAL_GPIO_EXTI_CLEAR_IT<span class="op">(</span>GPIO_PIN_13<span class="op">);</span>  <span class="co">// Clear the interrupt flag</span></span>
-<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>            increment_counter<span class="op">();</span>  <span class="co">// Update LED states based on counter value</span></span>
-<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> PD */</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define DEBOUNCE_DELAY_MS </span><span class="dv">50</span><span class="pp">  </span><span class="co">// Debounce delay in milliseconds</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> PD */</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> PV */</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint8_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// 3-bit counter</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint32_t</span> last_interrupt_time <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>  <span class="co">// Last interrupt time in milliseconds</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> PV */</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 0 */</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> increment_counter<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="op">(</span>counter <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">%</span> <span class="dv">8</span><span class="op">;</span>  <span class="co">// Increment counter and wrap around using modulo</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Set LED states based on counter value</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_0<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x01</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD1 (LSB)</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_7<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x02</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span>  <span class="co">// LD2</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    HAL_GPIO_WritePin<span class="op">(</span>GPIOB<span class="op">,</span> GPIO_PIN_14<span class="op">,</span> <span class="op">(</span>counter <span class="op">&amp;</span> <span class="bn">0x04</span><span class="op">)</span> <span class="op">?</span> GPIO_PIN_SET <span class="op">:</span> GPIO_PIN_RESET<span class="op">);</span> <span class="co">// LD3 (MSB)</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 0 */</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Infinite loop</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">// No additional logic needed in the main loop, everything is handled in interrupts</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 4 */</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">// External interrupt handler</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_GPIO_EXTI_Callback<span class="op">(</span><span class="dt">uint16_t</span> GPIO_Pin<span class="op">)</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>GPIO_Pin <span class="op">==</span> GPIO_PIN_7<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>          <span class="dt">uint32_t</span> current_time <span class="op">=</span> HAL_GetTick<span class="op">();</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> <span class="op">((</span>current_time <span class="op">-</span> last_interrupt_time<span class="op">)</span> <span class="op">&gt;</span> DEBOUNCE_DELAY_MS<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>              last_interrupt_time <span class="op">=</span> current_time<span class="op">;</span>  <span class="co">// Update last interrupt time</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>              increment_counter<span class="op">();</span>  <span class="co">// Update LED states based on counter value</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>          <span class="op">}</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 4 */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="sample-io-2" class="level5">
 <h5 class="anchored" data-anchor-id="sample-io-2">Sample IO</h5>
 <ul>
@@ -575,13 +618,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>111:</strong> All LEDs on.</li>
 </ul></li>
 </ul>
-<p><strong>Note:</strong> The debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.</p>
+</div>
+</div>
 </section>
 </section>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3.6</span> Conclusion:</h2>
+<section id="conclusion" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">4.6</span> Conclusion:</h2>
 <p>In this exercise, you implemented a 3-bit binary counter using three different methods of LED control on the STM Nucleo-144 F767ZI board:</p>
 <ul>
 <li><p><strong>HAL Delay and For Loop:</strong> Demonstrated a straightforward approach for controlling LEDs with blocking delays, suitable for understanding basic timing but less effective for handling concurrent tasks.</p></li>
@@ -1017,12 +1072,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../exercises/1_uart.html" class="pagination-link" aria-label="UART Serial Communication using STM32 HAL">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../arduino_ide_with_stm32duino.html" class="pagination-link" aria-label="<b>Using Arduino IDE with stm32duino</b>">
-        <span class="nav-page-text"><b>Using Arduino IDE with stm32duino</b></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../getting_started/arduino_ide_with_stm32duino.html" class="pagination-link" aria-label="Arduino IDE: Getting Started and How-tos">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Arduino IDE: Getting Started and How-tos</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

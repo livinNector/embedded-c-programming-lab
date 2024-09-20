@@ -1,142 +1,10 @@
 [
   {
-    "objectID": "exercises/1_uart.html",
-    "href": "exercises/1_uart.html",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "",
-    "text": "2.1 Objective:\nBy the end of this exercise, students will: - Understand the basics of UART communication. - Configure UART using STM32 HAL in CubeIDE for the STM Nucleo-144 F767ZI board. - Transmit and receive data over USART3(It will be set to Asynchronous mode). - Implement simple communication between the STM32 microcontroller and a serial terminal on a PC.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/1_uart.html#materials",
-    "href": "exercises/1_uart.html#materials",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "2.2 Materials:",
-    "text": "2.2 Materials:\n\nSTM Nucleo-144 F767ZI development board.\nUSB to TTL Serial converter (or onboard ST-LINK USB).\nCubeIDE installed on the PC.\nSerial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/1_uart.html#cubemx-configuration",
-    "href": "exercises/1_uart.html#cubemx-configuration",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "2.3 CubeMX Configuration:",
-    "text": "2.3 CubeMX Configuration:\n\n1. Create a New Project:\n\nLaunch CubeIDE and create a new project.\nSelect the STM32F767ZI microcontroller (or the STM Nucleo-144 F767ZI board).\n\n\n\n2. Enable USART3 Peripheral:\n\nIn the Pinout & Configuration tab, enable USART3 and set mode to Asynchronous.\nAssign the appropriate pins for TX (PD8) and RX (PD9) for USART3.\n\n\n\n3. UART Configuration:\n\nSet Baud Rate to 9600.\nConfigure 8 data bits, No parity, and 1 stop bit.\nEnable both Transmit and Receive.\n\n\n\n4. Configure Clock:\n\nEnsure the system clock is properly set to the required frequency (e.g., 216 MHz for STM32F767ZI).\n\n\n\n5. Enable NVIC Settings (Optional for Interrupts):\n\nIf using interrupts, enable USART3 global interrupt.\n\n\n\n6. Generate Code:\n\nClick Project &gt; Generate Code to create the project with the configured USART settings.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/1_uart.html#explanation-of-key-functions",
-    "href": "exercises/1_uart.html#explanation-of-key-functions",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "2.4 Explanation of Key Functions:",
-    "text": "2.4 Explanation of Key Functions:\nExplanations of these functions can be found in the UM1850\n\nHAL_UART_Transmit:\n\nThis function sends data through the UART peripheral.\nSyntax:\nHAL_UART_Transmit(&huart3, data, length, timeout);\nExample:\nuint8_t msg[] = \"Hello, UART!\";\nHAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message\n\nHAL_UART_Receive:\n\nThis function receives data through the UART peripheral.\nSyntax:\nHAL_UART_Receive(&huart3, buffer, length, timeout);\nExample:\nuint8_t rxBuffer[10];\nHAL_UART_Receive(&huart3, rxBuffer, 10, HAL_MAX_DELAY);  // Receive data\n\nHAL_UART_Receive_IT:\n\nThis function enables interrupt-based data reception.\nIt allows the microcontroller to handle data asynchronously.\nSyntax:\nHAL_UART_Receive_IT(&huart3, buffer, length);\n\nHAL_TIM_Base_Start_IT:\n\nUsed to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.\nExample:\nHAL_TIM_Base_Start_IT(&htim3);  // Start timer 3 in interrupt mode\n\nHAL_TIM_PeriodElapsedCallback:\n\nThis function is called when a timer interrupt occurs.\nIt can be used to perform tasks at specific intervals, such as sending a string over UART.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/1_uart.html#tasks-and-sample-io-behavior",
-    "href": "exercises/1_uart.html#tasks-and-sample-io-behavior",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "2.5 Tasks and Sample IO Behavior:",
-    "text": "2.5 Tasks and Sample IO Behavior:\n\nTask 1: Simple UART Communication\n\nTransmit a string (“Hello, UART!”) from the STM32 to the PC serial terminal via USART3.\n\n\nCode Example:\nuint8_t msg[] = \"Hello, UART!\";\nHAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message\n\n\nSample IO:\n\nOutput: The string “Hello, UART!” appears in the serial terminal on the PC.\n\n\n\n\nTask 2: Implement a Loopback Test\n\nModify the code so that the STM32 receives data from the serial terminal and echoes it back.\n\n\nCode Example:\nuint8_t rxBuffer[10];  // Buffer to store received data\n\nwhile (1) {\n    // Receive data from the serial terminal\n    HAL_UART_Receive(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);\n    \n    // Echo the received data back to the terminal\n    HAL_UART_Transmit(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);\n}\n\n\nSample IO:\n\nInput: If you type “STM32” in the serial terminal.\nOutput: “STM32” is echoed back to the terminal.\n\n\n\n\nTask 3: Send a String Every 1 Second Using Timer Interrupt\n\nUse a timer interrupt to send a string (“STM32 Timer Test”) every 1 second.\n\n\nCode Example:\n// Start timer in interrupt mode\nHAL_TIM_Base_Start_IT(&htim3);\n\n// Timer interrupt callback function\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {\n    if (htim-&gt;Instance == TIM3) {\n        // Send message every second\n        uint8_t msg[] = \"STM32 Timer Test\\n\";\n        HAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);\n    }\n}\n\n\nSample IO:\n\nOutput: The string “STM32 Timer Test” is sent to the serial terminal every second.\n\n\n\n\nTask 4: Interrupt-Based UART Communication\n\nConfigure UART communication using interrupts to receive and echo data asynchronously.\n\n\nCode Example:\nuint8_t rxBuffer[1];\n\n// Start interrupt-based reception\nHAL_UART_Receive_IT(&huart3, rxBuffer, 1);\n\n// Interrupt callback function\nvoid HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {\n    if (huart-&gt;Instance == USART3) {\n        // Echo received data\n        HAL_UART_Transmit(&huart3, rxBuffer, 1, HAL_MAX_DELAY);\n\n        // Restart reception\n        HAL_UART_Receive_IT(&huart3, rxBuffer, 1);\n    }\n}\n\n\nSample IO:\n\nInput: Type “STM32” in the serial terminal.\nOutput: Each character is echoed back immediately, as data is received and transmitted using interrupts.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/1_uart.html#conclusion",
-    "href": "exercises/1_uart.html#conclusion",
-    "title": "2  UART Serial Communication using STM32 HAL",
-    "section": "2.6 Conclusion:",
-    "text": "2.6 Conclusion:\nIn this exercise, you explored USART serial communication on the STM Nucleo-144 F767ZI board using STM32 HAL in CubeIDE. We covered two primary communication methods: polling and interrupts.\n\nPolling was demonstrated using functions like HAL_UART_Transmit and HAL_UART_Receive, where the microcontroller continuously checks for data transmission or reception. While simple to implement, polling can block the CPU, preventing it from executing other tasks while waiting for the communication to complete.\nInterrupts, on the other hand, were introduced as a more efficient method of handling USART communication. In interrupt-based communication, the CPU can perform other tasks while waiting for data. When data is ready, an interrupt is triggered, and the appropriate callback function handles the data. This method enhances system performance and responsiveness, especially in real-time applications.\n\nBy implementing both approaches, you gained a clear understanding of how to manage serial communication effectively in embedded systems, choosing between polling and interrupts depending on system requirements. These concepts are crucial for building efficient, responsive applications in embedded environments.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html",
-    "href": "exercises/2_gpio.html",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "",
-    "text": "3.1 Objective:\nBy the end of this exercise, students will: - Implement a binary counter using three LEDs (LD1, LD2, LD3) on the STM Nucleo-144 F767ZI board. - Explore three methods of controlling the LEDs: using HAL delay and for loops, timer interrupts, and push button interrupts. - Understand the difference between using blocking delays, interrupt-driven operations, and external interrupts in embedded systems.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html#materials",
-    "href": "exercises/2_gpio.html#materials",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "3.2 Materials:",
-    "text": "3.2 Materials:\n\nSTM Nucleo-144 F767ZI development board.\nOnboard user LEDs:\n\nLD1 (Green): PB0 (or PA5).\nLD2 (Blue): PB7.\nLD3 (Red): PB14.\n\nOnboard user push button (USER_BUTTON): Connected to PC13.\nCubeIDE installed on the PC.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html#cubemx-configuration",
-    "href": "exercises/2_gpio.html#cubemx-configuration",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "3.3 CubeMX Configuration:",
-    "text": "3.3 CubeMX Configuration:\n\n1. GPIO Configuration for LEDs:\n\nLD1 (Green): Set PB0 (or PA5 depending on SB settings) as a GPIO Output.\nLD2 (Blue): Set PB7 as a GPIO Output.\nLD3 (Red): Set PB14 as a GPIO Output.\n\n\n\n2. Timer Configuration (For Task 2):\n\nEnable TIM3 (or any other available timer).\nConfigure the timer with a prescaler and period to generate an interrupt every 1 second.\nEnable the Update Interrupt for the timer (TIM3).\n\n\n\n3. Button Configuration (For Task 3):\n\nSet PC13 (USER_BUTTON) as a GPIO Input.\nEnable the EXTI Line 13 interrupt for the button in the NVIC Settings.\n\n\n\n4. Generate Code:\n\nClick Project &gt; Generate Code after setting up GPIO, Timer, and Button.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html#explanation-of-key-functions",
-    "href": "exercises/2_gpio.html#explanation-of-key-functions",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "3.4 Explanation of Key Functions:",
-    "text": "3.4 Explanation of Key Functions:\n\nHAL_Delay:\n\nGenerates a blocking delay, pausing program execution for the specified number of milliseconds.\nSyntax:\nHAL_Delay(milliseconds);\n\nHAL_GPIO_WritePin:\n\nSets the state of a GPIO pin to HIGH or LOW, used to control the LEDs.\nSyntax:\nHAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState);\nExample:\nHAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);  // Set PB0 (LD1) to HIGH\nHAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET); // Set PB0 (LD1) to LOW\n\nHAL_TIM_Base_Start_IT:\n\nStarts a timer in interrupt mode.\nSyntax:\nHAL_TIM_Base_Start_IT(&htim3);  // Start TIM3 in interrupt mode\n\nHAL_TIM_PeriodElapsedCallback:\n\nThe interrupt callback function triggered when the timer reaches the specified period.\nSyntax:\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);\n\nHAL_GPIO_EXTI_IRQHandler:\n\nHandles external interrupt requests for GPIO pins.\nSyntax:\nvoid HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);\n\n**__HAL_GPIO_EXTI_CLEAR_IT:**\n\nClears the pending bit for the external interrupt line.\nSyntax:\n__HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html#tasks-and-sample-io-behavior",
-    "href": "exercises/2_gpio.html#tasks-and-sample-io-behavior",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "3.5 Tasks and Sample IO Behavior:",
-    "text": "3.5 Tasks and Sample IO Behavior:\n\nTask 1: 3-bit LED Counter Using HAL Delay and For Loop\n\nObjective: Create a 3-bit binary counter using the LEDs, with a delay between each count, controlled by HAL_Delay() in the main loop.\nDescription:\n\nUse a for loop in the main() function to count from 0 to 7 (binary 000 to 111).\nControl the LEDs based on the binary value of the counter.\nUse HAL_Delay() to wait for 1 second between each count.\n\n\n\nCode Example\n#include \"main.h\"\n\nvolatile uint8_t counter = 0;  // 3-bit counter\n\nvoid increment_counter(void) {\n    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo\n    // Set LED states based on counter value\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n}\n\nint main(void) {\n    HAL_Init();  // Initialize the HAL Library\n    SystemClock_Config();  // Configure the system clock\n\n    MX_GPIO_Init();  // Initialize GPIO for LEDs\n\n    while (1) {\n        // 3-bit binary counter loop (0 to 7)\n        for (uint8_t i = 0; i &lt; 8; i++) {\n            increment_counter();  // Update LED states based on counter value\n            HAL_Delay(1000);  // 1-second delay\n        }\n    }\n}\n\n\nSample IO:\n\nOutput: The LEDs will count in binary, with a 1-second delay between each count.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\n\n\n\n\nTask 2: 3-bit LED Counter Using Timer Interrupt\n\nObjective: Create a 3-bit binary counter using the LEDs, with the counter updated by a timer interrupt instead of using HAL_Delay().\nDescription:\n\nUse a timer to generate an interrupt every 1 second.\nInside the interrupt handler, increment the counter and update the LEDs to reflect the binary count.\n\n\n\nCode Example\n#include \"main.h\"\n\nvolatile uint8_t counter = 0;  // 3-bit counter\n\nvoid increment_counter(void) {\n    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo\n    // Set LED states based on counter value\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n}\n\nint main(void) {\n    HAL_Init();  // Initialize the HAL Library\n    SystemClock_Config();  // Configure the system clock\n\n    MX_GPIO_Init();  // Initialize GPIO for LEDs\n    MX_TIM3_Init();  // Initialize Timer (TIM3)\n\n    // Start the timer in interrupt mode\n    HAL_TIM_Base_Start_IT(&htim3);\n\n    // Infinite loop\n    while (1) {\n        // No additional logic needed in the main loop, everything is handled in the timer interrupt\n    }\n}\n\n// Timer interrupt callback\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {\n    if (htim-&gt;Instance == TIM3) {\n        increment_counter();  // Update LED states based on counter value\n    }\n}\n\n\nSample IO:\n\nOutput: The LEDs will count in binary, with a 1-second delay between each count, controlled by the timer interrupt.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\n\n\n\n\nTask 3: 3-bit LED Counter with Push Button Interrupt and Debounce\n\nObjective: Create a 3-bit binary counter using the LEDs, where the counter increments each time the push button is pressed, with debounce handling to ensure reliable button presses.\nDescription:\n\nConfigure the push button (USER) connected to PC13 to generate an interrupt on a button press.\nImplement a debounce mechanism to filter out false triggers due to bouncing.\nIn the interrupt handler, increment the counter and update the LEDs to reflect the new binary count.\n\n\n\nCode Example\n#include \"main.h\"\n\n#define DEBOUNCE_DELAY_MS 50  // Debounce delay in milliseconds\n\nvolatile uint8_t counter = 0;  // 3-bit counter\nvolatile uint32_t last_interrupt_time = 0;  // Last interrupt time in milliseconds\n\nvoid increment_counter(void) {\n    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo\n    // Set LED states based on counter value\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n}\n\nvoid delay_ms(uint32_t ms) {\n    HAL_Delay(ms);  // Simple delay function using HAL_Delay\n}\n\nint main(void) {\n    HAL_Init();  // Initialize the HAL Library\n    SystemClock_Config();  // Configure the system clock\n\n    MX_GPIO_Init();  // Initialize GPIO for LEDs and Button\n    MX_TIM3_Init();  // Initialize Timer (TIM3)\n    \n    // Start the timer in interrupt mode\n    HAL_TIM_Base_Start_IT(&htim3);\n\n    // Infinite loop\n    while (1) {\n        // No additional logic needed in the main loop, everything is handled in interrupts\n    }\n}\n\n// Timer interrupt callback\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {\n    if (htim-&gt;Instance == TIM3) {\n        // Timer interrupt logic can be added here if needed\n    }\n}\n\n// Button interrupt callback\nvoid EXTI15_10_IRQHandler(void) {\n    uint32_t current_time = HAL_GetTick();  // Get current time in milliseconds\n\n    // Check if the interrupt is from the button pin (PC13) and debounce\n    if (__HAL_GPIO_EXTI_GET_IT(GPIO_PIN_13) != RESET) {\n        // Simple debounce logic\n        if ((current_time - last_interrupt_time) &gt; DEBOUNCE_DELAY_MS) {\n            last_interrupt_time = current_time;  // Update last interrupt time\n            \n            __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_13);  // Clear the interrupt flag\n            increment_counter();  // Update LED states based on counter value\n        }\n    }\n}\n\nSample IO\n\nOutput: Each press of the push button increments the counter and updates the LEDs to reflect the binary count.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\nNote: The debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/2_gpio.html#conclusion",
-    "href": "exercises/2_gpio.html#conclusion",
-    "title": "3  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
-    "section": "3.6 Conclusion:",
-    "text": "3.6 Conclusion:\nIn this exercise, you implemented a 3-bit binary counter using three different methods of LED control on the STM Nucleo-144 F767ZI board:\n\nHAL Delay and For Loop: Demonstrated a straightforward approach for controlling LEDs with blocking delays, suitable for understanding basic timing but less effective for handling concurrent tasks.\nTimer Interrupt: Showcased how to use a timer to handle periodic tasks efficiently, enabling the microcontroller to perform other operations while managing timing in the background. This method is particularly useful for tasks requiring precise timing without blocking the main execution.\nPush Button Interrupt: Introduced the concept of external interrupts triggered by user input, allowing real-time interaction with the system. This method illustrated how to handle interrupts for external events, such as button presses, and provided a way to interact with the system dynamically.\n\nThese methods provide a comprehensive understanding of managing timing and interrupts in embedded systems, helping you to appreciate the trade-offs and applications of different techniques in real-time system design.",
-    "crumbs": [
-      "**Using STMCube IDE with STM HAL**",
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
-    ]
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Embedded C Programming Lab Manual",
     "section": "",
-    "text": "Preface\nThis book has the list of exercises for the Embedded C Programming Lab manual.",
+    "text": "Preface\nThis book contains the help documents and the exercises for the Embedded C Programming Lab.",
     "crumbs": [
       "Preface"
     ]
@@ -146,7 +14,7 @@
     "href": "index.html#ides",
     "title": "Embedded C Programming Lab Manual",
     "section": "IDEs",
-    "text": "IDEs\n\nSTMCube IDE with STM HAL\nArduino IDE (V2) with Stm32duino",
+    "text": "IDEs\nThere are two groups of exercises which will be using the following IDEs.\n\nSTMCubeIDE with STM HAL\nArduino IDE (V2) with Stm32duino\n\nBasic IO, Serial Communication, External and Timer interrupts will be discussed with STMCubeIDE and Interfacing with Sensors will be done using Arduino IDE.\n\n\n\n\n\n\nNote\n\n\n\nThe exercises that are done using Arduino IDE can also be done using STMCubeIDE.",
     "crumbs": [
       "Preface"
     ]
@@ -182,23 +50,255 @@
     ]
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "7  Summary",
+    "objectID": "getting_started/stmcube_ide_getting_started.html",
+    "href": "getting_started/stmcube_ide_getting_started.html",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.",
+    "text": "2.1 Terminology",
     "crumbs": [
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Summary</span>"
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
     ]
   },
   {
-    "objectID": "arduino_ide_with_stm32duino.html",
-    "href": "arduino_ide_with_stm32duino.html",
-    "title": "Using Arduino IDE with stm32duino",
+    "objectID": "getting_started/stmcube_ide_getting_started.html#terminology",
+    "href": "getting_started/stmcube_ide_getting_started.html#terminology",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "",
+    "text": "STMCubeIDE - An development environment containing many tools that are required in stm32 based project development.\nSTMCubeMX - A Configuration and Initialization code generation tool used for configuration of different peripherals.\n.ioc file - A file generated by STMCubeMX, containing the configuration, when opened with STMCubeIDE will open an CubeMX window.\nWorkspace - An workspace is a parent directory(or folder) which will contain a group of projects(seperate exercises).\nProject - A subfolder within a workspace containing all the source files, libraries and .ioc file for a particular program which can be uploaded at a time in the development board.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/stmcube_ide_getting_started.html#recommended-conventions-for-the-lab",
+    "href": "getting_started/stmcube_ide_getting_started.html#recommended-conventions-for-the-lab",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "2.2 Recommended Conventions for the lab",
+    "text": "2.2 Recommended Conventions for the lab\n\nUse a new workspace named ‘embedded_c_lab’.\nName the projects accordingly as '{exercise_no}.{task_no}_{name of the exercise}' (Eg, 1.2_serial_loopback) so that it will be displayed in the explorer in an ordered fashion.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/stmcube_ide_getting_started.html#creating-an-stm32-project",
+    "href": "getting_started/stmcube_ide_getting_started.html#creating-an-stm32-project",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "2.3 Creating an STM32 Project",
+    "text": "2.3 Creating an STM32 Project\n\nOpen STMCubeIDE and create a new STM32 project. Refer this for more info.\nFrom the Target Selection dialog box select the “Board Selector” tab and in the commercial part number, type “Nucleo-F767Z1”, select the board and click next.\nGo with the default settings and finish the setup. .\nInitalize peripherals in default mode(if needed you can start blank).",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/stmcube_ide_getting_started.html#generating-code-with-cubemx",
+    "href": "getting_started/stmcube_ide_getting_started.html#generating-code-with-cubemx",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "2.4 Generating code with CubeMX",
+    "text": "2.4 Generating code with CubeMX\nThe CubeMX window can be opened by opening the {project_name}.ioc file inside the project folder. When the changes in the .ioc file is saved it will prompt you to generate code.\n\n\n\n\n\n\nTip\n\n\n\nYou can also generate code after configuration using Project-&gt;Generate Code from the menu bar.\n\n\nAfter generating code using CubeMX you will find some directories in your project folder.\nFor this lab we will be only editing the /{project_name}/Core/Src/main.c, which has the main program that need to be executed.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/stmcube_ide_getting_started.html#contents-of-main.c-generated-by-cubemx",
+    "href": "getting_started/stmcube_ide_getting_started.html#contents-of-main.c-generated-by-cubemx",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "2.5 Contents of main.c generated by CubeMX",
+    "text": "2.5 Contents of main.c generated by CubeMX\nIn the main.c file you can find the code generated by CubeMX and different sections for user code identified by comments of the below format.\n/* USER CODE BEGIN &lt;section_name&gt; */\n\n/* USER CODE END &lt;section_name&gt; */\nThese lines from main.c won’t be changed even if the configuration from the CubeMX are changed.\nFor this lab we will be writing codes in the below user slots.\n\n\n\n\n\n\n\n\nSection Name\nPostion\nUsecase\n\n\n\n\nIncludesPTDPDPM\nafter default incudes\nFor user includes, typedefs, defines, and macros respectively.\n\n\nPV\nbefore main function\nFor global variables.\n\n\nPFP\nbefore main function\nFor user-defined function prototypes.\n\n\n0\nbefore main function\nFor user-defined functions\n\n\n1\ninside main function before hal init\nHAL functions cannot be used here. Can be used to initialize local variables used in the main function.\n\n\n2\ninside main function after hal init\nHAL functions can be used here. Can be used for running HAL functions once during start.\n\n\nWHILE\ninside main inside while loop\nThe code for the main loop\n\n\n3\ninside main after the while loop\nThis can be used for programs that breaks the while loop after some time.\n\n\n4\nafter the main function after basic configs\nThis can be used for callbacks and ISR.\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe code samples for CubeMX generated code will have contents surrounded by the slot comments as described above and they are partial code and not the complete code.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/stmcube_ide_getting_started.html#common-problems-during-setup-and-solution",
+    "href": "getting_started/stmcube_ide_getting_started.html#common-problems-during-setup-and-solution",
+    "title": "2  STMCubeIDE: Getting Started and How-Tos",
+    "section": "2.6 Common problems during setup and solution",
+    "text": "2.6 Common problems during setup and solution\n\n\nCannot open workspace, workspace is currently in use\n\nKill the CubeIDE process and delete the .lock file in the .metadata directory in your eclipse workspace directory. Precaution - If you delete the .metadata folder all preference will be deleted.\n\n\n\narm-none-eabi-gdb –version /lib/libncurses.so.5 not found\n\n\nIn ubuntu, install libncurses5 using sudo apt-get install libncurses5.\nIn Arch or Manjaro, install compatibility libs using pamac install ncurses5-compat-libs.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html",
+    "href": "exercises/1_uart.html",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "",
+    "text": "3.1 Objective:\nBy the end of this exercise, students will:",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#objective",
+    "href": "exercises/1_uart.html#objective",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "",
+    "text": "Understand the basics of UART communication.\nConfigure UART using STM32 HAL in CubeIDE using CubeMX for the STM Nucleo-144 F767ZI board.\nTransmit and receive data over USART3(It will be set to Asynchronous mode).\nImplement simple communication between the STM32 microcontroller and a serial terminal on a PC.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#materials",
+    "href": "exercises/1_uart.html#materials",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "3.2 Materials:",
+    "text": "3.2 Materials:\n\nSTM Nucleo-144 F767ZI development board.\nUSB to TTL Serial converter (or onboard ST-LINK USB).\nCubeIDE installed on the PC.\nSerial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).\n\n\n\n\n\n\n\nNote\n\n\n\nTo install built-in terminal in CubeIDE follow the steps here.\nCaution: In the “Work with” text box(a box that has the text “type or select site”), select “Eclipse Repository” and DO NOT select “all available sites” this may cause the IDE to stop responding.\nThe Serial port name will be usually like COM 3 or COM 9 in windows and /dev/tty/ACM0 in linux.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#cubemx-configuration",
+    "href": "exercises/1_uart.html#cubemx-configuration",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "3.3 CubeMX Configuration:",
+    "text": "3.3 CubeMX Configuration:\n\n1. Create a New Project:\n\nLaunch CubeIDE and create a new project.\nSelect STM Nucleo-144 F767ZI board (or the the STM32F767ZI microcontroller).\n\n\n\n2. Enable USART3 Peripheral:\n\nIn the Pinout & Configuration tab, enable USART3 (can be found under connectivity category) and set mode to Asynchronous (This will be already there if you have chosen the default peripheral configurations).\nAssign the appropriate pins for TX (PD8) and RX (PD9) for USART3.\n\n\n\n3. UART Configuration:\n\nSet Baud Rate to 9600.\nConfigure 8 data bits, No parity, and 1 stop bit.\nEnable both Transmit and Receive.\n\n\n\n4. Enable NVIC Settings (Optional for USART3 Interrupts):\n\nIf using interrupts, enable USART3 global interrupt.\n\n\n\n5. TIM7 Configuration (Optional for Timer Interrupts)\n\nEnable TIM7 (can be found under timer category) (or any other available timer).\nConfigure the timer with a prescaler and period to generate an interrupt every 1 second.\nIn the Parameter Settings, set the following configuration.\n\nPrescaler - 40000-1\nCounter Mode - Up\nCounter Period - 2000-1\n\\[\\begin{align*}\\text{Interrupt Interval} &= \\frac{(\\text{Counter Period}+1)\\times(\\text{Prescaler}+1)}{\\text{Clock Source Frequency}}\\\\ &=\\frac{2000 \\times 40000}{96\\times10^6}=1 \\text{s}\\end{align*}\\]\n\nIn the NVIC Settings, enable the TIM7 global interrupt.\n\n\n\n\n\n\n\nNote\n\n\n\nWe are selecting TIM7 for timer as it is one of the basic timers. It uses the APB1 timer clock source as the clock source (Refer this block diagram and this section).\nThe frequency of the APB1 timer clock can be verified using the Clock Configuration tab.\n\n\n\n\n6. Generate Code:\n\nSave the .ioc file using CTRL + s and you will be prompted to generate code. You can make this the default choice. You can generate code manually by using Project &gt; Generate Code to create the project with the configured settings.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#explanation-of-key-functions",
+    "href": "exercises/1_uart.html#explanation-of-key-functions",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "3.4 Explanation of Key Functions:",
+    "text": "3.4 Explanation of Key Functions:\nExplanations of these functions can be found in the UM1850\n\nHAL_UART_Transmit\n\nThis function sends data through the UART peripheral.\nSyntax:\n\nHAL_UART_Transmit(&huart3, data, length, timeout);\n\nExample:\n\nuint8_t msg[] = \"Hello, UART!\";\nHAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message\nHAL_UART_Receive\n\nThis function receives data through the UART peripheral.\nSyntax:\n\nHAL_UART_Receive(&huart3, buffer, length, timeout);\n\nExample:\n\nuint8_t rxBuffer[10];\nHAL_UART_Receive(&huart3, rxBuffer, 10, HAL_MAX_DELAY);  // Receive data\nHAL_UART_Receive_IT\n\nThis function enables interrupt-based data reception.\nIt allows the microcontroller to handle data asynchronously.\nSyntax:\n\nHAL_UART_Receive_IT(&huart3, buffer, length);\nHAL_TIM_Base_Start_IT\n\nUsed to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.\nExample:\n\nHAL_TIM_Base_Start_IT(&htim7);  // Start timer 3 in interrupt mode\nHAL_TIM_PeriodElapsedCallback\n\nThis function is called when a timer interrupt occurs.\nIt can be used to perform tasks at specific intervals, such as sending a string over UART.\n\nHAL_UART_RxCpltCallback\n\nThis function is called when an interrupt based reception is completed.\nIt can be used to perform tasks after a certain bytes of data is recieved over UART.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#tasks-and-sample-io-behavior",
+    "href": "exercises/1_uart.html#tasks-and-sample-io-behavior",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "3.5 Tasks and Sample IO Behavior:",
+    "text": "3.5 Tasks and Sample IO Behavior:\n\nTask 1: Simple UART Communication\n\nTransmit a string (“Hello, UART!”) from the STM32 to the PC serial terminal via USART3.\n\n\nCode Example:\n/* USER CODE BEGIN 2 */\n\nuint8_t msg[] = \"Hello, UART!\";\nHAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message\n\n/* USER CODE BEGIN 2 */\n\n\nSample IO:\n\nOutput: The string “Hello, UART!” appears in the serial terminal on the PC.\n\n\n\n\nTask 2: Implement a Loopback Test\n\nModify the code so that the STM32 receives data from the serial terminal and echoes it back.\n\n\nCode Example:\nint main(void) {\n  /* USER CODE BEGIN 1 */\n  uint8_t rxBuffer[5];  // Buffer to store received data\n    // Try changing the buffer size\n  /* USER CODE END 1 */\n\n  /* USER CODE BEGIN WHILE */\n  while (1) {\n    // Receive data from the serial terminal\n    HAL_UART_Receive(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);\n\n    // Echo the received data back to the terminal\n    HAL_UART_Transmit(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);\n\n    /* USER CODE END WHILE */\n\n    /* USER CODE BEGIN 3 */\n  }\n  /* USER CODE END 3 */\n}\n\n\nSample IO:\n\nInput: If you type “STM32” in the serial terminal.\nOutput: “STM32” is echoed back to the terminal.\n\n\n\n\nTask 3: Send a String Every 1 Second Using Timer Interrupt\n\nUse a timer interrupt to send a string (“STM32 Timer Test n”) every 1 second.\nTIM\n\n\nCode Example:\n/* USER CODE BEGIN PV */\nvolatile uint64_t counter = 0; // to keep track of the number of times printed\n/* USER CODE END PV */\n\nint main(void) {\n\n  /* USER CODE BEGIN 2 */\n  // Start timer in interrupt mode\n  HAL_TIM_Base_Start_IT(&htim7);\n  /* USER CODE END 2 */\n\n}\n\n/* USER CODE BEGIN 4 */\n// Timer interrupt callback function\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {\n    if (htim-&gt;Instance == TIM7) {\n        // Send message every second\n        uint8_t msg[50];\n        uint8_t n_bytes = sprintf(msg,\"STM32 Timer Test %lu \\n\\r\", counter);\n        HAL_UART_Transmit(&huart3, msg, n_bytes, HAL_MAX_DELAY);\n        counter++;\n    }\n}\n/* USER CODE END 4 */\n\n\nSample IO:\n\nOutput: The string “STM32 Timer Test” is sent to the serial terminal every second.\n\n\n\n\nTask 4: Interrupt-Based UART Communication\n\nConfigure UART communication using interrupts to receive and echo data asynchronously.\n\n\nCode Example:\n/* USER CODE BEGIN PV */\n\nuint8_t rxBuffer[1];  // Buffer to store received data\n// Try changing the buffer size\n\n/* USER CODE END PV */\n\n\nvoid main(void){\n  \n  /* USER CODE BEGIN 2 */\n\n  // Start interrupt-based reception\n  HAL_UART_Receive_IT(&huart3, rxBuffer, 1);\n\n  /* USER CODE END 2 */\n}\n  \n\n/* USER CODE BEGIN 4 */\n// Interrupt callback function\nvoid HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {\n    if (huart-&gt;Instance == USART3) {\n        // Echo received data\n        HAL_UART_Transmit(&huart3, rxBuffer, 1, HAL_MAX_DELAY);\n\n        // Restart reception\n        HAL_UART_Receive_IT(&huart3, rxBuffer, 1);\n    }\n}\n/* USER CODE END 4 */\n\n\nSample IO:\n\nInput: Type “STM32” in the serial terminal.\nOutput: Each character is echoed back immediately, as data is received and transmitted using interrupts.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/1_uart.html#conclusion",
+    "href": "exercises/1_uart.html#conclusion",
+    "title": "3  UART Serial Communication using STM32 HAL",
+    "section": "3.6 Conclusion:",
+    "text": "3.6 Conclusion:\nIn this exercise, you explored USART serial communication on the STM Nucleo-144 F767ZI board using STM32 HAL in CubeIDE. We covered two primary communication methods: polling and interrupts.\n\nPolling was demonstrated using functions like HAL_UART_Transmit and HAL_UART_Receive, where the microcontroller continuously checks for data transmission or reception. While simple to implement, polling can block the CPU, preventing it from executing other tasks while waiting for the communication to complete.\nInterrupts, on the other hand, were introduced as a more efficient method of handling USART communication. In interrupt-based communication, the CPU can perform other tasks while waiting for data. When data is ready, an interrupt is triggered, and the appropriate callback function handles the data. This method enhances system performance and responsiveness, especially in real-time applications.\n\nBy implementing both approaches, you gained a clear understanding of how to manage serial communication effectively in embedded systems, choosing between polling and interrupts depending on system requirements. These concepts are crucial for building efficient, responsive applications in embedded environments.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>UART Serial Communication using STM32 HAL</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html",
+    "href": "exercises/2_gpio.html",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "",
+    "text": "4.1 Objective:\nBy the end of this exercise, students will:",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#objective",
+    "href": "exercises/2_gpio.html#objective",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "",
+    "text": "Implement a binary counter using three LEDs (LD1, LD2, LD3) on the STM Nucleo-144 F767ZI board.\nExplore three methods of controlling the LEDs: using HAL delay and for loops, timer interrupts, and push button interrupts.\nUnderstand the difference between using blocking delays, interrupt-driven operations, and external interrupts in embedded systems.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#materials",
+    "href": "exercises/2_gpio.html#materials",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "4.2 Materials:",
+    "text": "4.2 Materials:\n\nSTM Nucleo-144 F767ZI development board.\nOnboard user LEDs:\n\nLD1 (Green): PB0 (or PA5).\nLD2 (Blue): PB7.\nLD3 (Red): PB14.\n\nOnboard user push button (USER_BUTTON): Connected to PC13.\nCubeIDE installed on the PC.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#cubemx-configuration",
+    "href": "exercises/2_gpio.html#cubemx-configuration",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "4.3 CubeMX Configuration:",
+    "text": "4.3 CubeMX Configuration:\n\n1. GPIO Configuration for LEDs:\n\nLD1 (Green): Set PB0 (or PA5 depending on SB settings) as a GPIO Output.\nLD2 (Blue): Set PB7 as a GPIO Output.\nLD3 (Red): Set PB14 as a GPIO Output.\n\n\n\n\n\n\n\nNote\n\n\n\nIf you are using the default peripheral configuration it should be already set this way.\n\n\n\n\n2. TIM7 Configuration (For Task 2)\n\nEnable TIM7 (or any other available timer).\nConfigure the timer with a prescaler and period to generate an interrupt every 1 second.\nIn the Parameter Settings, set the following configuration.\n\nPrescaler - 40000-1\nCounter Mode - Up\nCounter Period - 2000-1\n\\[\\begin{align*}\\text{Interrupt Interval} &= \\frac{(\\text{Counter Period}+1)\\times(\\text{Prescaler}+1)}{\\text{Clock Source Frequency}}\\\\ &=\\frac{2000 \\times 40000}{96\\times10^6}=1 \\text{s}\\end{align*}\\]\n\nIn the NVIC Settings, enable the TIM7 global interrupt.\n\n\n\n\n\n\n\nNote\n\n\n\nWe are selecting TIM7 for timer as it is one of the basic timers. It uses the APB1 timer clock source as the clock source (Refer this block diagram and this section).\nThe frequency of the APB1 timer clock can be verified using the Clock Configuration tab.\n\n\n\n\n3. Button Configuration (For Task 3):\n\nSet PC13 (USER_BUTTON) as a GPIO Input(If default configurations of peripherals are used ith will be already enabled).\nEnable the EXTI Line [15:10] interrupt for the button in the NVIC Settings.\n\n\n\n4. Generate Code:\n\nClick Project &gt; Generate Code after setting up GPIO, Timer, and Button.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#explanation-of-key-functions",
+    "href": "exercises/2_gpio.html#explanation-of-key-functions",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "4.4 Explanation of Key Functions:",
+    "text": "4.4 Explanation of Key Functions:\n\nHAL_Delay\n\nGenerates a blocking delay, pausing program execution for the specified number of milliseconds.\nSyntax:\nHAL_Delay(milliseconds);\n\nHAL_GPIO_WritePin\n\nSets the state of a GPIO pin to HIGH or LOW, used to control the LEDs.\nSyntax:\nHAL_GPIO_WritePin(GPIOx, GPIO_Pin, PinState);\nExample:\nHAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET);  // Set PB0 (LD1) to HIGH\nHAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET); // Set PB0 (LD1) to LOW\n\nHAL_TIM_Base_Start_IT\n\nStarts a timer in interrupt mode.\nSyntax:\nHAL_TIM_Base_Start_IT(&htim7);  // Start TIM7 in interrupt mode\n\nHAL_TIM_PeriodElapsedCallback\n\nThe interrupt callback function triggered when the timer reaches the specified period.\nSyntax:\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);\n\nHAL_GPIO_EXTI_Callback\n\nThe interrupt callback function triggered when the external interrupt occurs.\nvoid HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#tasks-and-sample-io-behavior",
+    "href": "exercises/2_gpio.html#tasks-and-sample-io-behavior",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "4.5 Tasks and Sample IO Behavior:",
+    "text": "4.5 Tasks and Sample IO Behavior:\n\nTask 1: 3-bit LED Counter Using HAL Delay and For Loop\n\nObjective: Create a 3-bit binary counter using the LEDs, with a delay between each count, controlled by HAL_Delay() in the main loop.\nDescription:\n\nUse a for loop in the main() function to count from 0 to 7 (binary 000 to 111).\nControl the LEDs based on the binary value of the counter.\nUse HAL_Delay() to wait for 1 second between each count.\n\n\n\nCode Example\nint main(void) {\n  /* USER CODE BEGIN WHILE */\n    while (1) {\n      // 3-bit binary counter loop (0 to 7)\n      for (uint8_t i = 0; i &lt; 8; i++) {\n        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (i & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (i & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (i & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n        HAL_Delay(1000);  // 1-second delay\n      }\n    /* USER CODE END WHILE */\n\n    /* USER CODE BEGIN 3 */\n    }\n    /* USER CODE END 3 */\n}\n\n\nSample IO:\n\nOutput: The LEDs will count in binary, with a 1-second delay between each count.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\n\n\n\n\nTask 2: 3-bit LED Counter Using Timer Interrupt\n\nObjective: Create a 3-bit binary counter using the LEDs, with the counter updated by a timer interrupt instead of using HAL_Delay().\nDescription:\n\nUse a timer to generate an interrupt every 1 second.\nInside the interrupt handler, increment the counter and update the LEDs to reflect the binary count.\n\n\n\nCode Example\n/* USER CODE BEGIN PV */\nvolatile uint8_t counter = 0;  // 3-bit counter\n/* USER CODE END PV */\n\n/* USER CODE BEGIN 0 */\nvoid increment_counter(void) {\n    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo\n    // Set LED states based on counter value\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n}\n/* USER CODE END 0 */\n\nint main(void) {\n\n  /* USER CODE BEGIN 2 */\n  // Start timer in interrupt mode\n  HAL_TIM_Base_Start_IT(&htim7);\n  /* USER CODE END 2 */\n\n}\n\n/* USER CODE BEGIN 4 */\n// Timer interrupt callback\nvoid HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {\n    if (htim-&gt;Instance == TIM7) {\n        increment_counter();  // Update LED states based on counter value\n    }\n}\n/* USER CODE END 4 */\n\n\nSample IO:\n\nOutput: The LEDs will count in binary, with a 1-second delay between each count, controlled by the timer interrupt.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\n\n\n\n\nTask 3: 3-bit LED Counter with Push Button Interrupt and Debounce\n\nObjective: Create a 3-bit binary counter using the LEDs, where the counter increments each time the push button is pressed, with debounce handling to ensure reliable button presses.\nDescription:\n\nConfigure the push button (USER) connected to PC13 to generate an interrupt on a button press.\nImplement a debounce mechanism to filter out false triggers due to bouncing.\nIn the interrupt handler, increment the counter and update the LEDs to reflect the new binary count.\n\n\n\nCode Example\n/* USER CODE BEGIN PD */\n#define DEBOUNCE_DELAY_MS 50  // Debounce delay in milliseconds\n/* USER CODE END PD */\n\n/* USER CODE BEGIN PV */\nvolatile uint8_t counter = 0;  // 3-bit counter\nvolatile uint32_t last_interrupt_time = 0;  // Last interrupt time in milliseconds\n/* USER CODE END PV */\n\n/* USER CODE BEGIN 0 */\nvoid increment_counter(void) {\n    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo\n    // Set LED states based on counter value\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2\n    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)\n}\n/* USER CODE END 0 */\n\nint main(void) {\n    // Infinite loop\n    while (1) {\n        // No additional logic needed in the main loop, everything is handled in interrupts\n    }\n}\n\n/* USER CODE BEGIN 4 */\n// External interrupt handler\nvoid HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)\n{\n    if(GPIO_Pin == GPIO_PIN_7) {\n          uint32_t current_time = HAL_GetTick();\n          if ((current_time - last_interrupt_time) &gt; DEBOUNCE_DELAY_MS) {\n              last_interrupt_time = current_time;  // Update last interrupt time\n              increment_counter();  // Update LED states based on counter value\n          }\n    }\n}\n/* USER CODE END 4 */\n\nSample IO\n\nOutput: Each press of the push button increments the counter and updates the LEDs to reflect the binary count.\n\n000: All LEDs off.\n001: LD1 on.\n010: LD2 on.\n011: LD1 and LD2 on.\n100: LD3 on.\n101: LD1 and LD3 on.\n110: LD2 and LD3 on.\n111: All LEDs on.\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/2_gpio.html#conclusion",
+    "href": "exercises/2_gpio.html#conclusion",
+    "title": "4  3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt",
+    "section": "4.6 Conclusion:",
+    "text": "4.6 Conclusion:\nIn this exercise, you implemented a 3-bit binary counter using three different methods of LED control on the STM Nucleo-144 F767ZI board:\n\nHAL Delay and For Loop: Demonstrated a straightforward approach for controlling LEDs with blocking delays, suitable for understanding basic timing but less effective for handling concurrent tasks.\nTimer Interrupt: Showcased how to use a timer to handle periodic tasks efficiently, enabling the microcontroller to perform other operations while managing timing in the background. This method is particularly useful for tasks requiring precise timing without blocking the main execution.\nPush Button Interrupt: Introduced the concept of external interrupts triggered by user input, allowing real-time interaction with the system. This method illustrated how to handle interrupts for external events, such as button presses, and provided a way to interact with the system dynamically.\n\nThese methods provide a comprehensive understanding of managing timing and interrupts in embedded systems, helping you to appreciate the trade-offs and applications of different techniques in real-time system design.",
+    "crumbs": [
+      "**Using STMCubeIDE with STM HAL**",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span>"
+    ]
+  },
+  {
+    "objectID": "getting_started/arduino_ide_with_stm32duino.html",
+    "href": "getting_started/arduino_ide_with_stm32duino.html",
+    "title": "5  Arduino IDE: Getting Started and How-tos",
     "section": "",
     "text": "Refer the Getting Started wiki page from the stm32duino for how to setup Arduino IDE for stm boards.",
     "crumbs": [
-      "<b>Using Arduino IDE with stm32duino</b>"
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Arduino IDE: Getting Started and How-tos</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "9  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.",
+    "crumbs": [
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]

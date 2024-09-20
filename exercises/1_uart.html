@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; UART Serial Communication using STM32 HAL – Embedded C Programming Lab Manual</title>
+<title>3&nbsp; UART Serial Communication using STM32 HAL – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../exercises/2_gpio.html" rel="next">
-<link href="../exercises.html" rel="prev">
+<link href="../getting_started/stmcube_ide_getting_started.html" rel="prev">
+<link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -103,6 +104,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -115,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -155,7 +185,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>Using STMCube IDE with STM HAL</strong></span></a>
+ <span class="menu-text"><strong>Using STMCubeIDE with STM HAL</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -163,22 +193,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../exercises/1_uart.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/2_gpio.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><b>Using Arduino IDE with stm32duino</b></span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Using Arduino IDE with stm32duino</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -186,20 +222,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../getting_started/arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Arduino IDE: Getting Started and How-tos</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
   </div>
 </li>
       </ul>
@@ -207,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,35 +268,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">2.1</span> Objective:</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">2.2</span> Materials:</a></li>
-  <li><a href="#cubemx-configuration" id="toc-cubemx-configuration" class="nav-link" data-scroll-target="#cubemx-configuration"><span class="header-section-number">2.3</span> CubeMX Configuration:</a>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">3.1</span> Objective:</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">3.2</span> Materials:</a></li>
+  <li><a href="#cubemx-configuration" id="toc-cubemx-configuration" class="nav-link" data-scroll-target="#cubemx-configuration"><span class="header-section-number">3.3</span> CubeMX Configuration:</a>
   <ul class="collapse">
   <li><a href="#create-a-new-project" id="toc-create-a-new-project" class="nav-link" data-scroll-target="#create-a-new-project">1. Create a New Project:</a></li>
   <li><a href="#enable-usart3-peripheral" id="toc-enable-usart3-peripheral" class="nav-link" data-scroll-target="#enable-usart3-peripheral">2. Enable USART3 Peripheral:</a></li>
   <li><a href="#uart-configuration" id="toc-uart-configuration" class="nav-link" data-scroll-target="#uart-configuration">3. UART Configuration:</a></li>
-  <li><a href="#configure-clock" id="toc-configure-clock" class="nav-link" data-scroll-target="#configure-clock">4. Configure Clock:</a></li>
-  <li><a href="#enable-nvic-settings-optional-for-interrupts" id="toc-enable-nvic-settings-optional-for-interrupts" class="nav-link" data-scroll-target="#enable-nvic-settings-optional-for-interrupts">5. Enable NVIC Settings (Optional for Interrupts):</a></li>
+  <li><a href="#enable-nvic-settings-optional-for-usart3-interrupts" id="toc-enable-nvic-settings-optional-for-usart3-interrupts" class="nav-link" data-scroll-target="#enable-nvic-settings-optional-for-usart3-interrupts">4. Enable NVIC Settings (Optional for USART3 Interrupts):</a></li>
+  <li><a href="#tim7-configuration-optional-for-timer-interrupts" id="toc-tim7-configuration-optional-for-timer-interrupts" class="nav-link" data-scroll-target="#tim7-configuration-optional-for-timer-interrupts">5. TIM7 Configuration (Optional for Timer Interrupts)</a></li>
   <li><a href="#generate-code" id="toc-generate-code" class="nav-link" data-scroll-target="#generate-code">6. Generate Code:</a></li>
   </ul></li>
-  <li><a href="#explanation-of-key-functions" id="toc-explanation-of-key-functions" class="nav-link" data-scroll-target="#explanation-of-key-functions"><span class="header-section-number">2.4</span> Explanation of Key Functions:</a></li>
-  <li><a href="#tasks-and-sample-io-behavior" id="toc-tasks-and-sample-io-behavior" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior"><span class="header-section-number">2.5</span> Tasks and Sample IO Behavior:</a>
+  <li><a href="#explanation-of-key-functions" id="toc-explanation-of-key-functions" class="nav-link" data-scroll-target="#explanation-of-key-functions"><span class="header-section-number">3.4</span> Explanation of Key Functions:</a></li>
+  <li><a href="#tasks-and-sample-io-behavior" id="toc-tasks-and-sample-io-behavior" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior"><span class="header-section-number">3.5</span> Tasks and Sample IO Behavior:</a>
   <ul class="collapse">
   <li><a href="#task-1-simple-uart-communication" id="toc-task-1-simple-uart-communication" class="nav-link" data-scroll-target="#task-1-simple-uart-communication">Task 1: Simple UART Communication</a></li>
   <li><a href="#task-2-implement-a-loopback-test" id="toc-task-2-implement-a-loopback-test" class="nav-link" data-scroll-target="#task-2-implement-a-loopback-test">Task 2: Implement a Loopback Test</a></li>
   <li><a href="#task-3-send-a-string-every-1-second-using-timer-interrupt" id="toc-task-3-send-a-string-every-1-second-using-timer-interrupt" class="nav-link" data-scroll-target="#task-3-send-a-string-every-1-second-using-timer-interrupt">Task 3: Send a String Every 1 Second Using Timer Interrupt</a></li>
   <li><a href="#task-4-interrupt-based-uart-communication" id="toc-task-4-interrupt-based-uart-communication" class="nav-link" data-scroll-target="#task-4-interrupt-based-uart-communication">Task 4: Interrupt-Based UART Communication</a></li>
   </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">2.6</span> Conclusion:</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">3.6</span> Conclusion:</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><strong>Using STMCube IDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../exercises/1_uart.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></h1>
 </div>
 
 
@@ -271,32 +313,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="objective" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">2.1</span> Objective:</h2>
-<p>By the end of this exercise, students will: - Understand the basics of UART communication. - Configure UART using STM32 HAL in CubeIDE for the STM Nucleo-144 F767ZI board. - Transmit and receive data over USART3(It will be set to Asynchronous mode). - Implement simple communication between the STM32 microcontroller and a serial terminal on a PC.</p>
+<section id="objective" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">3.1</span> Objective:</h2>
+<p>By the end of this exercise, students will:</p>
+<ul>
+<li>Understand the basics of UART communication.</li>
+<li>Configure UART using STM32 HAL in CubeIDE using CubeMX for the STM Nucleo-144 F767ZI board.</li>
+<li>Transmit and receive data over <code>USART3</code>(It will be set to Asynchronous mode).</li>
+<li>Implement simple communication between the STM32 microcontroller and a serial terminal on a PC.</li>
+</ul>
 </section>
-<section id="materials" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">2.2</span> Materials:</h2>
+<section id="materials" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">3.2</span> Materials:</h2>
 <ul>
 <li>STM Nucleo-144 F767ZI development board.</li>
 <li>USB to TTL Serial converter (or onboard ST-LINK USB).</li>
 <li>CubeIDE installed on the PC.</li>
 <li>Serial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).</li>
 </ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To install built-in terminal in CubeIDE follow the steps <a href="https://community.st.com/t5/stm32cubeide-mcus/does-stm32cubeide-offer-a-serial-terminal-this-functionality-was/m-p/264424/highlight/true#M13550" target="_blank">here</a>.</p>
+<p><strong>Caution</strong>: In the “Work with” text box(a box that has the text “type or select site”), select “Eclipse Repository” and <strong>DO NOT</strong> select “all available sites” this may cause the IDE to stop responding.</p>
+<p>The Serial port name will be usually like <code>COM 3</code> or <code>COM 9</code> in windows and <code>/dev/tty/ACM0</code> in linux.</p>
+</div>
+</div>
 </section>
-<section id="cubemx-configuration" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="cubemx-configuration"><span class="header-section-number">2.3</span> CubeMX Configuration:</h2>
+<section id="cubemx-configuration" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="cubemx-configuration"><span class="header-section-number">3.3</span> CubeMX Configuration:</h2>
 <section id="create-a-new-project" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-new-project">1. Create a New Project:</h3>
 <ul>
 <li>Launch CubeIDE and create a new project.</li>
-<li>Select the STM32F767ZI microcontroller (or the STM Nucleo-144 F767ZI board).</li>
+<li>Select STM Nucleo-144 F767ZI board (or the the STM32F767ZI microcontroller).</li>
 </ul>
 </section>
 <section id="enable-usart3-peripheral" class="level3">
 <h3 class="anchored" data-anchor-id="enable-usart3-peripheral">2. Enable USART3 Peripheral:</h3>
 <ul>
-<li>In the <strong>Pinout &amp; Configuration</strong> tab, enable <code>USART3</code> and set mode to Asynchronous.</li>
+<li>In the <strong>Pinout &amp; Configuration</strong> tab, enable <code>USART3</code> (can be found under connectivity category) and set mode to Asynchronous (This will be already there if you have chosen the default peripheral configurations).</li>
 <li>Assign the appropriate pins for TX (PD8) and RX (PD9) for USART3.</li>
 </ul>
 </section>
@@ -308,69 +371,101 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Enable both <strong>Transmit</strong> and <strong>Receive</strong>.</li>
 </ul>
 </section>
-<section id="configure-clock" class="level3">
-<h3 class="anchored" data-anchor-id="configure-clock">4. Configure Clock:</h3>
-<ul>
-<li>Ensure the system clock is properly set to the required frequency (e.g., 216 MHz for STM32F767ZI).</li>
-</ul>
-</section>
-<section id="enable-nvic-settings-optional-for-interrupts" class="level3">
-<h3 class="anchored" data-anchor-id="enable-nvic-settings-optional-for-interrupts">5. Enable NVIC Settings (Optional for Interrupts):</h3>
+<section id="enable-nvic-settings-optional-for-usart3-interrupts" class="level3">
+<h3 class="anchored" data-anchor-id="enable-nvic-settings-optional-for-usart3-interrupts">4. Enable NVIC Settings (Optional for USART3 Interrupts):</h3>
 <ul>
 <li>If using interrupts, enable <strong>USART3 global interrupt</strong>.</li>
 </ul>
 </section>
+<section id="tim7-configuration-optional-for-timer-interrupts" class="level3">
+<h3 class="anchored" data-anchor-id="tim7-configuration-optional-for-timer-interrupts">5. TIM7 Configuration (Optional for Timer Interrupts)</h3>
+<ul>
+<li>Enable <strong>TIM7</strong> (can be found under timer category) (or any other available timer).</li>
+<li>Configure the timer with a <strong>prescaler</strong> and <strong>period</strong> to generate an interrupt every 1 second.</li>
+<li>In the <strong>Parameter Settings</strong>, set the following configuration.
+<ul>
+<li>Prescaler - 40000-1</li>
+<li>Counter Mode - Up</li>
+<li>Counter Period - 2000-1</li>
+<li><span class="math display">\[\begin{align*}\text{Interrupt Interval} &amp;= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &amp;=\frac{2000 \times 40000}{96\times10^6}=1 \text{s}\end{align*}\]</span></li>
+</ul></li>
+<li>In the <strong>NVIC Settings</strong>, enable the TIM7 global interrupt.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We are selecting TIM7 for timer as it is one of the basic timers. It uses the APB1 timer clock source as the clock source (Refer <a href="https://www.st.com/resource/en/datasheet/stm32f767zi.pdf#Figure%202.%20STM32F765xx,%20STM32F767xx,%20STM32F768Ax,%20and%20STM32F769xx%20block%20diagram">this block diagram</a> and <a href="https://www.st.com/resource/en/datasheet/stm32f767zi.pdf#3.23%20Timers%20and%20watchdogs">this section</a>).</p>
+<p>The frequency of the APB1 timer clock can be verified using the <strong>Clock Configuration</strong> tab.</p>
+</div>
+</div>
+</section>
 <section id="generate-code" class="level3">
 <h3 class="anchored" data-anchor-id="generate-code">6. Generate Code:</h3>
 <ul>
-<li>Click <strong>Project &gt; Generate Code</strong> to create the project with the configured USART settings.</li>
+<li>Save the <code>.ioc</code> file using <code>CTRL + s</code> and you will be prompted to generate code. You can make this the default choice. You can generate code manually by using <strong>Project &gt; Generate Code</strong> to create the project with the configured settings.</li>
 </ul>
 </section>
 </section>
-<section id="explanation-of-key-functions" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">2.4</span> Explanation of Key Functions:</h2>
+<section id="explanation-of-key-functions" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">3.4</span> Explanation of Key Functions:</h2>
 <p>Explanations of these functions can be found in the <a href="https://www.st.com/resource/en/user_manual/dm00154093-description-of-stm32f1-hal-and-lowlayer-drivers-stmicroelectronics.pdf#38%20HAL%20UART%20Generic%20Driver">UM1850</a></p>
 <ol type="1">
-<li><strong>HAL_UART_Transmit:</strong>
+<li><strong>HAL_UART_Transmit</strong>
 <ul>
-<li><p>This function sends data through the UART peripheral.</p></li>
-<li><p>Syntax:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> data<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Example:</p>
+<li>This function sends data through the UART peripheral.</li>
+<li>Syntax:</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> data<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Example:</li>
+</ul>
 <div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"Hello, UART!"</span><span class="op">;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Transmit the message</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul></li>
-<li><strong>HAL_UART_Receive:</strong>
+<li><strong>HAL_UART_Receive</strong>
 <ul>
-<li><p>This function receives data through the UART peripheral.</p></li>
-<li><p>Syntax:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> buffer<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>Example:</p>
+<li>This function receives data through the UART peripheral.</li>
+<li>Syntax:</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> buffer<span class="op">,</span> length<span class="op">,</span> timeout<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Example:</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">10</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Receive data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul></li>
-<li><strong>HAL_UART_Receive_IT:</strong>
+<li><strong>HAL_UART_Receive_IT</strong>
 <ul>
-<li><p>This function enables interrupt-based data reception.</p></li>
-<li><p>It allows the microcontroller to handle data asynchronously.</p></li>
-<li><p>Syntax:</p>
+<li>This function enables interrupt-based data reception.</li>
+<li>It allows the microcontroller to handle data asynchronously.</li>
+<li>Syntax:</li>
+</ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> buffer<span class="op">,</span> length<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul></li>
-<li><strong>HAL_TIM_Base_Start_IT:</strong>
+<li><strong>HAL_TIM_Base_Start_IT</strong>
 <ul>
-<li><p>Used to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.</p></li>
-<li><p>Example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span>  <span class="co">// Start timer 3 in interrupt mode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul></li>
-<li><strong>HAL_TIM_PeriodElapsedCallback:</strong>
+<li>Used to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.</li>
+<li>Example:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim7<span class="op">);</span>  <span class="co">// Start timer 3 in interrupt mode</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+<li><strong>HAL_TIM_PeriodElapsedCallback</strong>
 <ul>
 <li>This function is called when a timer interrupt occurs.</li>
 <li>It can be used to perform tasks at specific intervals, such as sending a string over UART.</li>
 </ul></li>
+<li><strong>HAL_UART_RxCpltCallback</strong>
+<ul>
+<li>This function is called when an interrupt based reception is completed.</li>
+<li>It can be used to perform tasks after a certain bytes of data is recieved over UART.</li>
+</ul></li>
 </ol>
 </section>
-<section id="tasks-and-sample-io-behavior" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="tasks-and-sample-io-behavior"><span class="header-section-number">2.5</span> Tasks and Sample IO Behavior:</h2>
+<section id="tasks-and-sample-io-behavior" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="tasks-and-sample-io-behavior"><span class="header-section-number">3.5</span> Tasks and Sample IO Behavior:</h2>
 <section id="task-1-simple-uart-communication" class="level3">
 <h3 class="anchored" data-anchor-id="task-1-simple-uart-communication">Task 1: Simple UART Communication</h3>
 <ul>
@@ -378,8 +473,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example" class="level4">
 <h4 class="anchored" data-anchor-id="code-example">Code Example:</h4>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"Hello, UART!"</span><span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Transmit the message</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 2 */</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"Hello, UART!"</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span>  <span class="co">// Transmit the message</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 2 */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io">Sample IO:</h4>
@@ -395,15 +494,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example-1" class="level4">
 <h4 class="anchored" data-anchor-id="code-example-1">Code Example:</h4>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">10</span><span class="op">];</span>  <span class="co">// Buffer to store received data</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Receive data from the serial terminal</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Echo the received data back to the terminal</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 1 */</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">5</span><span class="op">];</span>  <span class="co">// Buffer to store received data</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Try changing the buffer size</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 1 */</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> WHILE */</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Receive data from the serial terminal</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Receive<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Echo the received data back to the terminal</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>rxBuffer<span class="op">),</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> WHILE */</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 3 */</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 3 */</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io-1" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io-1">Sample IO:</h4>
@@ -416,21 +526,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="task-3-send-a-string-every-1-second-using-timer-interrupt" class="level3">
 <h3 class="anchored" data-anchor-id="task-3-send-a-string-every-1-second-using-timer-interrupt">Task 3: Send a String Every 1 Second Using Timer Interrupt</h3>
 <ul>
-<li>Use a timer interrupt to send a string (“STM32 Timer Test”) every 1 second.</li>
+<li>Use a timer interrupt to send a string (“STM32 Timer Test n”) every 1 second.</li>
+<li>TIM</li>
 </ul>
 <section id="code-example-2" class="level4">
 <h4 class="anchored" data-anchor-id="code-example-2">Code Example:</h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Start timer in interrupt mode</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim3<span class="op">);</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback function</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM3<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Send message every second</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">uint8_t</span> msg<span class="op">[]</span> <span class="op">=</span> <span class="st">"STM32 Timer Test</span><span class="sc">\n</span><span class="st">"</span><span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> <span class="kw">sizeof</span><span class="op">(</span>msg<span class="op">)-</span><span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> PV */</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">volatile</span> <span class="dt">uint64_t</span> counter <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// to keep track of the number of times printed</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> PV */</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 2 */</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Start timer in interrupt mode</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  HAL_TIM_Base_Start_IT<span class="op">(&amp;</span>htim7<span class="op">);</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 2 */</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 4 */</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Timer interrupt callback function</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_TIM_PeriodElapsedCallback<span class="op">(</span>TIM_HandleTypeDef <span class="op">*</span>htim<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>htim<span class="op">-&gt;</span>Instance <span class="op">==</span> TIM7<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Send message every second</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        <span class="dt">uint8_t</span> msg<span class="op">[</span><span class="dv">50</span><span class="op">];</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        <span class="dt">uint8_t</span> n_bytes <span class="op">=</span> sprintf<span class="op">(</span>msg<span class="op">,</span><span class="st">"STM32 Timer Test </span><span class="sc">%lu</span><span class="st"> </span><span class="sc">\n\r</span><span class="st">"</span><span class="op">,</span> counter<span class="op">);</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> msg<span class="op">,</span> n_bytes<span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        counter<span class="op">++;</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 4 */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io-2" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io-2">Sample IO:</h4>
@@ -446,21 +571,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="code-example-3" class="level4">
 <h4 class="anchored" data-anchor-id="code-example-3">Code Example:</h4>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> PV */</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Start interrupt-based reception</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dt">uint8_t</span> rxBuffer<span class="op">[</span><span class="dv">1</span><span class="op">];</span>  <span class="co">// Buffer to store received data</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Try changing the buffer size</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Interrupt callback function</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_UART_RxCpltCallback<span class="op">(</span>UART_HandleTypeDef <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>huart<span class="op">-&gt;</span>Instance <span class="op">==</span> USART3<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Echo received data</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Restart reception</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> PV */</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> main<span class="op">(</span><span class="dt">void</span><span class="op">){</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 2 */</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Start interrupt-based reception</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 2 */</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> 4 */</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co">// Interrupt callback function</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> HAL_UART_RxCpltCallback<span class="op">(</span>UART_HandleTypeDef <span class="op">*</span>huart<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>huart<span class="op">-&gt;</span>Instance <span class="op">==</span> USART3<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Echo received data</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Transmit<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> HAL_MAX_DELAY<span class="op">);</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Restart reception</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        HAL_UART_Receive_IT<span class="op">(&amp;</span>huart3<span class="op">,</span> rxBuffer<span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> 4 */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="sample-io-3" class="level4">
 <h4 class="anchored" data-anchor-id="sample-io-3">Sample IO:</h4>
@@ -471,12 +612,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="conclusion" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">2.6</span> Conclusion:</h2>
+<section id="conclusion" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">3.6</span> Conclusion:</h2>
 <p>In this exercise, you explored USART serial communication on the STM Nucleo-144 F767ZI board using STM32 HAL in CubeIDE. We covered two primary communication methods: <strong>polling</strong> and <strong>interrupts</strong>.</p>
 <ul>
-<li><p><strong>Polling</strong> was demonstrated using functions like <code>HAL_UART_Transmit</code> and <code>HAL_UART_Receive</code>, where the microcontroller continuously checks for data transmission or reception. While simple to implement, polling can block the CPU, preventing it from executing other tasks while waiting for the communication to complete.</p></li>
-<li><p><strong>Interrupts</strong>, on the other hand, were introduced as a more efficient method of handling USART communication. In interrupt-based communication, the CPU can perform other tasks while waiting for data. When data is ready, an interrupt is triggered, and the appropriate callback function handles the data. This method enhances system performance and responsiveness, especially in real-time applications.</p></li>
+<li><strong>Polling</strong> was demonstrated using functions like <code>HAL_UART_Transmit</code> and <code>HAL_UART_Receive</code>, where the microcontroller continuously checks for data transmission or reception. While simple to implement, polling can block the CPU, preventing it from executing other tasks while waiting for the communication to complete.</li>
+<li><strong>Interrupts</strong>, on the other hand, were introduced as a more efficient method of handling USART communication. In interrupt-based communication, the CPU can perform other tasks while waiting for data. When data is ready, an interrupt is triggered, and the appropriate callback function handles the data. This method enhances system performance and responsiveness, especially in real-time applications.</li>
 </ul>
 <p>By implementing both approaches, you gained a clear understanding of how to manage serial communication effectively in embedded systems, choosing between polling and interrupts depending on system requirements. These concepts are crucial for building efficient, responsive applications in embedded environments.</p>
 
@@ -906,13 +1047,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises.html" class="pagination-link" aria-label="List of exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span>
+      <a href="../getting_started/stmcube_ide_getting_started.html" class="pagination-link" aria-label="STMCubeIDE: Getting Started and How-Tos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../exercises/2_gpio.html" class="pagination-link" aria-label="3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
