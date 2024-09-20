@@ -53,7 +53,7 @@ For this lab we will be writing codes in the below user slots.
 
 |Section Name|Postion|Usecase|
 |-|-|-|
-|Includes<br>PTD<br>PD<br>PM|after default incudes|For user includes, typedefs, defines, and macros respectively.|
+|Includes<br>PTD<br>PD<br>PM|after default includes|For user includes, typedefs, defines, and macros respectively.|
 |PV|before main function|For global variables.|
 |PFP|before main function|For user-defined function prototypes.|
 |0|before main function|For user-defined functions|
