@@ -25,7 +25,7 @@ To install built-in terminal in CubeIDE follow the steps [here](https://communit
 
 **Caution**: In the "Work with" text box(a box that has the text "type or select site"), select "Eclipse Repository" and **DO NOT** select "all available sites" this may cause the IDE to stop responding.
 
-The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/dev/tty/ACM0` in linux.
+The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/dev/ttyACM0` in linux.
 :::
 
 ## CubeMX Configuration:
