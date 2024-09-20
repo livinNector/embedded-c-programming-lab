@@ -18,6 +18,7 @@ The exercises that are done using Arduino IDE can also be done using STMCubeIDE.
 ## Development board
 
 The exercise here are implemented using **STM Nucleo-144 F767ZI** development board.
+
 - Nucleo-144 boards User manual - [UM1974](https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo-144-boards-stmicroelectronics.pdf)
 - Nucleo-F767ZI MCU data brief - [https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf](https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf)
 - STM32F767ZI MPU datasheet - [https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf](https://www.st.com/resource/en/datasheet/stm32f767zi.pdf)
