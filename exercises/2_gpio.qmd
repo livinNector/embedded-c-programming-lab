@@ -230,7 +230,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 ```c
 /* USER CODE BEGIN PD */
-#define DEBOUNCE_DELAY_MS 100  // Debounce delay in milliseconds
+#define DEBOUNCE_DELAY_MS 50  // Debounce delay in milliseconds
 /* USER CODE END PD */
 
 /* USER CODE BEGIN PV */
@@ -283,7 +283,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   - **110:** LD2 and LD3 on.
   - **111:** All LEDs on.
 
-**Note:** The debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.
+:::{.callout-note}
+The debounce delay is set to 50 milliseconds in this example, but you can adjust this value depending on your specific hardware and requirements.
+:::
 
 ## Conclusion:
 

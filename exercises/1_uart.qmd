@@ -37,7 +37,7 @@ The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/de
 
 ### 2. Enable USART3 Peripheral:
 
-- In the **Pinout & Configuration** tab, enable `USART3` and set mode to Asynchronous (This will be already there if you have chosen the default peripheral configurations).
+- In the **Pinout & Configuration** tab, enable `USART3` (can be found under connectivity category) and set mode to Asynchronous (This will be already there if you have chosen the default peripheral configurations).
 - Assign the appropriate pins for TX (PD8) and RX (PD9) for USART3.
 
 ### 3. UART Configuration:
@@ -46,17 +46,14 @@ The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/de
 - Configure **8 data bits**, **No parity**, and **1 stop bit**.
 - Enable both **Transmit** and **Receive**.
 
-### 4. Configure Clock:
 
-- Ensure the system clock is properly set to the required frequency (e.g., 216 MHz for STM32F767ZI).
-
-### 5. Enable NVIC Settings (Optional for USART3 Interrupts):
+### 4. Enable NVIC Settings (Optional for USART3 Interrupts):
 
 - If using interrupts, enable **USART3 global interrupt**.
 
-### 6. TIM7 Configuration (Optional for Timer Interrupts)
+### 5. TIM7 Configuration (Optional for Timer Interrupts)
 
-- Enable **TIM7** (or any other available timer).
+- Enable **TIM7** (can be found under timer category) (or any other available timer).
 - Configure the timer with a **prescaler** and **period** to generate an interrupt every 1 second.
 - In the **Parameter Settings**, set the following configuration.
   - Prescaler - 40000-1
