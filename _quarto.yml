@@ -5,7 +5,7 @@ book:
   title: "Embedded C Programming Lab Manual"
   author: "Livin Nector D"
   date: "9/18/2024"
-  cover-image: cover.png
+  cover-image: embedded_c_lab_logo.png
   chapters:
     - index.qmd
     - exercises.qmd
@@ -29,4 +29,8 @@ bibliography: references.bib
 
 format:
   html:
-    theme: flatly
+    theme:
+      light: flatly
+      dark: darkly
+    margin-header: |
+      ![](/embedded_c_lab_logo.png)
