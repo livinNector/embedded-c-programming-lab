@@ -19,7 +19,7 @@ This tutorial assumes that STMCubeIDE is already installed in the system. If not
 ## Creating an STM32 Project
 
 1. Open STMCubeIDE and create a new STM32 project. Refer [this](https://wiki.st.com/stm32mpu/wiki/How_to_get_started_with_STM32CubeIDE_from_scratch){target=_blank} for more info.
-2. From the Target Selection dialog box select the **"Board Selector"** tab and in the commercial part number, type **"Nucleo-F767Z1"**, select the board and click next.![Board Selection](/assets/board_selection.png)
+2. From the Target Selection dialog box select the **"Board Selector"** tab and in the commercial part number, type **"Nucleo-F767ZI"**, select the board and click next.![Board Selection](/assets/board_selection.png)
 3. Go with the default settings and finish the setup. ![Project Setup Confirmation](/assets/project_setup.png).
 4. Initalize peripherals in default mode(if needed you can start blank). ![Pheripheral setup](/assets/board_project_options.png)
 
