@@ -20,10 +20,13 @@ By the end of this exercise, students will:
 - CubeIDE installed on the PC.
 - Serial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).
 
-:::::: {.callout-note}
-To install built-in terminal in CubeIDE follow the steps [here](https://community.st.com/t5/stm32cubeide-mcus/does-stm32cubeide-offer-a-serial-terminal-this-functionality-was/m-p/264424/highlight/true#M13550){target=\_blank}.
+:::{.callout-caution}
 
-**Caution**: In the "Work with" text box(a box that has the text "type or select site"), select "Eclipse Repository" and **DO NOT** select "all available sites" this may cause the IDE to stop responding.
+**Caution**: While following the below tutorial to install built-in terminal, in the "Work with" text box(a box that has the text "type or select site"), **select "Eclipse Repository"** and **DO NOT** select "all available sites" this may cause the IDE to stop responding.
+:::
+
+::: {.callout-note}
+To install built-in terminal in CubeIDE follow the steps [here](https://community.st.com/t5/stm32cubeide-mcus/does-stm32cubeide-offer-a-serial-terminal-this-functionality-was/m-p/264424/highlight/true#M13550){target=\_blank}.
 
 The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/dev/ttyACM0` in linux.
 :::

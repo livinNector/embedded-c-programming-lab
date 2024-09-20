@@ -5,8 +5,8 @@ This book contains the help documents and the exercises for the Embedded C Progr
 ## IDEs
 There are two groups of exercises which will be using the following IDEs.
 
-- STMCubeIDE with STM HAL
-- Arduino IDE (V2) with Stm32duino
+- STMCubeIDE with STM HAL - [Getting Started](getting_started/stmcube_ide_getting_started.qmd)
+- Arduino IDE (V2) with Stm32duino - [Getting Started](getting_started/arduino_ide_with_stm32duino.qmd)
 
 Basic IO, Serial Communication, External and Timer interrupts will be discussed with STMCubeIDE and 
 Interfacing with Sensors will be done using Arduino IDE.
@@ -18,9 +18,12 @@ The exercises that are done using Arduino IDE can also be done using STMCubeIDE.
 ## Development board
 
 The exercise here are implemented using **STM Nucleo-144 F767ZI** development board.
+- Nucleo-144 boards User manual - [UM1974](https://www.st.com/resource/en/user_manual/dm00244518-stm32-nucleo-144-boards-stmicroelectronics.pdf)
+- Nucleo-F767ZI MCU data brief - [https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf](https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf)
+- STM32F767ZI MPU datasheet - [https://www.st.com/resource/en/data_brief/nucleo-f767zi.pdf](https://www.st.com/resource/en/datasheet/stm32f767zi.pdf)
 
 ## Components
-- Built-in LEDs and Pushbutton
+- Built-in LEDs (`PB0`,`PB7`,`PB14`) and Pushbutton (`PC13`)
 - Built-in Serial UART
 - Ultrasonic sensor - HC-SR04 
 - Temperature Sensor - MCP9808
