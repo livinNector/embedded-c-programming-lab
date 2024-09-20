@@ -1,5 +1,7 @@
 ---
 number-depth: 2
+code-copy: true
+
 ---
 
 # UART Serial Communication using STM32 HAL
@@ -128,15 +130,29 @@ Explanations of these functions can be found in the [UM1850](https://www.st.com/
 - Transmit a string ("Hello, UART!") from the STM32 to the PC serial terminal via USART3.
 
 #### Code Example:
-
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
-/* USER CODE BEGIN 2 */
+void main(void){
 
+  /* USER CODE BEGIN 2 */
+
+  uint8_t msg[] = "Hello, UART!";
+  HAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message
+
+  /* USER CODE END 2 */
+
+}
+```
+
+# Parts
+
+**USER CODE BEGIN 2**
+```c
 uint8_t msg[] = "Hello, UART!";
 HAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the message
-
-/* USER CODE BEGIN 2 */
 ```
+:::
 
 #### Sample IO:
 
@@ -148,11 +164,13 @@ HAL_UART_Transmit(&huart3, msg, sizeof(msg)-1, HAL_MAX_DELAY);  // Transmit the 
 
 #### Code Example:
 
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 int main(void) {
   /* USER CODE BEGIN 1 */
   uint8_t rxBuffer[5];  // Buffer to store received data
-	// Try changing the buffer size
+    // Try changing the buffer size
   /* USER CODE END 1 */
 
   /* USER CODE BEGIN WHILE */
@@ -171,6 +189,24 @@ int main(void) {
 }
 ```
 
+# Parts
+
+**USER CODE BEGIN 1**
+```c
+uint8_t rxBuffer[5];  // Buffer to store received data
+// Try changing the buffer size
+```
+
+**USER CODE BEGIN WHILE**
+```c
+// Receive data from the serial terminal
+HAL_UART_Receive(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);
+
+// Echo the received data back to the terminal
+HAL_UART_Transmit(&huart3, rxBuffer, sizeof(rxBuffer), HAL_MAX_DELAY);
+```
+:::
+
 #### Sample IO:
 
 - **Input**: If you type "STM32" in the serial terminal.
@@ -183,6 +219,8 @@ int main(void) {
 
 #### Code Example:
 
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 /* USER CODE BEGIN PV */
 volatile uint64_t counter = 0; // to keep track of the number of times printed
@@ -211,6 +249,34 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 /* USER CODE END 4 */
 ```
 
+# Parts
+
+**USER CODE BEGIN PV**
+```c
+volatile uint64_t counter = 0; // to keep track of the number of times printed
+```
+
+**USER CODE BEGIN 2**
+```c
+// Start timer in interrupt mode
+HAL_TIM_Base_Start_IT(&htim7);
+```
+
+**USER CODE BEGIN 4**
+```c
+// Timer interrupt callback function
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == TIM7) {
+        // Send message every second
+        uint8_t msg[50];
+        uint8_t n_bytes = sprintf(msg,"STM32 Timer Test %lu \n\r", counter);
+        HAL_UART_Transmit(&huart3, msg, n_bytes, HAL_MAX_DELAY);
+        counter++;
+    }
+}
+```
+:::
+
 #### Sample IO:
 
 - **Output**: The string "STM32 Timer Test" is sent to the serial terminal every second.
@@ -221,6 +287,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 #### Code Example:
 
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 /* USER CODE BEGIN PV */
 
@@ -231,7 +299,7 @@ uint8_t rxBuffer[1];  // Buffer to store received data
 
 
 void main(void){
-  
+
   /* USER CODE BEGIN 2 */
 
   // Start interrupt-based reception
@@ -254,6 +322,36 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 /* USER CODE END 4 */
 ```
+
+# Parts
+
+**USER CODE BEGIN PV**
+```c
+uint8_t rxBuffer[1];  // Buffer to store received data
+// Try changing the buffer size
+```
+
+**USER CODE BEGIN 2**
+```c
+// Start interrupt-based reception
+HAL_UART_Receive_IT(&huart3, rxBuffer, 1);
+```
+
+**USER CODE BEGIN 4**
+```c
+// Interrupt callback function
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART3) {
+        // Echo received data
+        HAL_UART_Transmit(&huart3, rxBuffer, 1, HAL_MAX_DELAY);
+
+        // Restart reception
+        HAL_UART_Receive_IT(&huart3, rxBuffer, 1);
+    }
+}
+```
+:::
+
 
 #### Sample IO:
 

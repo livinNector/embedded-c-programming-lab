@@ -65,7 +65,10 @@ For this lab we will be writing codes in the below user slots.
 
 
 :::{.callout-note}
-The code samples for CubeMX generated code will have contents surrounded by the slot comments as described above and they are partial code and not the complete code.
+The Code Examples given for CubeMX generated code will have two views in this manual which can be toggled.
+
+ 1. **Single View** - This view will **have the overall structure of the code** with only the user code slots surrounded by the slot comments as described above and not the complete code.
+ 2. **Parts View** - This view will have the individual user sections as seperate code blocks, making it easier for **copy pasting into the IDE**.
 :::
 
 ## Common problems during setup and solution

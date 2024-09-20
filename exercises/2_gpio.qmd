@@ -125,6 +125,8 @@ The frequency of the APB1 timer clock can be verified using the **Clock Configur
 
 #### Code Example
 
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 int main(void) {
   /* USER CODE BEGIN WHILE */
@@ -143,6 +145,22 @@ int main(void) {
     /* USER CODE END 3 */
 }
 ```
+
+# Parts
+
+**USER CODE BEGIN WHILE**
+```c
+// 3-bit binary counter loop (0 to 7)
+for (uint8_t i = 0; i < 8; i++) {
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (i & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (i & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (i & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)
+  HAL_Delay(1000);  // 1-second delay
+}
+```
+
+:::
+
 
 #### Sample IO:
 
@@ -168,6 +186,9 @@ int main(void) {
 
 #### Code Example
 
+
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 /* USER CODE BEGIN PV */
 volatile uint8_t counter = 0;  // 3-bit counter
@@ -200,8 +221,43 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
 }
 /* USER CODE END 4 */
-
 ```
+
+# Parts
+
+**USER CODE BEGIN PV**
+```c
+volatile uint8_t counter = 0;  // 3-bit counter
+```
+
+**USER CODE BEGIN 0**
+```c
+void increment_counter(void) {
+    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo
+    // Set LED states based on counter value
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)
+}
+```
+
+**USER CODE BEGIN 2**
+```c
+// Start timer in interrupt mode
+HAL_TIM_Base_Start_IT(&htim7);
+```
+
+**USER CODE BEGIN 4**
+```c
+// Timer interrupt callback
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim->Instance == TIM7) {
+        increment_counter();  // Update LED states based on counter value
+    }
+}
+```
+:::
+
 
 #### Sample IO:
 
@@ -228,6 +284,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 #### Code Example
 
+:::{.panel-tabset group='mx-view'}
+# Single
 ```c
 /* USER CODE BEGIN PD */
 #define DEBOUNCE_DELAY_MS 50  // Debounce delay in milliseconds
@@ -268,8 +326,48 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 }
 /* USER CODE END 4 */
-
 ```
+
+# Parts
+
+**USER CODE BEGIN PD**
+```c
+#define DEBOUNCE_DELAY_MS 50  // Debounce delay in milliseconds
+```
+
+**USER CODE BEGIN PV**
+```c
+volatile uint8_t counter = 0;  // 3-bit counter
+volatile uint32_t last_interrupt_time = 0;  // Last interrupt time in milliseconds
+```
+
+**USER CODE BEGIN 0**
+```c
+void increment_counter(void) {
+    counter = (counter + 1) % 8;  // Increment counter and wrap around using modulo
+    // Set LED states based on counter value
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, (counter & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD1 (LSB)
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, (counter & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);  // LD2
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, (counter & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET); // LD3 (MSB)
+}
+```
+
+**USER CODE BEGIN 4**
+```c
+// External interrupt handler
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if(GPIO_Pin == GPIO_PIN_13  ) {
+	      uint32_t current_time = HAL_GetTick();
+	      if ((current_time - last_interrupt_time) > DEBOUNCE_DELAY_MS) {
+	          last_interrupt_time = current_time;  // Update last interrupt time
+	          increment_counter();  // Update LED states based on counter value
+	      }
+    }
+}
+```
+:::
+
 
 ##### Sample IO
 
