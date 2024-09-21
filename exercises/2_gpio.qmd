@@ -55,7 +55,7 @@ The frequency of the APB1 timer clock can be verified using the **Clock Configur
 
 ### 3. Button Configuration (For Task 3):
 
-- Set **PC13** (USER_BUTTON) as `GPIO_EXTI13` in the pinout view and GPIO mode as **"External Internal Mode with Falling edge trigger detection"** and GPIO Pull-up/Pull-down to "No pull-up and no pull-down" (If default configurations of peripherals are used ith will be already enabled).
+- Set **PC13** (USER_BUTTON) as `GPIO_EXTI13` in the pinout view and GPIO mode as **"External Interrupt Mode with Falling edge trigger detection"** and GPIO Pull-up/Pull-down to "No pull-up and no pull-down" (If default configurations of peripherals are used ith will be already enabled).
 - Enable the **EXTI Line [15:10]** interrupt for the button in the **NVIC Settings**.
 
 ### 4. Generate Code:
