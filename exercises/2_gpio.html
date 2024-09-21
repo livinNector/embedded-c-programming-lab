@@ -155,6 +155,9 @@ window.Quarto = {
       </button>
     </div>
   </nav>
+  <div id="quarto-announcement" data-announcement-id="f0a684ef8c393c1b7dc6fe5d5bcaf162" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Note</strong> - The Section with Arduino IDE is under development. But you can follow the getting started tutorial to setup stm32duino.</p>
+</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -396,7 +399,7 @@ Note
 <section id="button-configuration-for-task-3" class="level3">
 <h3 class="anchored" data-anchor-id="button-configuration-for-task-3">3. Button Configuration (For Task 3):</h3>
 <ul>
-<li>Set <strong>PC13</strong> (USER_BUTTON) as <code>GPIO_EXTI13</code> in the pinout view and GPIO mode as <strong>“External Internal Mode with Falling edge trigger detection”</strong> and GPIO Pull-up/Pull-down to “No pull-up and no pull-down” (If default configurations of peripherals are used ith will be already enabled).</li>
+<li>Set <strong>PC13</strong> (USER_BUTTON) as <code>GPIO_EXTI13</code> in the pinout view and GPIO mode as <strong>“External Interrupt Mode with Falling edge trigger detection”</strong> and GPIO Pull-up/Pull-down to “No pull-up and no pull-down” (If default configurations of peripherals are used ith will be already enabled).</li>
 <li>Enable the <strong>EXTI Line [15:10]</strong> interrupt for the button in the <strong>NVIC Settings</strong>.</li>
 </ul>
 </section>

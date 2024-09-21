@@ -92,6 +92,9 @@ ul.task-list li input[type="checkbox"] {
       </button>
     </div>
   </nav>
+  <div id="quarto-announcement" data-announcement-id="f0a684ef8c393c1b7dc6fe5d5bcaf162" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
+<p><strong>Note</strong> - The Section with Arduino IDE is under development. But you can follow the getting started tutorial to setup stm32duino.</p>
+</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -256,7 +259,8 @@ ul.task-list li input[type="checkbox"] {
 <ol type="1">
 <li>Select <code>File -&gt; Examples -&gt; 0.1 Basics</code>, and a new sketch will open.</li>
 <li>If stm32duino is configured correctly you will find the board name selected as <code>Nucleo-144</code>. If not, you can select the board from the dropdown. <img src="../assets/arduino_board_selection.png" class="img-fluid" alt="arduino_board_selection">.</li>
-<li>The LED builtin</li>
+<li>The <code>LED_BUILTIN</code> in Arduino code will be equivalent to <code>PB0</code> (LD1) in the Nucleo-F767ZI board. Either can be used as the identifier.</li>
+<li>Upload the sketch to the stm32 board.</li>
 </ol>
 
 
