@@ -1,1 +1,244 @@
+---
+number-depth: 2
+code-copy: true
+---
+
 # Ultrasonic sensor Distance Measurement - HC-SR04
+
+## Objective
+By the end of this exercise, students will
+- Interface an HC-SR04 ultrasonic sensor with the STM32 Nucleo-144 F767ZI using STM32Duino.
+- Take multiple distance measurements and calculate the average.
+- Display the averaged distance using the serial monitor.
+- Control and LED with the measured distance.
+
+## Materials
+- STM Nucleo-144 F767ZI development board.
+- Ultrasonic Sensor (HC-SR04).
+- Jumper wires for connections.
+- STM32Duino environment set up in Arduino IDE (with STM32 core installed).
+
+## HC-SR04 Sensor
+
+- **VCC**: 5V power.
+- **GND**: Ground.
+- **Trig**: Trigger pin (to send out the ultrasonic pulse).
+- **Echo**: Echo pin (to receive the reflected pulse).
+
+## Wiring Connections
+- **VCC** -> 5V pin on STM32.
+- **GND** -> GND pin on STM32.
+- **Trig** -> D12 or any available digital GPIO pin (using in the Arduino Compatible zio connector)
+- **Echo** -> D13 or any available digital GPIO pin.
+
+## Explanation of Key Functions
+1. **`digitalWrite(pin, HIGH/LOW)`**: Sends a HIGH or LOW signal to the pin to activate or deactivate the trigger pin.
+2. **`pulseIn(pin, HIGH)`**: Measures the time for the echo pin to go HIGH, which is proportional to the distance.
+3. **Serial communication functions**: To print the results on the Serial Monitor.
+   1. **`Serial.begin(baud_rate)`** - Should be initialized in the `setup` to start the serial communication. The baud rate can be typically set to 9600 or 115200. 
+   2. **`Serial.print`** - Prints a value in the serial monitor.
+   3. **`Serial.println`** - Same as print but also prints a newline character at the end.
+
+
+## Tasks and Sample IO Behavior
+
+### Task 1: Interface HC-SR04 with STM32 and Measure Distance
+- **Objective:** Write code to interface the HC-SR04 with the STM32 Nucleo-144 F767ZI, measure the distance, and print the result on the Serial Monitor.
+
+####  Example Code
+```cpp
+#define TRIG_PIN 12  // Trigger pin
+#define ECHO_PIN 13  // Echo pin
+
+
+void setup() {
+  Serial.begin(9600);         // Initialize serial communication
+  pinMode(TRIG_PIN, OUTPUT);  // Set the trigger pin as an output
+  pinMode(ECHO_PIN, INPUT);   // Set the echo pin as an input
+}
+
+void loop() {
+  float distance = measureDistance();
+  // Print the average distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(1000);  // Delay before taking another set of measurements
+}
+
+float measureDistance() {
+  long duration;
+  float distance;
+  // Clear the trigger pin
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+
+  // Send a 10µs pulse to trigger the sensor
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // Measure the time of the echo pulse
+  duration = pulseIn(ECHO_PIN, HIGH);
+
+  // Calculate the distance (speed of sound is 34300 cm/s)
+  distance = (duration * 0.0343) / 2;
+  return distance;
+}
+```
+
+#### Sample Output on Serial Monitor
+```
+Distance: 25.34 cm
+Distance: 26.21 cm
+Distance: 25.78 cm
+```
+
+
+### Task 2: Take Multiple Measurements and Calculate the Average
+- **Objective:** Modify the program to take 10 distance measurements and calculate the average to improve accuracy. Display the averaged distance on the Serial Monitor.
+
+####  Example Code
+```cpp
+
+/* pin configurations*/
+
+/* setup goes here*/
+
+void loop() {
+  // Print the average distance to the Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(measureDistanceSmooth(10));  // Averaging 10 measurements
+  Serial.println(" cm");
+
+  delay(1000);  // Delay before taking another set of measurements
+}
+
+/* Measure Distance Function */
+
+float measureDistanceSmooth(int numMeasurements) {
+  float totalDistance = 0.0;
+
+  // Take multiple measurements
+  for (int i = 0; i < numMeasurements; i++) {
+    // Add to the total distance for averaging
+    totalDistance += measureDistance();
+    delay(5);  // Small delay between measurements
+  }
+
+  // return the average distance
+  return totalDistance / numMeasurements;
+}
+
+```
+#### Sample Output on Serial Monitor
+```
+Distance: 25.34 cm
+Distance: 25.35 cm
+Distance: 25.33 cm
+```
+
+
+### Task 3: Calibrate Ultrasonic Sensor and Fade LED with Sensor Measurement
+
+#### Objective
+  - Calibrate the HC-SR04 sensor by recording minimum and maximum distance readings.
+  - Perform calibration until a button press is detected using an interrupt.
+  - Control the brightness of the built-in LED on **PA0** (using **PWM** to fade) based on the measured distance.
+
+### Steps
+1. **Calibration Phase:**
+   - Start taking distance readings and continuously update the **minimum** and **maximum** values.
+   - The calibration phase continues until the button is pressed, triggering an interrupt.
+   
+2. **LED Brightness Control:**
+   - After calibration, the measured distance is used to control the **brightness** of the LED on **PA0** using **PWM**.
+   - The brightness will vary proportionally between the minimum and maximum measured distances.
+
+### Code Example
+
+```cpp
+#define TRIG_PIN 12  // Trigger pin
+#define ECHO_PIN 13  // Echo pin
+#define LED_PIN PB0   // Inbuilt-LED Pin
+#define BUTTON_PIN PC13 // Inbuilt Button pin
+
+
+volatile bool calibrationComplete = false;
+float minDistance = 1000;  // Large initial value for calibration
+float maxDistance = 0;     // Small initial value for calibration
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(TRIG_PIN, OUTPUT);
+  pinMode(ECHO_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT);
+
+  // Attach interrupt for the button press
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), completeCalibration, FALLING);
+
+  // Set up PWM for LED pin
+  analogWriteResolution(8);  // 8-bit resolution (0-255)
+}
+
+
+void loop() {
+  if (!calibrationComplete) {
+    float distance = measureDistance();
+
+    // Update min/max distances for calibration
+    if (distance < minDistance) minDistance = distance;
+    if (distance > maxDistance) maxDistance = distance;
+
+    Serial.print("Calibrating... Min: ");
+    Serial.print(minDistance);
+    Serial.print(" cm, Max: ");
+    Serial.println(maxDistance);
+
+    delay(500);  // Slow down calibration readings
+  } else {
+    // After calibration, use distance to control LED brightness
+    float currentDistance = measureDistanceSmooth(10);
+    int brightness = map(currentDistance, minDistance, maxDistance, 0, 255);  // Map distance to brightness
+    brightness = constrain(brightness, 0, 255);  // Ensure the value stays within 0-255 range
+
+    analogWrite(LED_PIN, brightness);  // Set LED brightness
+
+    Serial.print("Distance: ");
+    Serial.print(currentDistance);
+    Serial.print(" cm, LED Brightness: ");
+    Serial.println(brightness);
+
+    delay(200);  // Slow down the readings
+  }
+}
+
+/* Measuring functions*/
+
+// Button interrupt handler to stop calibration
+void completeCalibration() {
+  calibrationComplete = true;
+  Serial.println("Calibration complete.");
+}
+```
+
+### Sample Output on Serial Monitor
+```
+Calibrating... Min: 10.34 cm, Max: 58.21 cm
+Calibrating... Min: 9.67 cm, Max: 61.52 cm
+Calibration complete.
+Distance: 35.42 cm, LED Brightness: 128
+Distance: 20.30 cm, LED Brightness: 64
+```
+
+---
+
+### Conclusion
+
+- **Interfacing an Ultrasonic Sensor:** The **HC-SR04** ultrasonic sensor was interfaced with the **STM32 Nucleo-144 F767ZI** using the **STM32Duino** platform.
+- **Serial Communication:** The measured results were displayed on the **Serial Monitor** using the **`Serial.print()`** function, emphasizing the role of serial communication in embedded systems.
+- **Timing and Control:** Concepts such as **trigger pulses** and **delay functions** were applied to manage sensor timing and ensure reliable operation.
+- **Button Interrupts:** This task demonstrated how to use **button interrupts** to stop a calibration phase.
+- **PWM Control:** The **PWM** output on **PA0** was used to control LED brightness based on the **distance** measured by the ultrasonic sensor.
