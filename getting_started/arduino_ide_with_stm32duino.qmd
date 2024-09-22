@@ -1,3 +1,9 @@
+---
+number-depth: 2
+---
+
 # Arduino IDE: Getting Started and How-tos
 
-Refer the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started) wiki page from the stm32duino for how to setup Arduino IDE for stm boards.
+## Getting Started Guides
+- [Getting Started with Arduino IDE 2](https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/) - For installation and getting to know Arduino IDE v2.
+- [Getting Started with stm32duino](https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started) - Wiki page for how to setup Arduino IDE for stm boards.
