@@ -210,9 +210,9 @@ void loop() {
 
     analogWrite(LED_PIN, brightness);  // Set LED brightness
 
-    Serial.print("Distance: ");
+    Serial.print("Distance(cm):");
     Serial.print(currentDistance);
-    Serial.print(" cm, LED Brightness: ");
+    Serial.print(",LED Brightness:");
     Serial.println(brightness);
 
     delay(200);  // Slow down the readings
@@ -233,9 +233,15 @@ void completeCalibration() {
 Calibrating... Min: 10.34 cm, Max: 58.21 cm
 Calibrating... Min: 9.67 cm, Max: 61.52 cm
 Calibration complete.
-Distance: 35.42 cm, LED Brightness: 128
-Distance: 20.30 cm, LED Brightness: 64
+Distance(cm):35.42 cm,LED Brightness:128
+Distance(cm):20.30 cm,LED Brightness:64
 ```
+
+::: {.callout-tip}
+You can use serial plotter to view graphs of the serial output. You can use serial plotter in two ways.
+1. Just printing comma seperated values in the serial monitor.
+2. Using the format {label 1}:{value 1}, {label 2}:{value 2} which will show the labels in the serial plotter.
+:::
 
 ---
 
