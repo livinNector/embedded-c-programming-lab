@@ -98,7 +98,7 @@ void setup() {
   digitalWrite(indicatorLed, HIGH);
 
   // calibrate during the first five seconds
-  while (millis() < 10000) {
+  while (millis() < 5000) {
     sensorValue = analogRead(sensorPin);
 
     // record the maximum sensor value
