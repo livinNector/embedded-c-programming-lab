@@ -17,9 +17,10 @@ book:
     - part: "**Using Arduino IDE with stm32duino**"
       chapters: 
         - getting_started/arduino_ide_with_stm32duino.qmd
-        - exercises/3_ultrasonic_sensor.qmd
-        - exercises/4_temperature_sensor_i2c.qmd
-        - exercises/5_accelgyro_i2c.qmd
+        - exercises/3_arduino_gpio.qmd
+        - exercises/4_ultrasonic_sensor.qmd
+        - exercises/5_temperature_sensor_i2c.qmd
+        - exercises/6_accelgyro_i2c.qmd
 
     - summary.qmd
     - references.qmd
