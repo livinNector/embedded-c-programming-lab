@@ -31,6 +31,10 @@ By the end of this exercise, students will
 - **Trig** -> D12 or any available digital GPIO pin (using in the Arduino Compatible zio connector)
 - **Echo** -> D13 or any available digital GPIO pin.
 
+::: {.callout-tip}
+While using Stm32duino with Arduino in Arduino compatible board, the Arduino pin conventions can also be used in the program. Eg. `A0` for anolog pin, `12` for digital pin.
+:::
+
 ## Explanation of Key Functions
 1. **`digitalWrite(pin, HIGH/LOW)`**: Sends a HIGH or LOW signal to the pin to activate or deactivate the trigger pin.
 2. **`pulseIn(pin, HIGH)`**: Measures the time for the echo pin to go HIGH, which is proportional to the distance.
@@ -99,7 +103,7 @@ Distance: 25.78 cm
 ### Task 2: Take Multiple Measurements and Calculate the Average
 - **Objective:** Modify the program to take 10 distance measurements and calculate the average to improve accuracy. Display the averaged distance on the Serial Monitor.
 
-####  Example Code
+####  Example Code(modify the code from above task)
 ```cpp
 
 /* pin configurations*/
@@ -156,7 +160,7 @@ Distance: 25.33 cm
    - After calibration, the measured distance is used to control the **brightness** of the LED on **PA0** using **PWM**.
    - The brightness will vary proportionally between the minimum and maximum measured distances.
 
-### Code Example
+### Code Example (Include measuring functions from the above task.)
 
 ```cpp
 #define TRIG_PIN 12  // Trigger pin
