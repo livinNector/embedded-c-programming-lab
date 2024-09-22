@@ -30,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/3_ultrasonic_sensor.html" rel="next">
+<link href="../exercises/3_arduino_gpio.html" rel="next">
 <link href="../exercises/2_gpio.html" rel="prev">
 <link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -92,9 +92,6 @@ ul.task-list li input[type="checkbox"] {
       </button>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="f0a684ef8c393c1b7dc6fe5d5bcaf162" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Note</strong> - The Section with Arduino IDE is under development. But you can follow the getting started tutorial to setup stm32duino.</p>
-</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -173,20 +170,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
+  <a href="../exercises/3_arduino_gpio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+  <a href="../exercises/4_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+  <a href="../exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></span></a>
   </div>
 </li>
       </ul>
@@ -194,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,10 +219,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#getting-started-guides" id="toc-getting-started-guides" class="nav-link active" data-scroll-target="#getting-started-guides"><span class="header-section-number">5.1</span> Getting Started Guides</a></li>
-  <li><a href="#playing-around-with-examples" id="toc-playing-around-with-examples" class="nav-link" data-scroll-target="#playing-around-with-examples"><span class="header-section-number">5.2</span> Playing around with examples</a>
-  <ul class="collapse">
-  <li><a href="#simple-blink" id="toc-simple-blink" class="nav-link" data-scroll-target="#simple-blink">Simple Blink</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -251,20 +250,8 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/getting-started-ide-v2/">Getting Started with Arduino IDE 2</a> - For installation and getting to know Arduino IDE v2.</li>
 <li><a href="https://github.com/stm32duino/Arduino_Core_STM32/wiki/Getting-Started">Getting Started with stm32duino</a> - Wiki page for how to setup Arduino IDE for stm boards.</li>
 </ul>
-</section>
-<section id="playing-around-with-examples" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="playing-around-with-examples"><span class="header-section-number">5.2</span> Playing around with examples</h2>
-<section id="simple-blink" class="level3">
-<h3 class="anchored" data-anchor-id="simple-blink">Simple Blink</h3>
-<ol type="1">
-<li>Select <code>File -&gt; Examples -&gt; 0.1 Basics</code>, and a new sketch will open.</li>
-<li>If stm32duino is configured correctly you will find the board name selected as <code>Nucleo-144</code>. If not, you can select the board from the dropdown. <img src="../assets/arduino_board_selection.png" class="img-fluid" alt="arduino_board_selection">.</li>
-<li>The <code>LED_BUILTIN</code> in Arduino code will be equivalent to <code>PB0</code> (LD1) in the Nucleo-F767ZI board. Either can be used as the identifier.</li>
-<li>Upload the sketch to the stm32 board.</li>
-</ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -839,8 +826,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/3_ultrasonic_sensor.html" class="pagination-link" aria-label="Ultrasonic sensor Distance Measurement - HC-SR04">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/3_arduino_gpio.html" class="pagination-link" aria-label="GPIO using STM32Duino">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

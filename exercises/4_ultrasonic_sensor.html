@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/4_temperature_sensor_i2c.html" rel="next">
+<link href="../exercises/5_temperature_sensor_i2c.html" rel="next">
 <link href="../exercises/3_arduino_gpio.html" rel="prev">
 <link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/3_ultrasonic_sensor.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_ultrasonic_sensor.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -210,20 +210,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link active">
+  <a href="../exercises/4_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+  <a href="../exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></span></a>
   </div>
 </li>
       </ul>
@@ -263,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#task-2-take-multiple-measurements-and-calculate-the-average" id="toc-task-2-take-multiple-measurements-and-calculate-the-average" class="nav-link" data-scroll-target="#task-2-take-multiple-measurements-and-calculate-the-average">Task 2: Take Multiple Measurements and Calculate the Average</a></li>
   <li><a href="#task-3-calibrate-ultrasonic-sensor-and-fade-led-with-sensor-measurement" id="toc-task-3-calibrate-ultrasonic-sensor-and-fade-led-with-sensor-measurement" class="nav-link" data-scroll-target="#task-3-calibrate-ultrasonic-sensor-and-fade-led-with-sensor-measurement">Task 3: Calibrate Ultrasonic Sensor and Fade LED with Sensor Measurement</a></li>
   <li><a href="#steps" id="toc-steps" class="nav-link" data-scroll-target="#steps">Steps</a></li>
-  <li><a href="#code-example" id="toc-code-example" class="nav-link" data-scroll-target="#code-example">Code Example</a></li>
-  <li><a href="#tasks-and-sample-io-behavior-1" id="toc-tasks-and-sample-io-behavior-1" class="nav-link" data-scroll-target="#tasks-and-sample-io-behavior-1">Tasks and Sample IO Behavior</a></li>
+  <li><a href="#code-example-include-measuring-functions-from-the-above-task." id="toc-code-example-include-measuring-functions-from-the-above-task." class="nav-link" data-scroll-target="#code-example-include-measuring-functions-from-the-above-task.">Code Example (Include measuring functions from the above task.)</a></li>
+  <li><a href="#sample-output-on-serial-monitor-2" id="toc-sample-output-on-serial-monitor-2" class="nav-link" data-scroll-target="#sample-output-on-serial-monitor-2">Sample Output on Serial Monitor</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   </ul>
@@ -273,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/3_ultrasonic_sensor.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_ultrasonic_sensor.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></h1>
 </div>
@@ -322,6 +322,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Trig</strong> -&gt; D12 or any available digital GPIO pin (using in the Arduino Compatible zio connector)</li>
 <li><strong>Echo</strong> -&gt; D13 or any available digital GPIO pin.</li>
 </ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>While using Stm32duino with Arduino in Arduino compatible board, the Arduino pin conventions can also be used in the program. Eg. <code>A0</code> for anolog pin, <code>12</code> for digital pin.</p>
+</div>
+</div>
 </section>
 <section id="explanation-of-key-functions" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="explanation-of-key-functions"><span class="header-section-number">7.5</span> Explanation of Key Functions</h2>
@@ -397,8 +410,8 @@ Distance: 25.78 cm</code></pre>
 <ul>
 <li><strong>Objective:</strong> Modify the program to take 10 distance measurements and calculate the average to improve accuracy. Display the averaged distance on the Serial Monitor.</li>
 </ul>
-<section id="example-code-1" class="level4">
-<h4 class="anchored" data-anchor-id="example-code-1">Example Code</h4>
+<section id="example-codemodify-the-code-from-above-task" class="level4">
+<h4 class="anchored" data-anchor-id="example-codemodify-the-code-from-above-task">Example Code(modify the code from above task)</h4>
 <div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">/* pin configurations*/</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -462,10 +475,10 @@ Distance: 25.33 cm</code></pre>
 </ul></li>
 </ol>
 </section>
-<section id="code-example" class="level3">
-<h3 class="anchored" data-anchor-id="code-example">Code Example</h3>
+<section id="code-example-include-measuring-functions-from-the-above-task." class="level3">
+<h3 class="anchored" data-anchor-id="code-example-include-measuring-functions-from-the-above-task.">Code Example (Include measuring functions from the above task.)</h3>
 <div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#define TRIG_PIN </span><span class="dv">12</span><span class="pp">  </span><span class="co">// Trigger pin</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define ECHO_PIN </span><span class="dv">11</span><span class="pp"> </span><span class="co">// Echo pin</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#define ECHO_PIN </span><span class="dv">13</span><span class="pp">  </span><span class="co">// Echo pin</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define LED_PIN </span>PB0<span class="pp">   </span><span class="co">// Inbuilt-LED Pin</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define BUTTON_PIN </span>PC13<span class="pp"> </span><span class="co">// Inbuilt Button pin</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -479,7 +492,7 @@ Distance: 25.33 cm</code></pre>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>TRIG_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>ECHO_PIN<span class="op">,</span> INPUT<span class="op">);</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>LED_PIN<span class="op">,</span> OUTPUT<span class="op">);</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>BUTTON_PIN<span class="op">,</span> INPUT_PULLUP<span class="op">);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>BUTTON_PIN<span class="op">,</span> INPUT<span class="op">);</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Attach interrupt for the button press</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  attachInterrupt<span class="op">(</span>digitalPinToInterrupt<span class="op">(</span>BUTTON_PIN<span class="op">),</span> completeCalibration<span class="op">,</span> FALLING<span class="op">);</span></span>
@@ -488,76 +501,67 @@ Distance: 25.33 cm</code></pre>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  analogWriteResolution<span class="op">(</span><span class="dv">8</span><span class="op">);</span>  <span class="co">// 8-bit resolution (0-255)</span></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">/* The Measuring functions */</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>calibrationComplete<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> distance <span class="op">=</span> measureDistanceSmooth<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Update min/max distances for calibration</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>avgDistance <span class="op">&lt;</span> minDistance<span class="op">)</span> minDistance <span class="op">=</span> avgDistance<span class="op">;</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>avgDistance <span class="op">&gt;</span> maxDistance<span class="op">)</span> maxDistance <span class="op">=</span> avgDistance<span class="op">;</span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Calibrating... Min: "</span><span class="op">);</span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>minDistance<span class="op">);</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" cm, Max: "</span><span class="op">);</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>maxDistance<span class="op">);</span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// Slow down calibration readings</span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">// After calibration, use distance to control LED brightness</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> currentDistance <span class="op">=</span> measureDistance<span class="op">();</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> brightness <span class="op">=</span> map<span class="op">(</span>currentDistance<span class="op">,</span> minDistance<span class="op">,</span> maxDistance<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span>  <span class="co">// Map distance to brightness</span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    brightness <span class="op">=</span> constrain<span class="op">(</span>brightness<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span>  <span class="co">// Ensure the value stays within 0-255 range</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>    analogWrite<span class="op">(</span>LED_PIN<span class="op">,</span> brightness<span class="op">);</span>  <span class="co">// Set LED brightness</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distance: "</span><span class="op">);</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>currentDistance<span class="op">);</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" cm, LED Brightness: "</span><span class="op">);</span></span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>brightness<span class="op">);</span></span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">200</span><span class="op">);</span>  <span class="co">// Slow down the readings</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="co">// Measure distance using the HC-SR04 sensor</span></span>
-<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> measureDistance<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>TRIG_PIN<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">2</span><span class="op">);</span></span>
-<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>TRIG_PIN<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>  delayMicroseconds<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
-<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>TRIG_PIN<span class="op">,</span> LOW<span class="op">);</span></span>
-<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>  duration <span class="op">=</span> pulseIn<span class="op">(</span>ECHO_PIN<span class="op">,</span> HIGH<span class="op">);</span></span>
-<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>  distance <span class="op">=</span> <span class="op">(</span>duration <span class="op">*</span> <span class="fl">0.0343</span><span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> distance<span class="op">;</span></span>
-<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a><span class="co">// Button interrupt handler to stop calibration</span></span>
-<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> completeCalibration<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  calibrationComplete <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
-<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Calibration complete."</span><span class="op">);</span></span>
-<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(!</span>calibrationComplete<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> distance <span class="op">=</span> measureDistance<span class="op">();</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Update min/max distances for calibration</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&lt;</span> minDistance<span class="op">)</span> minDistance <span class="op">=</span> distance<span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>distance <span class="op">&gt;</span> maxDistance<span class="op">)</span> maxDistance <span class="op">=</span> distance<span class="op">;</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Calibrating... Min: "</span><span class="op">);</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>minDistance<span class="op">);</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" cm, Max: "</span><span class="op">);</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>maxDistance<span class="op">);</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">500</span><span class="op">);</span>  <span class="co">// Slow down calibration readings</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">// After calibration, use distance to control LED brightness</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">float</span> currentDistance <span class="op">=</span> measureDistanceSmooth<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> brightness <span class="op">=</span> map<span class="op">(</span>currentDistance<span class="op">,</span> minDistance<span class="op">,</span> maxDistance<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span>  <span class="co">// Map distance to brightness</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>    brightness <span class="op">=</span> constrain<span class="op">(</span>brightness<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span>  <span class="co">// Ensure the value stays within 0-255 range</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>    analogWrite<span class="op">(</span>LED_PIN<span class="op">,</span> brightness<span class="op">);</span>  <span class="co">// Set LED brightness</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Distance(cm):"</span><span class="op">);</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>currentDistance<span class="op">);</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">",LED Brightness:"</span><span class="op">);</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>brightness<span class="op">);</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">(</span><span class="dv">200</span><span class="op">);</span>  <span class="co">// Slow down the readings</span></span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">/* Measuring functions*/</span></span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co">// Button interrupt handler to stop calibration</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> completeCalibration<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>  calibrationComplete <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Calibration complete."</span><span class="op">);</span></span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="tasks-and-sample-io-behavior-1" class="level3">
-<h3 class="anchored" data-anchor-id="tasks-and-sample-io-behavior-1">Tasks and Sample IO Behavior</h3>
-<section id="task-3.1-calibrate-sensor-with-button-interrupt" class="level4">
-<h4 class="anchored" data-anchor-id="task-3.1-calibrate-sensor-with-button-interrupt">Task 3.1: Calibrate Sensor with Button Interrupt</h4>
-<ul>
-<li><strong>Objective:</strong> Write code to calibrate the ultrasonic sensor by recording the minimum and maximum distances until the button is pressed. Use the interrupt mechanism to detect the button press. After calibration, control the brightness of an LED (on PA0) using <strong>PWM</strong>, mapping the current distance to the LED brightness.</li>
-</ul>
-<section id="sample-output-on-serial-monitor-2" class="level5">
-<h5 class="anchored" data-anchor-id="sample-output-on-serial-monitor-2">Sample Output on Serial Monitor</h5>
+<section id="sample-output-on-serial-monitor-2" class="level3">
+<h3 class="anchored" data-anchor-id="sample-output-on-serial-monitor-2">Sample Output on Serial Monitor</h3>
 <pre><code>Calibrating... Min: 10.34 cm, Max: 58.21 cm
 Calibrating... Min: 9.67 cm, Max: 61.52 cm
 Calibration complete.
-Distance: 35.42 cm, LED Brightness: 128
-Distance: 20.30 cm, LED Brightness: 64</code></pre>
+Distance(cm):35.42 cm,LED Brightness:128
+Distance(cm):20.30 cm,LED Brightness:64</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can use serial plotter to view graphs of the serial output. You can use serial plotter in two ways. 1. Just printing comma seperated values in the serial monitor. 2. Using the format {label 1}:{value 1}, {label 2}:{value 2} which will show the labels in the serial plotter.</p>
+</div>
+</div>
 <hr>
-</section>
-</section>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
@@ -1145,7 +1149,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/4_temperature_sensor_i2c.html" class="pagination-link" aria-label="Temperature measurement using I2C - MCP9808">
+      <a href="../exercises/5_temperature_sensor_i2c.html" class="pagination-link" aria-label="Temperature measurement using I2C - MCP9808">
         <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

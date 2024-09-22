@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Temperature measurement using I2C - MCP9808 – Embedded C Programming Lab Manual</title>
+<title>8&nbsp; Temperature measurement using I2C - MCP9808 – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_temperature_sensor_i2c.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_temperature_sensor_i2c.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -126,9 +126,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </button>
     </div>
   </nav>
-  <div id="quarto-announcement" data-announcement-id="f0a684ef8c393c1b7dc6fe5d5bcaf162" class="alert alert-primary hidden"><i class="bi bi-info-circle quarto-announcement-icon"></i><div class="quarto-announcement-content">
-<p><strong>Note</strong> - The Section with Arduino IDE is under development. But you can follow the getting started tutorial to setup stm32duino.</p>
-</div><i class="bi bi-x-lg quarto-announcement-action"></i></div>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
@@ -207,20 +204,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../exercises/3_arduino_gpio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../exercises/3_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/4_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../exercises/5_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span></a>
   </div>
 </li>
       </ul>
@@ -228,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -249,16 +252,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#explanation" id="toc-explanation" class="nav-link active" data-scroll-target="#explanation"><span class="header-section-number">7.0.1</span> Explanation:</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">8.1</span> Objective</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">8.2</span> Materials</a></li>
+  <li><a href="#wiring-connections" id="toc-wiring-connections" class="nav-link" data-scroll-target="#wiring-connections"><span class="header-section-number">8.3</span> Wiring Connections</a></li>
+  <li><a href="#task-1-using-seeed_mcp9808-library" id="toc-task-1-using-seeed_mcp9808-library" class="nav-link" data-scroll-target="#task-1-using-seeed_mcp9808-library"><span class="header-section-number">8.4</span> Task 1: Using <code>Seeed_MCP9808</code> Library</a>
+  <ul class="collapse">
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
+  <li><a href="#key-steps" id="toc-key-steps" class="nav-link" data-scroll-target="#key-steps">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#task-2-using-wire.h-library-for-direct-i2c-communication" id="toc-task-2-using-wire.h-library-for-direct-i2c-communication" class="nav-link" data-scroll-target="#task-2-using-wire.h-library-for-direct-i2c-communication"><span class="header-section-number">8.5</span> Task 2: Using <code>Wire.h</code> Library for Direct I2C Communication</a>
+  <ul class="collapse">
+  <li><a href="#description-1" id="toc-description-1" class="nav-link" data-scroll-target="#description-1">Description</a></li>
+  <li><a href="#code-1" id="toc-code-1" class="nav-link" data-scroll-target="#code-1">Code</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">8.6</span> Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_temperature_sensor_i2c.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/4_temperature_sensor_i2c.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></h1>
 </div>
 
 
@@ -275,9 +292,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="objective" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">8.1</span> Objective</h2>
+<p>By the end of this exercise, students will: - Interface the MCP9808 temperature sensor with the STM32 Nucleo-144 F767ZI board using I2C communication. - Measure temperature in both Celsius and Fahrenheit using two methods: 1. Sensor-specific library (<code>Seeed_MCP9808</code>). 2. Direct I2C communication via <code>Wire.h</code> library.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>Seeed_MCP9808</code> library can be downloaded as zip from <a href="https://github.com/Seeed-Studio/Grove_Temperature_sensor_MCP9808">here</a>. You can add this library to the arduino sketch by <code>Sketch-&gt;Include Library-&gt;Add .zip Library</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</section>
+<section id="materials" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">8.2</span> Materials</h2>
 <ul>
-<li>using Sensor specific library(<code>Seeed_MCP9808</code>)</li>
+<li>STM Nucleo-144 F767ZI development board.</li>
+<li>MCP9808 temperature sensor - <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf">Datasheet</a>.</li>
+<li>Jumper wires.</li>
+<li>CubeIDE or Arduino IDE with STM32Duino.</li>
 </ul>
+</section>
+<section id="wiring-connections" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="wiring-connections"><span class="header-section-number">8.3</span> Wiring Connections</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MCP9808 Pin</th>
+<th>Nucleo-144 Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VCC</td>
+<td>3.3V</td>
+</tr>
+<tr class="even">
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>SDA</td>
+<td>D14/SDA</td>
+</tr>
+<tr class="even">
+<td>SCL</td>
+<td>D15/SCL</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="task-1-using-seeed_mcp9808-library" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="task-1-using-seeed_mcp9808-library"><span class="header-section-number">8.4</span> Task 1: Using <code>Seeed_MCP9808</code> Library</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>In this task, the MCP9808 sensor is interfaced using the <code>Seeed_MCP9808</code> library. The library abstracts the I2C communication, to easily read the temperature in Celsius and convert it to Fahrenheit.</p>
+</section>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"Seeed_MCP9808.h"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>MCP9808 sensor<span class="op">;</span></span>
@@ -288,28 +379,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init failed."</span><span class="op">);</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"sensor init success."</span><span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init success."</span><span class="op">);</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> celsius <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  sensor<span class="op">.</span>get_temp<span class="op">(&amp;</span>celsius<span class="op">);</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> farenheit <span class="op">=</span> celsius <span class="op">*</span> <span class="dv">9</span> <span class="op">/</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Temperature: "</span><span class="op">);</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>celsius<span class="op">);</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"C/"</span><span class="op">);</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>farenheit<span class="op">);</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"F"</span><span class="op">);</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> celsius <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  sensor<span class="op">.</span>get_temp<span class="op">(&amp;</span>celsius<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> fahrenheit <span class="op">=</span> celsius <span class="op">*</span> <span class="dv">9</span> <span class="op">/</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Temperature: "</span><span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>celsius<span class="op">);</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"C/"</span><span class="op">);</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>fahrenheit<span class="op">);</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"F"</span><span class="op">);</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-steps" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps">Key Steps</h3>
 <ul>
-<li>using <code>Wire.h</code> to communication using I2C</li>
+<li>Initialize the MCP9808 sensor using the <code>Seeed_MCP9808</code> library.</li>
+<li>Read the temperature in Celsius, convert it to Fahrenheit, and display both on the serial monitor.</li>
 </ul>
-<p>Here is a simple program that directly uses the <code>Wire.h</code> library to communicate with the MCP9808 sensor, avoiding the need for the <code>Seeed_MCP9808.h</code> library.</p>
-<p>This program initializes the I2C connection with the MCP9808 sensor, reads the temperature, and prints it in both Celsius and Fahrenheit:</p>
+<hr>
+</section>
+</section>
+<section id="task-2-using-wire.h-library-for-direct-i2c-communication" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="task-2-using-wire.h-library-for-direct-i2c-communication"><span class="header-section-number">8.5</span> Task 2: Using <code>Wire.h</code> Library for Direct I2C Communication</h2>
+<section id="description-1" class="level3">
+<h3 class="anchored" data-anchor-id="description-1">Description</h3>
+<p>This task involves using direct I2C communication with the MCP9808 sensor via the <code>Wire.h</code> library. Students will manually configure and communicate with the sensor to read temperature data, without relying on a sensor-specific library.</p>
+</section>
+<section id="code-1" class="level3">
+<h3 class="anchored" data-anchor-id="code-1">Code</h3>
 <div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Wire.h&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MCP9808_I2C_ADDRESS </span><span class="bn">0x18</span><span class="pp">  </span><span class="co">// Default I2C address for MCP9808</span></span>
@@ -380,19 +483,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> temp<span class="op">;</span></span>
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="explanation" class="level3" data-number="7.0.1">
-<h3 data-number="7.0.1" class="anchored" data-anchor-id="explanation"><span class="header-section-number">7.0.1</span> Explanation:</h3>
-<ol type="1">
-<li><p><strong><code>initSensor()</code></strong>: Initializes the MCP9808 sensor by setting its resolution to the highest (0.0625°C) by writing to the resolution register. It returns <code>true</code> if there was an I2C transmission failure.</p></li>
-<li><p><strong><code>readTemperature()</code></strong>:</p>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8.6</span> Conclusion</h2>
 <ul>
-<li>Reads the ambient temperature from the sensor.</li>
-<li>It retrieves 2 bytes of data (MSB and LSB) from the ambient temperature register, combines them, and converts the result into a floating-point temperature value in Celsius.</li>
-<li>If the sign bit is set, the temperature is negative.</li>
-</ul></li>
-<li><p><strong><code>loop()</code></strong>: Reads the temperature from the sensor in Celsius, converts it to Fahrenheit, and prints both values to the serial monitor every second.</p></li>
-</ol>
-<p>This code directly uses <code>Wire.h</code> to communicate with the MCP9808 sensor without any additional libraries.</p>
+<li>The MCP9808 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication.</li>
+<li>Two methods of communication were explored:
+<ol type="1">
+<li>A sensor-specific library (<code>Seeed_MCP9808</code>) for easy implementation.</li>
+<li>Direct I2C communication via the <code>Wire.h</code> library to give a more in-depth understanding of sensor interfacing.</li>
+</ol></li>
+<li>Both methods demonstrated how to read and process temperature data from the MCP9808 sensor.</li>
+</ul>
 
 
 </section>
@@ -965,12 +1069,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../exercises/3_ultrasonic_sensor.html" class="pagination-link" aria-label="Ultrasonic sensor Distance Measurement - HC-SR04">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../exercises/5_accelgyro_i2c.html" class="pagination-link" aria-label="Accelerometer and gyroscope - MPU-6050">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Accelerometer and gyroscope - MPU-6050</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

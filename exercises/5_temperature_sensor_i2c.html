@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; STMCubeIDE: Getting Started and How-Tos – Embedded C Programming Lab Manual</title>
+<title>8&nbsp; Temperature measurement using I2C - MCP9808 – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/1_uart.html" rel="next">
-<link href="../exercises.html" rel="prev">
+<link href="../exercises/6_accelgyro_i2c.html" rel="next">
+<link href="../exercises/4_ultrasonic_sensor.html" rel="prev">
 <link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/5_temperature_sensor_i2c.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link active">
+  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span></a>
   </div>
 </li>
@@ -216,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
@@ -252,21 +252,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">2.1</span> Terminology</a></li>
-  <li><a href="#recommended-conventions-for-the-lab" id="toc-recommended-conventions-for-the-lab" class="nav-link" data-scroll-target="#recommended-conventions-for-the-lab"><span class="header-section-number">2.2</span> Recommended Conventions for the lab</a></li>
-  <li><a href="#creating-an-stm32-project" id="toc-creating-an-stm32-project" class="nav-link" data-scroll-target="#creating-an-stm32-project"><span class="header-section-number">2.3</span> Creating an STM32 Project</a></li>
-  <li><a href="#generating-code-with-cubemx" id="toc-generating-code-with-cubemx" class="nav-link" data-scroll-target="#generating-code-with-cubemx"><span class="header-section-number">2.4</span> Generating code with CubeMX</a></li>
-  <li><a href="#contents-of-main.c-generated-by-cubemx" id="toc-contents-of-main.c-generated-by-cubemx" class="nav-link" data-scroll-target="#contents-of-main.c-generated-by-cubemx"><span class="header-section-number">2.5</span> Contents of main.c generated by CubeMX</a></li>
-  <li><a href="#common-problems-during-setup-and-solution" id="toc-common-problems-during-setup-and-solution" class="nav-link" data-scroll-target="#common-problems-during-setup-and-solution"><span class="header-section-number">2.6</span> Common problems during setup and solution</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><span class="header-section-number">8.1</span> Objective</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">8.2</span> Materials</a></li>
+  <li><a href="#wiring-connections" id="toc-wiring-connections" class="nav-link" data-scroll-target="#wiring-connections"><span class="header-section-number">8.3</span> Wiring Connections</a></li>
+  <li><a href="#task-1-using-seeed_mcp9808-library" id="toc-task-1-using-seeed_mcp9808-library" class="nav-link" data-scroll-target="#task-1-using-seeed_mcp9808-library"><span class="header-section-number">8.4</span> Task 1: Using <code>Seeed_MCP9808</code> Library</a>
+  <ul class="collapse">
+  <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+  <li><a href="#code" id="toc-code" class="nav-link" data-scroll-target="#code">Code</a></li>
+  <li><a href="#key-steps" id="toc-key-steps" class="nav-link" data-scroll-target="#key-steps">Key Steps</a></li>
+  </ul></li>
+  <li><a href="#task-2-using-wire.h-library-for-direct-i2c-communication" id="toc-task-2-using-wire.h-library-for-direct-i2c-communication" class="nav-link" data-scroll-target="#task-2-using-wire.h-library-for-direct-i2c-communication"><span class="header-section-number">8.5</span> Task 2: Using <code>Wire.h</code> Library for Direct I2C Communication</a>
+  <ul class="collapse">
+  <li><a href="#description-1" id="toc-description-1" class="nav-link" data-scroll-target="#description-1">Description</a></li>
+  <li><a href="#code-1" id="toc-code-1" class="nav-link" data-scroll-target="#code-1">Code</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">8.6</span> Conclusion</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/5_temperature_sensor_i2c.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></h1>
 </div>
 
 
@@ -283,121 +292,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial assumes that STMCubeIDE is already installed in the system. If not it can be downloaded and installed from <a href="https://www.st.com/en/development-tools/stm32cubeide.html" target="_blank">here</a>.</p>
-<section id="terminology" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">2.1</span> Terminology</h2>
-<ul>
-<li><strong>STMCubeIDE</strong> - An development environment containing many tools that are required in stm32 based project development.</li>
-<li><strong>STMCubeMX</strong> - A Configuration and Initialization code generation tool used for configuration of different peripherals.</li>
-<li><strong>.ioc file</strong> - A file generated by STMCubeMX, containing the configuration, when opened with STMCubeIDE will open an CubeMX window.</li>
-<li><strong>Workspace</strong> - An workspace is a parent directory(or folder) which will contain a group of projects(seperate exercises).</li>
-<li><strong>Project</strong> - A subfolder within a workspace containing all the source files, libraries and .ioc file for a particular program which can be uploaded at a time in the development board.</li>
-</ul>
-</section>
-<section id="recommended-conventions-for-the-lab" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="recommended-conventions-for-the-lab"><span class="header-section-number">2.2</span> Recommended Conventions for the lab</h2>
-<ul>
-<li>Use a new workspace named ‘embedded_c_lab’.</li>
-<li>Name the projects accordingly as <code>'{exercise_no}.{task_no}_{name of the exercise}'</code> (Eg, <code>1.2_serial_loopback</code>) so that it will be displayed in the explorer in an ordered fashion.</li>
-</ul>
-</section>
-<section id="creating-an-stm32-project" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="creating-an-stm32-project"><span class="header-section-number">2.3</span> Creating an STM32 Project</h2>
-<ol type="1">
-<li>Open STMCubeIDE and create a new STM32 project. Refer <a href="https://wiki.st.com/stm32mpu/wiki/How_to_get_started_with_STM32CubeIDE_from_scratch" target="_blank">this</a> for more info.</li>
-<li>From the Target Selection dialog box select the <strong>“Board Selector”</strong> tab and in the commercial part number, type <strong>“Nucleo-F767ZI”</strong>, select the board and click next.<img src="../assets/board_selection.png" class="img-fluid" alt="Board Selection"></li>
-<li>Go with the default settings and finish the setup. <img src="../assets/project_setup.png" class="img-fluid" alt="Project Setup Confirmation">.</li>
-<li>Initalize peripherals in default mode(if needed you can start blank). <img src="../assets/board_project_options.png" class="img-fluid" alt="Pheripheral setup"></li>
-</ol>
-</section>
-<section id="generating-code-with-cubemx" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="generating-code-with-cubemx"><span class="header-section-number">2.4</span> Generating code with CubeMX</h2>
-<p>The CubeMX window can be opened by opening the <code>{project_name}.ioc</code> file inside the project folder. When the changes in the <code>.ioc</code> file is saved it will prompt you to generate code.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can also generate code after configuration using <code>Project-&gt;Generate Code</code> from the menu bar.</p>
-</div>
-</div>
-<p>After generating code using CubeMX you will find some directories in your project folder.</p>
-<p>For this lab we will be only editing the <code>/{project_name}/Core/Src/main.c</code>, which has the main program that need to be executed.</p>
-</section>
-<section id="contents-of-main.c-generated-by-cubemx" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="contents-of-main.c-generated-by-cubemx"><span class="header-section-number">2.5</span> Contents of main.c generated by CubeMX</h2>
-<p>In the <code>main.c</code> file you can find the code generated by CubeMX and different sections for user code identified by comments of the below format.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> &lt;section_name&gt; */</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> &lt;section_name&gt; */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>These lines from <code>main.c</code> won’t be changed even if the configuration from the CubeMX are changed.</p>
-<p>For this lab we will be writing codes in the below user slots.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Section Name</th>
-<th>Postion</th>
-<th>Usecase</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Includes<br>PTD<br>PD<br>PM</td>
-<td>after default includes</td>
-<td>For user includes, typedefs, defines, and macros respectively.</td>
-</tr>
-<tr class="even">
-<td>PV</td>
-<td>before main function</td>
-<td>For global variables.</td>
-</tr>
-<tr class="odd">
-<td>PFP</td>
-<td>before main function</td>
-<td>For user-defined function prototypes.</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>before main function</td>
-<td>For user-defined functions</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>inside main function before hal init</td>
-<td>HAL functions <strong>cannot</strong> be used here. Can be used to initialize local variables used in the main function.</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>inside main function after hal init</td>
-<td>HAL functions can be used here. Can be used for running HAL functions once during start.</td>
-</tr>
-<tr class="odd">
-<td>WHILE</td>
-<td>inside main inside while loop</td>
-<td>The code for the main loop</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>inside main after the while loop</td>
-<td>This can be used for programs that breaks the while loop after some time.</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>after the main function after basic configs</td>
-<td>This can be used for callbacks and ISR.</td>
-</tr>
-</tbody>
-</table>
+<section id="objective" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="objective"><span class="header-section-number">8.1</span> Objective</h2>
+<p>By the end of this exercise, students will: - Interface the MCP9808 temperature sensor with the STM32 Nucleo-144 F767ZI board using I2C communication. - Measure temperature in both Celsius and Fahrenheit using two methods: 1. Sensor-specific library (<code>Seeed_MCP9808</code>). 2. Direct I2C communication via <code>Wire.h</code> library.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -408,31 +305,211 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Code Examples given for CubeMX generated code will have two views in this manual which can be toggled.</p>
-<ol type="1">
-<li><strong>Single View</strong> - This view will <strong>have the overall structure of the code</strong> with only the user code slots surrounded by the slot comments as described above and not the complete code.</li>
-<li><strong>Parts View</strong> - This view will have the individual user sections as seperate code blocks, making it easier for <strong>copy pasting into the IDE</strong>.</li>
-</ol>
+<p>The <code>Seeed_MCP9808</code> library can be downloaded as zip from <a href="https://github.com/Seeed-Studio/Grove_Temperature_sensor_MCP9808">here</a>. You can add this library to the arduino sketch by <code>Sketch-&gt;Include Library-&gt;Add .zip Library</code>.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
 </div>
 </div>
 </section>
-<section id="common-problems-during-setup-and-solution" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="common-problems-during-setup-and-solution"><span class="header-section-number">2.6</span> Common problems during setup and solution</h2>
-<details>
-<summary>
-Cannot open workspace, workspace is currently in use
-</summary>
-Kill the CubeIDE process and delete the <code>.lock</code> file in the <code>.metadata</code> directory in your eclipse workspace directory. <strong>Precaution</strong> - If you delete the <code>.metadata</code> folder all preference will be deleted.
-</details>
-<details>
-<summary>
-arm-none-eabi-gdb –version /lib/libncurses.so.5 not found
-</summary>
+<section id="materials" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">8.2</span> Materials</h2>
 <ul>
-<li>In ubuntu, install libncurses5 using <code>sudo apt-get install libncurses5</code>.</li>
-<li>In Arch or Manjaro, install compatibility libs using <code>pamac install ncurses5-compat-libs</code>.</li>
+<li>STM Nucleo-144 F767ZI development board.</li>
+<li>MCP9808 temperature sensor - <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf">Datasheet</a>.</li>
+<li>Jumper wires.</li>
+<li>CubeIDE or Arduino IDE with STM32Duino.</li>
 </ul>
-</details>
+</section>
+<section id="wiring-connections" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="wiring-connections"><span class="header-section-number">8.3</span> Wiring Connections</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MCP9808 Pin</th>
+<th>Nucleo-144 Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VCC</td>
+<td>3.3V</td>
+</tr>
+<tr class="even">
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>SDA</td>
+<td>D14/SDA</td>
+</tr>
+<tr class="even">
+<td>SCL</td>
+<td>D15/SCL</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="task-1-using-seeed_mcp9808-library" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="task-1-using-seeed_mcp9808-library"><span class="header-section-number">8.4</span> Task 1: Using <code>Seeed_MCP9808</code> Library</h2>
+<section id="description" class="level3">
+<h3 class="anchored" data-anchor-id="description">Description</h3>
+<p>In this task, the MCP9808 sensor is interfaced using the <code>Seeed_MCP9808</code> library. The library abstracts the I2C communication, to easily read the temperature in Celsius and convert it to Fahrenheit.</p>
+</section>
+<section id="code" class="level3">
+<h3 class="anchored" data-anchor-id="code">Code</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"Seeed_MCP9808.h"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>MCP9808 sensor<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>sensor<span class="op">.</span>init<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init failed."</span><span class="op">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init success."</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> celsius <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  sensor<span class="op">.</span>get_temp<span class="op">(&amp;</span>celsius<span class="op">);</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> fahrenheit <span class="op">=</span> celsius <span class="op">*</span> <span class="dv">9</span> <span class="op">/</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Temperature: "</span><span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>celsius<span class="op">);</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"C/"</span><span class="op">);</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>fahrenheit<span class="op">);</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"F"</span><span class="op">);</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-steps" class="level3">
+<h3 class="anchored" data-anchor-id="key-steps">Key Steps</h3>
+<ul>
+<li>Initialize the MCP9808 sensor using the <code>Seeed_MCP9808</code> library.</li>
+<li>Read the temperature in Celsius, convert it to Fahrenheit, and display both on the serial monitor.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="task-2-using-wire.h-library-for-direct-i2c-communication" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="task-2-using-wire.h-library-for-direct-i2c-communication"><span class="header-section-number">8.5</span> Task 2: Using <code>Wire.h</code> Library for Direct I2C Communication</h2>
+<section id="description-1" class="level3">
+<h3 class="anchored" data-anchor-id="description-1">Description</h3>
+<p>This task involves using direct I2C communication with the MCP9808 sensor via the <code>Wire.h</code> library. Students will manually configure and communicate with the sensor to read temperature data, without relying on a sensor-specific library.</p>
+</section>
+<section id="code-1" class="level3">
+<h3 class="anchored" data-anchor-id="code-1">Code</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;Wire.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#define MCP9808_I2C_ADDRESS </span><span class="bn">0x18</span><span class="pp">  </span><span class="co">// Default I2C address for MCP9808</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#define AMBIENT_TEMP_REG </span><span class="bn">0x05</span><span class="pp">     </span><span class="co">// Ambient temperature register</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#define RESOLUTION_REG </span><span class="bn">0x08</span><span class="pp">       </span><span class="co">// Resolution register</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#define RESOLUTION_0_0625_DEGREE </span><span class="bn">0x03</span><span class="pp"> </span><span class="co">// Highest resolution</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>begin<span class="op">();</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">9600</span><span class="op">);</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize the sensor</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>initSensor<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init failed."</span><span class="op">);</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Sensor init success."</span><span class="op">);</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> celsius <span class="op">=</span> readTemperature<span class="op">();</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> fahrenheit <span class="op">=</span> celsius <span class="op">*</span> <span class="fl">9.0</span> <span class="op">/</span> <span class="fl">5.0</span> <span class="op">+</span> <span class="dv">32</span><span class="op">;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"Temperature: "</span><span class="op">);</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>celsius<span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">" C / "</span><span class="op">);</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>fahrenheit<span class="op">);</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">" F"</span><span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">1000</span><span class="op">);</span>  <span class="co">// Wait 1 second before reading the temperature again</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to initialize the sensor</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> initSensor<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>beginTransmission<span class="op">(</span>MCP9808_I2C_ADDRESS<span class="op">);</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>write<span class="op">(</span>RESOLUTION_REG<span class="op">);</span>           <span class="co">// Set the resolution register</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>write<span class="op">(</span>RESOLUTION_0_0625_DEGREE<span class="op">);</span> <span class="co">// Set highest resolution (0.0625°C)</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="op">(</span>Wire<span class="op">.</span>endTransmission<span class="op">()</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">);</span> <span class="co">// Check for I2C transmission success</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">// Function to read temperature from the MCP9808 sensor</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> readTemperature<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>beginTransmission<span class="op">(</span>MCP9808_I2C_ADDRESS<span class="op">);</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>write<span class="op">(</span>AMBIENT_TEMP_REG<span class="op">);</span>  <span class="co">// Set pointer to the temperature register</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>endTransmission<span class="op">();</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>requestFrom<span class="op">(</span>MCP9808_I2C_ADDRESS<span class="op">,</span> <span class="dv">2</span><span class="op">);</span>  <span class="co">// Request 2 bytes from sensor</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>Wire<span class="op">.</span>available<span class="op">()</span> <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> NAN<span class="op">;</span>  <span class="co">// If data not available, return not-a-number (NAN)</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Read the 2 bytes of temperature data</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint8_t</span> msb <span class="op">=</span> Wire<span class="op">.</span>read<span class="op">();</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint8_t</span> lsb <span class="op">=</span> Wire<span class="op">.</span>read<span class="op">();</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Combine the two bytes into a 16-bit unsigned integer</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="dt">uint16_t</span> rawTemp <span class="op">=</span> <span class="op">((</span><span class="dt">uint16_t</span><span class="op">)</span>msb <span class="op">&lt;&lt;</span> <span class="dv">8</span><span class="op">)</span> <span class="op">|</span> lsb<span class="op">;</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Mask out the sign bit (bit 12) and calculate the temperature</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>  rawTemp <span class="op">&amp;=</span> <span class="bn">0x0FFF</span><span class="op">;</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="dt">float</span> temp <span class="op">=</span> rawTemp <span class="op">*</span> <span class="fl">0.0625</span><span class="op">;</span>  <span class="co">// Each increment represents 0.0625°C</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  <span class="co">// If the sign bit is set, the temperature is negative</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="op">(</span>msb <span class="op">&amp;</span> <span class="bn">0x10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    temp <span class="op">-=</span> <span class="dv">256</span><span class="op">;</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> temp<span class="op">;</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Bonus Task</strong>: Modify the code from task 2, to read the temperature at a different resolution.(Refer <a href="https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf">Datasheet</a> for the Resolution Register values.)</p>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">8.6</span> Conclusion</h2>
+<ul>
+<li>The MCP9808 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication.</li>
+<li>Two methods of communication were explored:
+<ol type="1">
+<li>A sensor-specific library (<code>Seeed_MCP9808</code>) for easy implementation.</li>
+<li>Direct I2C communication via the <code>Wire.h</code> library to give a more in-depth understanding of sensor interfacing.</li>
+</ol></li>
+<li>Both methods demonstrated how to read and process temperature data from the MCP9808 sensor.</li>
+</ul>
 
 
 </section>
@@ -1004,13 +1081,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises.html" class="pagination-link" aria-label="List of exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span>
+      <a href="../exercises/4_ultrasonic_sensor.html" class="pagination-link" aria-label="Ultrasonic sensor Distance Measurement - HC-SR04">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/1_uart.html" class="pagination-link" aria-label="UART Serial Communication using STM32 HAL">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../exercises/6_accelgyro_i2c.html" class="pagination-link" aria-label="**Accelerometer and Gyroscope - MPU-6050**">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

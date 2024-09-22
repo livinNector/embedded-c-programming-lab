@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – Embedded C Programming Lab Manual</title>
+<title>6&nbsp; GPIO using STM32Duino – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,48 +20,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./summary.html" rel="prev">
-<link href="./logo.ico" rel="icon">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../exercises/4_ultrasonic_sensor.html" rel="next">
+<link href="../getting_started/arduino_ide_with_stm32duino.html" rel="prev">
+<link href="../logo.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -102,7 +118,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/3_arduino_gpio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -117,7 +133,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Embedded C Programming Lab Manual</a> 
+      <a href="../">Embedded C Programming Lab Manual</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
@@ -132,13 +148,13 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span></a>
   </div>
 </li>
@@ -153,19 +169,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/1_uart.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/1_uart.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/2_gpio.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/2_gpio.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt</span></span></a>
   </div>
 </li>
@@ -182,31 +198,31 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./getting_started/arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
+  <a href="../getting_started/arduino_ide_with_stm32duino.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Arduino IDE: Getting Started and How-tos</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/3_arduino_gpio.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/3_arduino_gpio.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/4_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/4_ultrasonic_sensor.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/5_temperature_sensor_i2c.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></span></a>
   </div>
 </li>
@@ -214,13 +230,13 @@ div.csl-indent {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
+  <a href="../summary.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -230,16 +246,49 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
-<p><img src="./embedded_c_lab_logo.png" class="img-fluid"></p>
+<p><img src="../embedded_c_lab_logo.png" class="img-fluid"></p>
 </div></div>
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives"><span class="header-section-number">6.1</span> Objectives</a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><span class="header-section-number">6.2</span> Materials</a></li>
+  <li><a href="#part-1-simple-blink-gpio-digital-output" id="toc-part-1-simple-blink-gpio-digital-output" class="nav-link" data-scroll-target="#part-1-simple-blink-gpio-digital-output"><span class="header-section-number">6.3</span> Part 1: Simple Blink (GPIO Digital Output)</a>
+  <ul class="collapse">
+  <li><a href="#steps" id="toc-steps" class="nav-link" data-scroll-target="#steps">Steps</a></li>
+  <li><a href="#expected-output" id="toc-expected-output" class="nav-link" data-scroll-target="#expected-output">Expected Output</a></li>
+  <li><a href="#tasks" id="toc-tasks" class="nav-link" data-scroll-target="#tasks">Tasks</a></li>
+  </ul></li>
+  <li><a href="#part-2-debounce-gpio-digital-input" id="toc-part-2-debounce-gpio-digital-input" class="nav-link" data-scroll-target="#part-2-debounce-gpio-digital-input"><span class="header-section-number">6.4</span> Part 2: Debounce (GPIO Digital Input)</a>
+  <ul class="collapse">
+  <li><a href="#steps-1" id="toc-steps-1" class="nav-link" data-scroll-target="#steps-1">Steps</a></li>
+  <li><a href="#expected-output-1" id="toc-expected-output-1" class="nav-link" data-scroll-target="#expected-output-1">Expected Output</a></li>
+  <li><a href="#tasks-1" id="toc-tasks-1" class="nav-link" data-scroll-target="#tasks-1">Tasks</a></li>
+  </ul></li>
+  <li><a href="#part-3-fading-gpio-analog-output" id="toc-part-3-fading-gpio-analog-output" class="nav-link" data-scroll-target="#part-3-fading-gpio-analog-output"><span class="header-section-number">6.5</span> Part 3: Fading (GPIO Analog Output)</a>
+  <ul class="collapse">
+  <li><a href="#steps-2" id="toc-steps-2" class="nav-link" data-scroll-target="#steps-2">Steps</a></li>
+  <li><a href="#expected-output-2" id="toc-expected-output-2" class="nav-link" data-scroll-target="#expected-output-2">Expected Output</a></li>
+  <li><a href="#task" id="toc-task" class="nav-link" data-scroll-target="#task">Task</a></li>
+  </ul></li>
+  <li><a href="#part-4-calibration-gpio-analog-input" id="toc-part-4-calibration-gpio-analog-input" class="nav-link" data-scroll-target="#part-4-calibration-gpio-analog-input"><span class="header-section-number">6.6</span> Part 4: Calibration (GPIO Analog Input)</a>
+  <ul class="collapse">
+  <li><a href="#steps-3" id="toc-steps-3" class="nav-link" data-scroll-target="#steps-3">Steps</a></li>
+  <li><a href="#code-example-modified-from-the-calibration-example" id="toc-code-example-modified-from-the-calibration-example" class="nav-link" data-scroll-target="#code-example-modified-from-the-calibration-example">Code Example (Modified from the calibration example)</a></li>
+  <li><a href="#expected-output-3" id="toc-expected-output-3" class="nav-link" data-scroll-target="#expected-output-3">Expected Output</a></li>
+  <li><a href="#tasks-2" id="toc-tasks-2" class="nav-link" data-scroll-target="#tasks-2">Tasks</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">6.7</span> Conclusion</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/3_arduino_gpio.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">GPIO using STM32Duino</span></h1>
 </div>
 
 
@@ -256,11 +305,199 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" role="list" style="display: none">
+<section id="objectives" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="objectives"><span class="header-section-number">6.1</span> Objectives</h2>
+<ul>
+<li>Understand and experiment with <strong>GPIO Digital Output</strong>, <strong>GPIO Digital Input</strong>, and <strong>GPIO Analog Input/Output</strong> on the STM32 Nucleo-144 F767ZI board using <strong>STM32Duino</strong>.</li>
+<li>Learn to use basic example sketches in Arduino IDE for controlling LEDs and reading inputs.</li>
+</ul>
+<hr>
+</section>
+<section id="materials" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="materials"><span class="header-section-number">6.2</span> Materials</h2>
+<ul>
+<li>STM32 Nucleo-144 F767ZI development board.</li>
+<li>Arduino IDE with STM32Duino configured.</li>
+<li>Jumper wires.</li>
+<li>Potentiometer (for analog input task).</li>
+</ul>
+<hr>
+</section>
+<section id="part-1-simple-blink-gpio-digital-output" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="part-1-simple-blink-gpio-digital-output"><span class="header-section-number">6.3</span> Part 1: Simple Blink (GPIO Digital Output)</h2>
+<section id="steps" class="level3">
+<h3 class="anchored" data-anchor-id="steps">Steps</h3>
+<ol type="1">
+<li>In Arduino IDE, go to <code>File -&gt; Examples -&gt; 01.Basics -&gt; Blink</code>. A new sketch will open.</li>
+<li>Ensure that <strong>Nucleo-144</strong> is selected as the board. If it is not selected, choose it from the dropdown menu.</li>
+<li>The code will reference <code>LED_BUILTIN</code>, which corresponds to the built-in LED on <code>PB0 (LD1)</code> on the Nucleo-F767ZI board.</li>
+<li>Upload the sketch to the STM32 Nucleo-144 board.</li>
+</ol>
+</section>
+<section id="expected-output" class="level3">
+<h3 class="anchored" data-anchor-id="expected-output">Expected Output</h3>
+<ul>
+<li>The built-in LED on <strong>PB0</strong> will blink on and off with a 1-second delay.</li>
+</ul>
+</section>
+<section id="tasks" class="level3">
+<h3 class="anchored" data-anchor-id="tasks">Tasks</h3>
+<ul>
+<li>Modify the sketch to make all built-in LEDs (on <code>PB0</code>, <code>PB7</code>, and <code>PB14</code>) blink.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-2-debounce-gpio-digital-input" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="part-2-debounce-gpio-digital-input"><span class="header-section-number">6.4</span> Part 2: Debounce (GPIO Digital Input)</h2>
+<section id="steps-1" class="level3">
+<h3 class="anchored" data-anchor-id="steps-1">Steps</h3>
+<ol type="1">
+<li>In Arduino IDE, go to <code>File -&gt; Examples -&gt; 02.Digital -&gt; Debounce</code>. A new sketch will open.</li>
+<li>Ensure the board is correctly selected (Nucleo-144).</li>
+<li>Set <code>btnPin</code> to <code>PC13</code> (the onboard button).</li>
+<li>Set <code>ledPin</code> to one of the built-in LEDs (e.g., <code>PB0</code>).</li>
+<li>Upload the sketch to the STM32 board.</li>
+</ol>
+</section>
+<section id="expected-output-1" class="level3">
+<h3 class="anchored" data-anchor-id="expected-output-1">Expected Output</h3>
+<ul>
+<li>The LED will toggle between ON and OFF each time the button is pressed, with debounce logic to filter out noise from the button.</li>
+</ul>
+</section>
+<section id="tasks-1" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-1">Tasks</h3>
+<ul>
+<li>Modify the sketch so that each button press cycles through turning <code>PB0</code>, <code>PB7</code>, and <code>PB14</code> on and off in sequence (cycling the built-in LEDs).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-3-fading-gpio-analog-output" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="part-3-fading-gpio-analog-output"><span class="header-section-number">6.5</span> Part 3: Fading (GPIO Analog Output)</h2>
+<section id="steps-2" class="level3">
+<h3 class="anchored" data-anchor-id="steps-2">Steps</h3>
+<ol type="1">
+<li>In Arduino IDE, go to <code>File -&gt; Examples -&gt; 03.Analog -&gt; Fading</code>. A new sketch will open.</li>
+<li>Use <code>PB0</code> for the built-in LED (<code>LED_BUILTIN</code>).</li>
+<li>Upload the sketch to the STM32 board.</li>
+</ol>
+</section>
+<section id="expected-output-2" class="level3">
+<h3 class="anchored" data-anchor-id="expected-output-2">Expected Output</h3>
+<ul>
+<li>The built-in LED will gradually fade in and fade out.</li>
+</ul>
+</section>
+<section id="task" class="level3">
+<h3 class="anchored" data-anchor-id="task">Task</h3>
+<ul>
+<li>Modify the code to alternately fade <code>PB0</code> and <code>PB7</code> so that one fades in while the other fades out, and vice versa.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="part-4-calibration-gpio-analog-input" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="part-4-calibration-gpio-analog-input"><span class="header-section-number">6.6</span> Part 4: Calibration (GPIO Analog Input)</h2>
+<section id="steps-3" class="level3">
+<h3 class="anchored" data-anchor-id="steps-3">Steps</h3>
+<ol type="1">
+<li>In Arduino IDE, go to <code>File -&gt; Examples -&gt; 03.Analog -&gt; Calibration</code>. A new sketch will open.</li>
+<li>Connect a potentiometer to <code>A0</code> for analog input.</li>
+<li>Use <code>PB0</code> for the LED output.</li>
+<li>Use <code>PB7</code> to indicate calibration period.</li>
+<li>This sketch calibrates the sensor (potentiometer) over the first 5 seconds to detect its minimum and maximum values, then maps the sensor readings to adjust the brightness of the LED on <code>PB0</code>.</li>
+<li>Change the calibration time to 10 seconds and try turning the potentiometer knob to both extends as possible.</li>
+<li>Upload the sketch to the STM32 board.</li>
+</ol>
+</section>
+<section id="code-example-modified-from-the-calibration-example" class="level3">
+<h3 class="anchored" data-anchor-id="code-example-modified-from-the-calibration-example">Code Example (Modified from the calibration example)</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">int</span> sensorPin <span class="op">=</span> A0<span class="op">;</span>  <span class="co">// pin that the sensor is attached to</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">int</span> ledPin <span class="op">=</span> PB0<span class="op">;</span>      <span class="co">// pin that the LED is attached to</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">const</span> <span class="dt">int</span> indicatorLed <span class="op">=</span> PB7<span class="op">;</span><span class="co">// pin to indicate the calibration period</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// variables:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sensorValue <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>   <span class="co">// the sensor value</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sensorMin <span class="op">=</span> <span class="dv">1023</span><span class="op">;</span>  <span class="co">// minimum sensor value</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> sensorMax <span class="op">=</span> <span class="dv">0</span><span class="op">;</span>     <span class="co">// maximum sensor value</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// turn on LED to signal the start of the calibration period:</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>indicatorLed<span class="op">,</span> OUTPUT<span class="op">);</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>indicatorLed<span class="op">,</span> HIGH<span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// calibrate during the first five seconds</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>millis<span class="op">()</span> <span class="op">&lt;</span> <span class="dv">10000</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    sensorValue <span class="op">=</span> analogRead<span class="op">(</span>sensorPin<span class="op">);</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// record the maximum sensor value</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>sensorValue <span class="op">&gt;</span> sensorMax<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      sensorMax <span class="op">=</span> sensorValue<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">// record the minimum sensor value</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>sensorValue <span class="op">&lt;</span> sensorMin<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>      sensorMin <span class="op">=</span> sensorValue<span class="op">;</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"sensorMin:"</span><span class="op">);</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>sensorMin<span class="op">);</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="ch">','</span><span class="op">);</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"sensorMax:"</span><span class="op">);</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span>sensorMax<span class="op">);</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="ch">','</span><span class="op">);</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"sensorValue:"</span><span class="op">);</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    Serial<span class="op">.</span>println<span class="op">(</span>sensorValue<span class="op">);</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span>  </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Calibration Done."</span><span class="op">);</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="co">// signal the end of the calibration period</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>indicatorLed<span class="op">,</span> LOW<span class="op">);</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="co">// read the sensor:</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  sensorValue <span class="op">=</span> analogRead<span class="op">(</span>sensorPin<span class="op">);</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">// in case the sensor value is outside the range seen during calibration</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  sensorValue <span class="op">=</span> constrain<span class="op">(</span>sensorValue<span class="op">,</span> sensorMin<span class="op">,</span> sensorMax<span class="op">);</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="co">// apply the calibration to the sensor reading</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  sensorValue <span class="op">=</span> map<span class="op">(</span>sensorValue<span class="op">,</span> sensorMin<span class="op">,</span> sensorMax<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">255</span><span class="op">);</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="co">// fade the LED using the calibrated value:</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  analogWrite<span class="op">(</span>ledPin<span class="op">,</span> sensorValue<span class="op">);</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="expected-output-3" class="level3">
+<h3 class="anchored" data-anchor-id="expected-output-3">Expected Output</h3>
+<ul>
+<li>During the first 10 seconds, the sensor will calibrate its minimum and maximum values based on the potentiometer input.</li>
+<li>After calibration, the LED brightness will adjust based on the potentiometer’s position, with the sensor values mapped between 0 and 255 to control the PWM output on <code>P0</code>.</li>
+</ul>
+</section>
+<section id="tasks-2" class="level3">
+<h3 class="anchored" data-anchor-id="tasks-2">Tasks</h3>
+<ul>
+<li>Try modifying the code to calibrate until the user button is presses instead of using a fixed time window.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">6.7</span> Conclusion</h2>
+<p>This exercise introduces basic GPIO operations using <strong>STM32Duino</strong> on the <strong>STM32 Nucleo-144 F767ZI</strong> board. Students learned how to:</p>
+<ul>
+<li>Control LEDs using <strong>digital output</strong> (Simple Blink).</li>
+<li>Handle button presses using <strong>digital input</strong> with <strong>debouncing</strong> (Debounce).</li>
+<li>Create <strong>fading effects</strong> with <strong>analog output</strong> (Fading).</li>
+<li>Read and map analog input data from a potentiometer to control the brightness of an LED (Calibration).</li>
+</ul>
+<p>These examples serve as foundational tasks to deepen the understanding of GPIO handling in embedded systems.</p>
 
-</div>
 
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -829,11 +1066,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./summary.html" class="pagination-link" aria-label="Summary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span>
+      <a href="../getting_started/arduino_ide_with_stm32duino.html" class="pagination-link" aria-label="Arduino IDE: Getting Started and How-tos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Arduino IDE: Getting Started and How-tos</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../exercises/4_ultrasonic_sensor.html" class="pagination-link" aria-label="Ultrasonic sensor Distance Measurement - HC-SR04">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ultrasonic sensor Distance Measurement - HC-SR04</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

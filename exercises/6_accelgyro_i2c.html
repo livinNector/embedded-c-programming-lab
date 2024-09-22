@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; STMCubeIDE: Getting Started and How-Tos – Embedded C Programming Lab Manual</title>
+<title>9&nbsp; Accelerometer and Gyroscope - MPU-6050 – Embedded C Programming Lab Manual</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../exercises/1_uart.html" rel="next">
-<link href="../exercises.html" rel="prev">
+<link href="../summary.html" rel="next">
+<link href="../exercises/5_temperature_sensor_i2c.html" rel="prev">
 <link href="../logo.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -118,7 +118,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/6_accelgyro_i2c.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -169,7 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link active">
+  <a href="../getting_started/stmcube_ide_getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></span></a>
   </div>
 </li>
@@ -222,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../exercises/6_accelgyro_i2c.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></span></a>
   </div>
 </li>
@@ -252,21 +252,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">2.1</span> Terminology</a></li>
-  <li><a href="#recommended-conventions-for-the-lab" id="toc-recommended-conventions-for-the-lab" class="nav-link" data-scroll-target="#recommended-conventions-for-the-lab"><span class="header-section-number">2.2</span> Recommended Conventions for the lab</a></li>
-  <li><a href="#creating-an-stm32-project" id="toc-creating-an-stm32-project" class="nav-link" data-scroll-target="#creating-an-stm32-project"><span class="header-section-number">2.3</span> Creating an STM32 Project</a></li>
-  <li><a href="#generating-code-with-cubemx" id="toc-generating-code-with-cubemx" class="nav-link" data-scroll-target="#generating-code-with-cubemx"><span class="header-section-number">2.4</span> Generating code with CubeMX</a></li>
-  <li><a href="#contents-of-main.c-generated-by-cubemx" id="toc-contents-of-main.c-generated-by-cubemx" class="nav-link" data-scroll-target="#contents-of-main.c-generated-by-cubemx"><span class="header-section-number">2.5</span> Contents of main.c generated by CubeMX</a></li>
-  <li><a href="#common-problems-during-setup-and-solution" id="toc-common-problems-during-setup-and-solution" class="nav-link" data-scroll-target="#common-problems-during-setup-and-solution"><span class="header-section-number">2.6</span> Common problems during setup and solution</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective"><strong>Objective:</strong></a></li>
+  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials"><strong>Materials:</strong></a></li>
+  <li><a href="#wiring-connections" id="toc-wiring-connections" class="nav-link" data-scroll-target="#wiring-connections"><strong>Wiring Connections:</strong></a></li>
+  <li><a href="#task-1-basic-reading-of-accelerometer-and-gyroscope-data" id="toc-task-1-basic-reading-of-accelerometer-and-gyroscope-data" class="nav-link" data-scroll-target="#task-1-basic-reading-of-accelerometer-and-gyroscope-data"><strong>Task 1: Basic Reading of Accelerometer and Gyroscope Data</strong></a></li>
+  <li><a href="#task-2-averaging-the-readings-over-20-samples" id="toc-task-2-averaging-the-readings-over-20-samples" class="nav-link" data-scroll-target="#task-2-averaging-the-readings-over-20-samples"><strong>Task 2: Averaging the Readings Over 20 Samples</strong></a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><strong>Conclusion:</strong></a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><strong>Using STMCubeIDE with STM HAL</strong></a></li><li class="breadcrumb-item"><a href="../getting_started/stmcube_ide_getting_started.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../getting_started/arduino_ide_with_stm32duino.html"><strong>Using Arduino IDE with stm32duino</strong></a></li><li class="breadcrumb-item"><a href="../exercises/6_accelgyro_i2c.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">STMCubeIDE: Getting Started and How-Tos</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><strong>Accelerometer and Gyroscope - MPU-6050</strong></span></h1>
 </div>
 
 
@@ -283,121 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This tutorial assumes that STMCubeIDE is already installed in the system. If not it can be downloaded and installed from <a href="https://www.st.com/en/development-tools/stm32cubeide.html" target="_blank">here</a>.</p>
-<section id="terminology" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">2.1</span> Terminology</h2>
-<ul>
-<li><strong>STMCubeIDE</strong> - An development environment containing many tools that are required in stm32 based project development.</li>
-<li><strong>STMCubeMX</strong> - A Configuration and Initialization code generation tool used for configuration of different peripherals.</li>
-<li><strong>.ioc file</strong> - A file generated by STMCubeMX, containing the configuration, when opened with STMCubeIDE will open an CubeMX window.</li>
-<li><strong>Workspace</strong> - An workspace is a parent directory(or folder) which will contain a group of projects(seperate exercises).</li>
-<li><strong>Project</strong> - A subfolder within a workspace containing all the source files, libraries and .ioc file for a particular program which can be uploaded at a time in the development board.</li>
-</ul>
-</section>
-<section id="recommended-conventions-for-the-lab" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="recommended-conventions-for-the-lab"><span class="header-section-number">2.2</span> Recommended Conventions for the lab</h2>
-<ul>
-<li>Use a new workspace named ‘embedded_c_lab’.</li>
-<li>Name the projects accordingly as <code>'{exercise_no}.{task_no}_{name of the exercise}'</code> (Eg, <code>1.2_serial_loopback</code>) so that it will be displayed in the explorer in an ordered fashion.</li>
-</ul>
-</section>
-<section id="creating-an-stm32-project" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="creating-an-stm32-project"><span class="header-section-number">2.3</span> Creating an STM32 Project</h2>
-<ol type="1">
-<li>Open STMCubeIDE and create a new STM32 project. Refer <a href="https://wiki.st.com/stm32mpu/wiki/How_to_get_started_with_STM32CubeIDE_from_scratch" target="_blank">this</a> for more info.</li>
-<li>From the Target Selection dialog box select the <strong>“Board Selector”</strong> tab and in the commercial part number, type <strong>“Nucleo-F767ZI”</strong>, select the board and click next.<img src="../assets/board_selection.png" class="img-fluid" alt="Board Selection"></li>
-<li>Go with the default settings and finish the setup. <img src="../assets/project_setup.png" class="img-fluid" alt="Project Setup Confirmation">.</li>
-<li>Initalize peripherals in default mode(if needed you can start blank). <img src="../assets/board_project_options.png" class="img-fluid" alt="Pheripheral setup"></li>
-</ol>
-</section>
-<section id="generating-code-with-cubemx" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="generating-code-with-cubemx"><span class="header-section-number">2.4</span> Generating code with CubeMX</h2>
-<p>The CubeMX window can be opened by opening the <code>{project_name}.ioc</code> file inside the project folder. When the changes in the <code>.ioc</code> file is saved it will prompt you to generate code.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You can also generate code after configuration using <code>Project-&gt;Generate Code</code> from the menu bar.</p>
-</div>
-</div>
-<p>After generating code using CubeMX you will find some directories in your project folder.</p>
-<p>For this lab we will be only editing the <code>/{project_name}/Core/Src/main.c</code>, which has the main program that need to be executed.</p>
-</section>
-<section id="contents-of-main.c-generated-by-cubemx" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="contents-of-main.c-generated-by-cubemx"><span class="header-section-number">2.5</span> Contents of main.c generated by CubeMX</h2>
-<p>In the <code>main.c</code> file you can find the code generated by CubeMX and different sections for user code identified by comments of the below format.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">BEGIN</span><span class="co"> &lt;section_name&gt; */</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">/* USER CODE </span><span class="re">END</span><span class="co"> &lt;section_name&gt; */</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>These lines from <code>main.c</code> won’t be changed even if the configuration from the CubeMX are changed.</p>
-<p>For this lab we will be writing codes in the below user slots.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Section Name</th>
-<th>Postion</th>
-<th>Usecase</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Includes<br>PTD<br>PD<br>PM</td>
-<td>after default includes</td>
-<td>For user includes, typedefs, defines, and macros respectively.</td>
-</tr>
-<tr class="even">
-<td>PV</td>
-<td>before main function</td>
-<td>For global variables.</td>
-</tr>
-<tr class="odd">
-<td>PFP</td>
-<td>before main function</td>
-<td>For user-defined function prototypes.</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>before main function</td>
-<td>For user-defined functions</td>
-</tr>
-<tr class="odd">
-<td>1</td>
-<td>inside main function before hal init</td>
-<td>HAL functions <strong>cannot</strong> be used here. Can be used to initialize local variables used in the main function.</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>inside main function after hal init</td>
-<td>HAL functions can be used here. Can be used for running HAL functions once during start.</td>
-</tr>
-<tr class="odd">
-<td>WHILE</td>
-<td>inside main inside while loop</td>
-<td>The code for the main loop</td>
-</tr>
-<tr class="even">
-<td>3</td>
-<td>inside main after the while loop</td>
-<td>This can be used for programs that breaks the while loop after some time.</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>after the main function after basic configs</td>
-<td>This can be used for callbacks and ISR.</td>
-</tr>
-</tbody>
-</table>
+<p>This exercise introduces interfacing the MPU-6050 accelerometer and gyroscope sensor with the STM32 Nucleo-144 board using the <code>MPU6050</code> library by Electronic Cats. The sensor readings (acceleration and gyroscope values) will be displayed and averaged over 20 samples.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -408,31 +294,216 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The Code Examples given for CubeMX generated code will have two views in this manual which can be toggled.</p>
-<ol type="1">
-<li><strong>Single View</strong> - This view will <strong>have the overall structure of the code</strong> with only the user code slots surrounded by the slot comments as described above and not the complete code.</li>
-<li><strong>Parts View</strong> - This view will have the individual user sections as seperate code blocks, making it easier for <strong>copy pasting into the IDE</strong>.</li>
-</ol>
+<p>The <code>MPU6050</code> library by Electronic Cats can be installed using library manager in the Aruduino IDE.</p>
 </div>
 </div>
-</section>
-<section id="common-problems-during-setup-and-solution" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="common-problems-during-setup-and-solution"><span class="header-section-number">2.6</span> Common problems during setup and solution</h2>
-<details>
-<summary>
-Cannot open workspace, workspace is currently in use
-</summary>
-Kill the CubeIDE process and delete the <code>.lock</code> file in the <code>.metadata</code> directory in your eclipse workspace directory. <strong>Precaution</strong> - If you delete the <code>.metadata</code> folder all preference will be deleted.
-</details>
-<details>
-<summary>
-arm-none-eabi-gdb –version /lib/libncurses.so.5 not found
-</summary>
+<section id="objective" class="level3">
+<h3 class="anchored" data-anchor-id="objective"><strong>Objective:</strong></h3>
 <ul>
-<li>In ubuntu, install libncurses5 using <code>sudo apt-get install libncurses5</code>.</li>
-<li>In Arch or Manjaro, install compatibility libs using <code>pamac install ncurses5-compat-libs</code>.</li>
+<li>Interface the MPU-6050 sensor with the STM32 Nucleo-144 board via I2C.</li>
+<li>Read raw acceleration and gyroscope data from the sensor.</li>
+<li>Average the readings over 20 samples to smooth out the data.</li>
 </ul>
-</details>
+</section>
+<section id="materials" class="level3">
+<h3 class="anchored" data-anchor-id="materials"><strong>Materials:</strong></h3>
+<ul>
+<li>STM Nucleo-144 F767ZI development board.</li>
+<li>MPU-6050 sensor.</li>
+<li>Jumper wires.</li>
+<li>CubeIDE or Arduino IDE with STM32Duino.</li>
+</ul>
+</section>
+<section id="wiring-connections" class="level3">
+<h3 class="anchored" data-anchor-id="wiring-connections"><strong>Wiring Connections:</strong></h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>MPU-6050 Pin</th>
+<th>Nucleo-144 Pin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VCC</td>
+<td>3.3V</td>
+</tr>
+<tr class="even">
+<td>GND</td>
+<td>GND</td>
+</tr>
+<tr class="odd">
+<td>SDA</td>
+<td>PB9</td>
+</tr>
+<tr class="even">
+<td>SCL</td>
+<td>PB8</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="task-1-basic-reading-of-accelerometer-and-gyroscope-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-basic-reading-of-accelerometer-and-gyroscope-data"><strong>Task 1: Basic Reading of Accelerometer and Gyroscope Data</strong></h3>
+<section id="description" class="level4">
+<h4 class="anchored" data-anchor-id="description"><strong>Description:</strong></h4>
+<p>In this task, the MPU-6050 sensor will be initialized, and raw acceleration and gyroscope values will be read. The results will be displayed using the serial plotter.</p>
+</section>
+<section id="code" class="level4">
+<h4 class="anchored" data-anchor-id="code"><strong>Code:</strong></h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"Wire.h"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"MPU6050.h"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// class default I2C address is 0x68</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>MPU6050 accelgyro<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int16_t</span> ax<span class="op">,</span> ay<span class="op">,</span> az<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int16_t</span> gx<span class="op">,</span> gy<span class="op">,</span> gz<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// join I2C bus</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>begin<span class="op">();</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// initialize device</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Initializing I2C devices..."</span><span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  accelgyro<span class="op">.</span>initialize<span class="op">();</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Testing device connections..."</span><span class="op">);</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span>accelgyro<span class="op">.</span>testConnection<span class="op">()</span> <span class="op">?</span> <span class="st">"MPU6050 connection successful"</span> <span class="op">:</span> <span class="st">"MPU6050 connection failed"</span><span class="op">);</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// read raw accel/gyro measurements from device</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  accelgyro<span class="op">.</span>getMotion6<span class="op">(&amp;</span>ax<span class="op">,</span> <span class="op">&amp;</span>ay<span class="op">,</span> <span class="op">&amp;</span>az<span class="op">,</span> <span class="op">&amp;</span>gx<span class="op">,</span> <span class="op">&amp;</span>gy<span class="op">,</span> <span class="op">&amp;</span>gz<span class="op">);</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="co">// display comma-separated accel/gyro x/y/z values for serial plotter</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"ax:"</span><span class="op">);</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>ax<span class="op">);</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"ay:"</span><span class="op">);</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>ay<span class="op">);</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"az:"</span><span class="op">);</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>az<span class="op">);</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gx:"</span><span class="op">);</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>gx<span class="op">);</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gy:"</span><span class="op">);</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>gy<span class="op">);</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gz:"</span><span class="op">);</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span>gz<span class="op">);</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-steps" class="level4">
+<h4 class="anchored" data-anchor-id="key-steps"><strong>Key Steps:</strong></h4>
+<ul>
+<li>Initialize the MPU-6050 sensor and check for a successful connection.</li>
+<li>Read and display the raw accelerometer and gyroscope data.</li>
+<li>Use the serial plotter to visualize the x, y, and z axis values.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="task-2-averaging-the-readings-over-20-samples" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-averaging-the-readings-over-20-samples"><strong>Task 2: Averaging the Readings Over 20 Samples</strong></h3>
+<section id="description-1" class="level4">
+<h4 class="anchored" data-anchor-id="description-1"><strong>Description:</strong></h4>
+<p>In this task, the raw accelerometer and gyroscope data will be averaged over 20 readings to smooth out any noise in the measurements.</p>
+</section>
+<section id="code-1" class="level4">
+<h4 class="anchored" data-anchor-id="code-1"><strong>Code:</strong></h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"Wire.h"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">"MPU6050.h"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>MPU6050 accelgyro<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int16_t</span> ax<span class="op">,</span> ay<span class="op">,</span> az<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int16_t</span> gx<span class="op">,</span> gy<span class="op">,</span> gz<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> setup<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  Wire<span class="op">.</span>begin<span class="op">();</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>begin<span class="op">(</span><span class="dv">115200</span><span class="op">);</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// initialize device</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Initializing I2C devices..."</span><span class="op">);</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  accelgyro<span class="op">.</span>initialize<span class="op">();</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span><span class="st">"Testing device connections..."</span><span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span>accelgyro<span class="op">.</span>testConnection<span class="op">()</span> <span class="op">?</span> <span class="st">"MPU6050 connection successful"</span> <span class="op">:</span> <span class="st">"MPU6050 connection failed"</span><span class="op">);</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> loop<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  getMotion6Smooth<span class="op">(&amp;</span>ax<span class="op">,</span> <span class="op">&amp;</span>ay<span class="op">,</span> <span class="op">&amp;</span>az<span class="op">,</span> <span class="op">&amp;</span>gx<span class="op">,</span> <span class="op">&amp;</span>gy<span class="op">,</span> <span class="op">&amp;</span>gz<span class="op">,</span> <span class="dv">20</span><span class="op">);</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Display averaged values</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"ax:"</span><span class="op">);</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>ax<span class="op">);</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"ay:"</span><span class="op">);</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>ay<span class="op">);</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"az:"</span><span class="op">);</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>az<span class="op">);</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gx:"</span><span class="op">);</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>gx<span class="op">);</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gy:"</span><span class="op">);</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span>gy<span class="op">);</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">","</span><span class="op">);</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>print<span class="op">(</span><span class="st">"gz:"</span><span class="op">);</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  Serial<span class="op">.</span>println<span class="op">(</span>gz<span class="op">);</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  delay<span class="op">(</span><span class="dv">10</span><span class="op">);</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> getMotion6Smooth<span class="op">(</span><span class="dt">int16_t</span><span class="op">*</span> ax<span class="op">,</span> <span class="dt">int16_t</span><span class="op">*</span> ay<span class="op">,</span> <span class="dt">int16_t</span><span class="op">*</span> az<span class="op">,</span> <span class="dt">int16_t</span><span class="op">*</span> gx<span class="op">,</span> <span class="dt">int16_t</span><span class="op">*</span> gy<span class="op">,</span> <span class="dt">int16_t</span><span class="op">*</span> gz<span class="op">,</span> <span class="dt">int</span> nSamples<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Initialize totals</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> axTotal <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> ayTotal <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> azTotal <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="dt">long</span> gxTotal <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> gyTotal <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> gzTotal <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Collect 20 samples</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> nSamples<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    accelgyro<span class="op">.</span>getMotion6<span class="op">(</span>ax<span class="op">,</span> ay<span class="op">,</span> az<span class="op">,</span> gx<span class="op">,</span> gy<span class="op">,</span> gz<span class="op">);</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    axTotal <span class="op">+=</span> <span class="op">*</span>ax<span class="op">;</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    ayTotal <span class="op">+=</span> <span class="op">*</span>ay<span class="op">;</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    azTotal <span class="op">+=</span> <span class="op">*</span>az<span class="op">;</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    gxTotal <span class="op">+=</span> <span class="op">*</span>gx<span class="op">;</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    gyTotal <span class="op">+=</span> <span class="op">*</span>gy<span class="op">;</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    gzTotal <span class="op">+=</span> <span class="op">*</span>gz<span class="op">;</span></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>  <span class="op">}</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Calculate average</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>ax <span class="op">=</span> axTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>ay <span class="op">=</span> ayTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>az <span class="op">=</span> azTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>gx <span class="op">=</span> gxTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>gy <span class="op">=</span> gyTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>  <span class="op">*</span>gz <span class="op">=</span> gzTotal <span class="op">/</span> nSamples<span class="op">;</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="key-steps-1" class="level4">
+<h4 class="anchored" data-anchor-id="key-steps-1"><strong>Key Steps:</strong></h4>
+<ul>
+<li>Collect 20 samples of accelerometer and gyroscope readings.</li>
+<li>Calculate the average of each axis (x, y, z) for both accelerometer and gyroscope.</li>
+<li>Display the averaged readings to reduce noise and obtain more stable values.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion"><strong>Conclusion:</strong></h3>
+<ul>
+<li>The MPU-6050 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication using library.</li>
+<li>Raw accelerometer and gyroscope readings were captured and displayed.</li>
+<li>The readings from the accelerometer and gyroscope was visualized using serial plotter.</li>
+<li>Averaging over 20 samples was used to smooth the sensor data and reduce noise.</li>
+</ul>
 
 
 </section>
@@ -1004,13 +1075,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../exercises.html" class="pagination-link" aria-label="List of exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">List of exercises</span></span>
+      <a href="../exercises/5_temperature_sensor_i2c.html" class="pagination-link" aria-label="Temperature measurement using I2C - MCP9808">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Temperature measurement using I2C - MCP9808</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../exercises/1_uart.html" class="pagination-link" aria-label="UART Serial Communication using STM32 HAL">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">UART Serial Communication using STM32 HAL</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../summary.html" class="pagination-link" aria-label="Summary">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

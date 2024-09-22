@@ -303,101 +303,255 @@
     ]
   },
   {
-    "objectID": "getting_started/arduino_ide_with_stm32duino.html#playing-around-with-examples",
-    "href": "getting_started/arduino_ide_with_stm32duino.html#playing-around-with-examples",
-    "title": "5  Arduino IDE: Getting Started and How-tos",
-    "section": "5.2 Playing around with examples",
-    "text": "5.2 Playing around with examples\n\nSimple Blink\n\nSelect File -&gt; Examples -&gt; 0.1 Basics, and a new sketch will open.\nIf stm32duino is configured correctly you will find the board name selected as Nucleo-144. If not, you can select the board from the dropdown. .\nThe LED_BUILTIN in Arduino code will be equivalent to PB0 (LD1) in the Nucleo-F767ZI board. Either can be used as the identifier.\nUpload the sketch to the stm32 board.",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Arduino IDE: Getting Started and How-tos</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/3_ultrasonic_sensor.html",
-    "href": "exercises/3_ultrasonic_sensor.html",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "objectID": "exercises/3_arduino_gpio.html",
+    "href": "exercises/3_arduino_gpio.html",
+    "title": "6  GPIO using STM32Duino",
     "section": "",
-    "text": "6.1 Objective:\nBy the end of this exercise, students will: - Interface an HC-SR04 ultrasonic sensor with the STM32 Nucleo-144 F767ZI using STM32Duino. - Take multiple distance measurements and calculate the average. - Display the averaged distance using the serial monitor.",
+    "text": "6.1 Objectives",
     "crumbs": [
       "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
     ]
   },
   {
-    "objectID": "exercises/3_ultrasonic_sensor.html#materials",
-    "href": "exercises/3_ultrasonic_sensor.html#materials",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
-    "section": "6.2 Materials:",
-    "text": "6.2 Materials:\n\nSTM Nucleo-144 F767ZI development board.\nUltrasonic Sensor (HC-SR04).\nJumper wires for connections.\nSTM32Duino environment set up in Arduino IDE (with STM32 core installed).",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/3_ultrasonic_sensor.html#hc-sr04-sensor",
-    "href": "exercises/3_ultrasonic_sensor.html#hc-sr04-sensor",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
-    "section": "6.3 HC-SR04 Sensor:",
-    "text": "6.3 HC-SR04 Sensor:\n\nVCC: 5V power.\nGND: Ground.\nTrig: Trigger pin (to send out the ultrasonic pulse).\nEcho: Echo pin (to receive the reflected pulse).",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/3_ultrasonic_sensor.html#wiring-connections",
-    "href": "exercises/3_ultrasonic_sensor.html#wiring-connections",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
-    "section": "6.4 Wiring Connections:",
-    "text": "6.4 Wiring Connections:\n\nVCC -&gt; 5V pin on STM32.\nGND -&gt; GND pin on STM32.\nTrig -&gt; D12 or any available digital GPIO pin (using in the Arduino Compatible zio connector)\nEcho -&gt; D13 or any available digital GPIO pin.",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/3_ultrasonic_sensor.html#explanation-of-key-functions",
-    "href": "exercises/3_ultrasonic_sensor.html#explanation-of-key-functions",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
-    "section": "6.5 Explanation of Key Functions:",
-    "text": "6.5 Explanation of Key Functions:\n\ndigitalWrite(pin, HIGH/LOW): Sends a HIGH or LOW signal to the pin to activate or deactivate the trigger pin.\npulseIn(pin, HIGH): Measures the time for the echo pin to go HIGH, which is proportional to the distance.\nSerial communication functions: To print the results on the Serial Monitor.\n\nSerial.begin(baud_rate) - Should be initialized in the setup to start the serial communication. The baud rate can be typically set to 9600 or 115200.\nSerial.print - Prints a value in the serial monitor.\nSerial.println - Same as print but also prints a newline character at the end.",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/3_ultrasonic_sensor.html#tasks-and-sample-io-behavior",
-    "href": "exercises/3_ultrasonic_sensor.html#tasks-and-sample-io-behavior",
-    "title": "6  Ultrasonic sensor Distance Measurement - HC-SR04",
-    "section": "6.6 Tasks and Sample IO Behavior:",
-    "text": "6.6 Tasks and Sample IO Behavior:\n\nTask 1: Interface HC-SR04 with STM32 and Measure Distance\n\nObjective: Write code to interface the HC-SR04 with the STM32 Nucleo-144 F767ZI, measure the distance, and print the result on the Serial Monitor.\n\n\nExample Code\n#define TRIG_PIN 12  // Trigger pin\n#define ECHO_PIN 13  // Echo pin\n\nfloat measureDistance() {\n  long duration;\n  float distance;\n  // Clear the trigger pin\n  digitalWrite(TRIG_PIN, LOW);\n  delayMicroseconds(2);\n\n  // Send a 10µs pulse to trigger the sensor\n  digitalWrite(TRIG_PIN, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG_PIN, LOW);\n\n  // Measure the time of the echo pulse\n  duration = pulseIn(ECHO_PIN, HIGH);\n\n  // Calculate the distance (speed of sound is 34300 cm/s)\n  distance = (duration * 0.0343) / 2;\n  return distance;\n}\n\nvoid setup() {\n  Serial.begin(9600);         // Initialize serial communication\n  pinMode(TRIG_PIN, OUTPUT);  // Set the trigger pin as an output\n  pinMode(ECHO_PIN, INPUT);   // Set the echo pin as an input\n}\n\nvoid loop() {\n  // Print the average distance to the Serial Monitor\n  Serial.print(\"Distance: \");\n  Serial.print(measureDistance());\n  Serial.println(\" cm\");\n\n  delay(1000);  // Delay before taking another set of measurements\n}\n\n\nSample Output on Serial Monitor:\nDistance: 25.34 cm\nDistance: 26.21 cm\nDistance: 25.78 cm\n\n\n\nTask 2: Take Multiple Measurements and Calculate the Average\n\nObjective: Modify the program to take 10 distance measurements and calculate the average to improve accuracy. Display the averaged distance on the Serial Monitor.\n\n\nExample Code\n\n/* pin configurations and measureDistance function*/\n\nfloat measureDistanceSmooth(int numMeasurements) {\n  float totalDistance = 0.0;\n\n  // Take multiple measurements\n  for (int i = 0; i &lt; numMeasurements; i++) {\n    // Add to the total distance for averaging\n    totalDistance += measureDistance();\n    delay(5);  // Small delay between measurements\n  }\n\n  // return the average distance\n  return totalDistance / numMeasurements;\n}\n\n/* setup goes here*/\n\nvoid loop() {\n  // Print the average distance to the Serial Monitor\n  Serial.print(\"Distance: \");\n  Serial.print(measureDistanceSmooth(10));  // Averaging 10 measurements\n  Serial.println(\" cm\");\n\n  delay(1000);  // Delay before taking another set of measurements\n}\n\n\nSample Output on Serial Monitor:\nDistance: 25.34 cm\nDistance: 25.35 cm\nDistance: 25.33 cm\n\n\n\n\nConclusion:\n\nInterfacing an Ultrasonic Sensor: The HC-SR04 ultrasonic sensor was interfaced with the STM32 Nucleo-144 F767ZI using the STM32Duino platform.\nDistance Measurement: The distance was measured by calculating the time taken for the ultrasonic pulse to travel to and from an object, utilizing the pulseIn() function.\nAveraging Multiple Measurements: Logic was implemented to take multiple measurements, and the average was calculated to improve measurement accuracy.\nSerial Communication: The measured results were displayed on the Serial Monitor using the Serial.print() function, emphasizing the role of serial communication in embedded systems.\nTiming and Control: Concepts such as trigger pulses and delay functions were applied to manage sensor timing and ensure reliable operation.",
-    "crumbs": [
-      "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
-    ]
-  },
-  {
-    "objectID": "exercises/4_temperature_sensor_i2c.html",
-    "href": "exercises/4_temperature_sensor_i2c.html",
-    "title": "7  Temperature measurement using I2C - MCP9808",
+    "objectID": "exercises/3_arduino_gpio.html#objectives",
+    "href": "exercises/3_arduino_gpio.html#objectives",
+    "title": "6  GPIO using STM32Duino",
     "section": "",
-    "text": "using Sensor specific library(Seeed_MCP9808)\n\n#include \"Seeed_MCP9808.h\"\n\nMCP9808 sensor;\n\nvoid setup() {\n  Serial.begin(9600);\n  if (sensor.init()) {\n    Serial.println(\"Sensor init failed.\");\n    return;\n  }\n  Serial.println(\"sensor init success.\");\n}\n\n\nvoid loop() {\n  float celsius = 0;\n  sensor.get_temp(&celsius);\n\n  float farenheit = celsius * 9 / 5 + 32;\n\n  Serial.print(\"Temperature: \");\n  Serial.print(celsius);\n  Serial.print(\"C/\");\n  Serial.print(farenheit);\n  Serial.println(\"F\");\n  delay(1000);\n}\n\nusing Wire.h to communication using I2C\n\nHere is a simple program that directly uses the Wire.h library to communicate with the MCP9808 sensor, avoiding the need for the Seeed_MCP9808.h library.\nThis program initializes the I2C connection with the MCP9808 sensor, reads the temperature, and prints it in both Celsius and Fahrenheit:\n#include &lt;Wire.h&gt;\n\n#define MCP9808_I2C_ADDRESS 0x18  // Default I2C address for MCP9808\n#define AMBIENT_TEMP_REG 0x05     // Ambient temperature register\n#define RESOLUTION_REG 0x08       // Resolution register\n#define RESOLUTION_0_0625_DEGREE 0x03 // Highest resolution\n\nvoid setup() {\n  Wire.begin();\n  Serial.begin(9600);\n\n  // Initialize the sensor\n  if (initSensor()) {\n    Serial.println(\"Sensor init failed.\");\n  } else {\n    Serial.println(\"Sensor init success.\");\n  }\n}\n\nvoid loop() {\n  float celsius = readTemperature();\n  float fahrenheit = celsius * 9.0 / 5.0 + 32;\n\n  Serial.print(\"Temperature: \");\n  Serial.print(celsius);\n  Serial.print(\" C / \");\n  Serial.print(fahrenheit);\n  Serial.println(\" F\");\n\n  delay(1000);  // Wait 1 second before reading the temperature again\n}\n\n// Function to initialize the sensor\nbool initSensor() {\n  Wire.beginTransmission(MCP9808_I2C_ADDRESS);\n  Wire.write(RESOLUTION_REG);           // Set the resolution register\n  Wire.write(RESOLUTION_0_0625_DEGREE); // Set highest resolution (0.0625°C)\n  return (Wire.endTransmission() != 0); // Check for I2C transmission success\n}\n\n// Function to read temperature from the MCP9808 sensor\nfloat readTemperature() {\n  Wire.beginTransmission(MCP9808_I2C_ADDRESS);\n  Wire.write(AMBIENT_TEMP_REG);  // Set pointer to the temperature register\n  Wire.endTransmission();\n\n  Wire.requestFrom(MCP9808_I2C_ADDRESS, 2);  // Request 2 bytes from sensor\n\n  if (Wire.available() &lt; 2) {\n    return NAN;  // If data not available, return not-a-number (NAN)\n  }\n\n  // Read the 2 bytes of temperature data\n  uint8_t msb = Wire.read();\n  uint8_t lsb = Wire.read();\n\n  // Combine the two bytes into a 16-bit unsigned integer\n  uint16_t rawTemp = ((uint16_t)msb &lt;&lt; 8) | lsb;\n\n  // Mask out the sign bit (bit 12) and calculate the temperature\n  rawTemp &= 0x0FFF;\n  float temp = rawTemp * 0.0625;  // Each increment represents 0.0625°C\n\n  // If the sign bit is set, the temperature is negative\n  if (msb & 0x10) {\n    temp -= 256;\n  }\n\n  return temp;\n}\n\n7.0.1 Explanation:\n\ninitSensor(): Initializes the MCP9808 sensor by setting its resolution to the highest (0.0625°C) by writing to the resolution register. It returns true if there was an I2C transmission failure.\nreadTemperature():\n\nReads the ambient temperature from the sensor.\nIt retrieves 2 bytes of data (MSB and LSB) from the ambient temperature register, combines them, and converts the result into a floating-point temperature value in Celsius.\nIf the sign bit is set, the temperature is negative.\n\nloop(): Reads the temperature from the sensor in Celsius, converts it to Fahrenheit, and prints both values to the serial monitor every second.\n\nThis code directly uses Wire.h to communicate with the MCP9808 sensor without any additional libraries.",
+    "text": "Understand and experiment with GPIO Digital Output, GPIO Digital Input, and GPIO Analog Input/Output on the STM32 Nucleo-144 F767ZI board using STM32Duino.\nLearn to use basic example sketches in Arduino IDE for controlling LEDs and reading inputs.",
     "crumbs": [
       "**Using Arduino IDE with stm32duino**",
-      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#materials",
+    "href": "exercises/3_arduino_gpio.html#materials",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.2 Materials",
+    "text": "6.2 Materials\n\nSTM32 Nucleo-144 F767ZI development board.\nArduino IDE with STM32Duino configured.\nJumper wires.\nPotentiometer (for analog input task).",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#part-1-simple-blink-gpio-digital-output",
+    "href": "exercises/3_arduino_gpio.html#part-1-simple-blink-gpio-digital-output",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.3 Part 1: Simple Blink (GPIO Digital Output)",
+    "text": "6.3 Part 1: Simple Blink (GPIO Digital Output)\n\nSteps\n\nIn Arduino IDE, go to File -&gt; Examples -&gt; 01.Basics -&gt; Blink. A new sketch will open.\nEnsure that Nucleo-144 is selected as the board. If it is not selected, choose it from the dropdown menu.\nThe code will reference LED_BUILTIN, which corresponds to the built-in LED on PB0 (LD1) on the Nucleo-F767ZI board.\nUpload the sketch to the STM32 Nucleo-144 board.\n\n\n\nExpected Output\n\nThe built-in LED on PB0 will blink on and off with a 1-second delay.\n\n\n\nTasks\n\nModify the sketch to make all built-in LEDs (on PB0, PB7, and PB14) blink.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#part-2-debounce-gpio-digital-input",
+    "href": "exercises/3_arduino_gpio.html#part-2-debounce-gpio-digital-input",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.4 Part 2: Debounce (GPIO Digital Input)",
+    "text": "6.4 Part 2: Debounce (GPIO Digital Input)\n\nSteps\n\nIn Arduino IDE, go to File -&gt; Examples -&gt; 02.Digital -&gt; Debounce. A new sketch will open.\nEnsure the board is correctly selected (Nucleo-144).\nSet btnPin to PC13 (the onboard button).\nSet ledPin to one of the built-in LEDs (e.g., PB0).\nUpload the sketch to the STM32 board.\n\n\n\nExpected Output\n\nThe LED will toggle between ON and OFF each time the button is pressed, with debounce logic to filter out noise from the button.\n\n\n\nTasks\n\nModify the sketch so that each button press cycles through turning PB0, PB7, and PB14 on and off in sequence (cycling the built-in LEDs).",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#part-3-fading-gpio-analog-output",
+    "href": "exercises/3_arduino_gpio.html#part-3-fading-gpio-analog-output",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.5 Part 3: Fading (GPIO Analog Output)",
+    "text": "6.5 Part 3: Fading (GPIO Analog Output)\n\nSteps\n\nIn Arduino IDE, go to File -&gt; Examples -&gt; 03.Analog -&gt; Fading. A new sketch will open.\nUse PB0 for the built-in LED (LED_BUILTIN).\nUpload the sketch to the STM32 board.\n\n\n\nExpected Output\n\nThe built-in LED will gradually fade in and fade out.\n\n\n\nTask\n\nModify the code to alternately fade PB0 and PB7 so that one fades in while the other fades out, and vice versa.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#part-4-calibration-gpio-analog-input",
+    "href": "exercises/3_arduino_gpio.html#part-4-calibration-gpio-analog-input",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.6 Part 4: Calibration (GPIO Analog Input)",
+    "text": "6.6 Part 4: Calibration (GPIO Analog Input)\n\nSteps\n\nIn Arduino IDE, go to File -&gt; Examples -&gt; 03.Analog -&gt; Calibration. A new sketch will open.\nConnect a potentiometer to A0 for analog input.\nUse PB0 for the LED output.\nUse PB7 to indicate calibration period.\nThis sketch calibrates the sensor (potentiometer) over the first 5 seconds to detect its minimum and maximum values, then maps the sensor readings to adjust the brightness of the LED on PB0.\nChange the calibration time to 10 seconds and try turning the potentiometer knob to both extends as possible.\nUpload the sketch to the STM32 board.\n\n\n\nCode Example (Modified from the calibration example)\nconst int sensorPin = A0;  // pin that the sensor is attached to\nconst int ledPin = PB0;      // pin that the LED is attached to\nconst int indicatorLed = PB7;// pin to indicate the calibration period\n// variables:\nint sensorValue = 0;   // the sensor value\nint sensorMin = 1023;  // minimum sensor value\nint sensorMax = 0;     // maximum sensor value\n\n\nvoid setup() {\n  Serial.begin(115200);\n  // turn on LED to signal the start of the calibration period:\n  pinMode(indicatorLed, OUTPUT);\n  digitalWrite(indicatorLed, HIGH);\n\n  // calibrate during the first five seconds\n  while (millis() &lt; 10000) {\n    sensorValue = analogRead(sensorPin);\n\n    // record the maximum sensor value\n    if (sensorValue &gt; sensorMax) {\n      sensorMax = sensorValue;\n    }\n\n    // record the minimum sensor value\n    if (sensorValue &lt; sensorMin) {\n      sensorMin = sensorValue;\n    }\n    Serial.print(\"sensorMin:\");\n    Serial.print(sensorMin);\n    Serial.print(',');\n    Serial.print(\"sensorMax:\");\n    Serial.print(sensorMax);\n    Serial.print(',');\n    Serial.print(\"sensorValue:\");\n    Serial.println(sensorValue);\n  }  \n  Serial.println(\"Calibration Done.\");\n  // signal the end of the calibration period\n  digitalWrite(indicatorLed, LOW);\n}\n\nvoid loop() {\n  // read the sensor:\n  sensorValue = analogRead(sensorPin);\n\n  // in case the sensor value is outside the range seen during calibration\n  sensorValue = constrain(sensorValue, sensorMin, sensorMax);\n\n  // apply the calibration to the sensor reading\n  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);\n\n  // fade the LED using the calibrated value:\n  analogWrite(ledPin, sensorValue);\n}\n\n\nExpected Output\n\nDuring the first 10 seconds, the sensor will calibrate its minimum and maximum values based on the potentiometer input.\nAfter calibration, the LED brightness will adjust based on the potentiometer’s position, with the sensor values mapped between 0 and 255 to control the PWM output on P0.\n\n\n\nTasks\n\nTry modifying the code to calibrate until the user button is presses instead of using a fixed time window.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/3_arduino_gpio.html#conclusion",
+    "href": "exercises/3_arduino_gpio.html#conclusion",
+    "title": "6  GPIO using STM32Duino",
+    "section": "6.7 Conclusion",
+    "text": "6.7 Conclusion\nThis exercise introduces basic GPIO operations using STM32Duino on the STM32 Nucleo-144 F767ZI board. Students learned how to:\n\nControl LEDs using digital output (Simple Blink).\nHandle button presses using digital input with debouncing (Debounce).\nCreate fading effects with analog output (Fading).\nRead and map analog input data from a potentiometer to control the brightness of an LED (Calibration).\n\nThese examples serve as foundational tasks to deepen the understanding of GPIO handling in embedded systems.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>GPIO using STM32Duino</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html",
+    "href": "exercises/4_ultrasonic_sensor.html",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "",
+    "text": "7.1 Objective\nBy the end of this exercise, students will - Interface an HC-SR04 ultrasonic sensor with the STM32 Nucleo-144 F767ZI using STM32Duino. - Take multiple distance measurements and calculate the average. - Display the averaged distance using the serial monitor. - Control and LED with the measured distance.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html#materials",
+    "href": "exercises/4_ultrasonic_sensor.html#materials",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "7.2 Materials",
+    "text": "7.2 Materials\n\nSTM Nucleo-144 F767ZI development board.\nUltrasonic Sensor (HC-SR04).\nJumper wires for connections.\nSTM32Duino environment set up in Arduino IDE (with STM32 core installed).",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html#hc-sr04-sensor",
+    "href": "exercises/4_ultrasonic_sensor.html#hc-sr04-sensor",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "7.3 HC-SR04 Sensor",
+    "text": "7.3 HC-SR04 Sensor\n\nVCC: 5V power.\nGND: Ground.\nTrig: Trigger pin (to send out the ultrasonic pulse).\nEcho: Echo pin (to receive the reflected pulse).",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html#wiring-connections",
+    "href": "exercises/4_ultrasonic_sensor.html#wiring-connections",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "7.4 Wiring Connections",
+    "text": "7.4 Wiring Connections\n\nVCC -&gt; 5V pin on STM32.\nGND -&gt; GND pin on STM32.\nTrig -&gt; D12 or any available digital GPIO pin (using in the Arduino Compatible zio connector)\nEcho -&gt; D13 or any available digital GPIO pin.\n\n\n\n\n\n\n\nTip\n\n\n\nWhile using Stm32duino with Arduino in Arduino compatible board, the Arduino pin conventions can also be used in the program. Eg. A0 for anolog pin, 12 for digital pin.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html#explanation-of-key-functions",
+    "href": "exercises/4_ultrasonic_sensor.html#explanation-of-key-functions",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "7.5 Explanation of Key Functions",
+    "text": "7.5 Explanation of Key Functions\n\ndigitalWrite(pin, HIGH/LOW): Sends a HIGH or LOW signal to the pin to activate or deactivate the trigger pin.\npulseIn(pin, HIGH): Measures the time for the echo pin to go HIGH, which is proportional to the distance.\nSerial communication functions: To print the results on the Serial Monitor.\n\nSerial.begin(baud_rate) - Should be initialized in the setup to start the serial communication. The baud rate can be typically set to 9600 or 115200.\nSerial.print - Prints a value in the serial monitor.\nSerial.println - Same as print but also prints a newline character at the end.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/4_ultrasonic_sensor.html#tasks-and-sample-io-behavior",
+    "href": "exercises/4_ultrasonic_sensor.html#tasks-and-sample-io-behavior",
+    "title": "7  Ultrasonic sensor Distance Measurement - HC-SR04",
+    "section": "7.6 Tasks and Sample IO Behavior",
+    "text": "7.6 Tasks and Sample IO Behavior\n\nTask 1: Interface HC-SR04 with STM32 and Measure Distance\n\nObjective: Write code to interface the HC-SR04 with the STM32 Nucleo-144 F767ZI, measure the distance, and print the result on the Serial Monitor.\n\n\nExample Code\n#define TRIG_PIN 12  // Trigger pin\n#define ECHO_PIN 13  // Echo pin\n\n\nvoid setup() {\n  Serial.begin(9600);         // Initialize serial communication\n  pinMode(TRIG_PIN, OUTPUT);  // Set the trigger pin as an output\n  pinMode(ECHO_PIN, INPUT);   // Set the echo pin as an input\n}\n\nvoid loop() {\n  float distance = measureDistance();\n  // Print the average distance to the Serial Monitor\n  Serial.print(\"Distance: \");\n  Serial.print(distance);\n  Serial.println(\" cm\");\n\n  delay(1000);  // Delay before taking another set of measurements\n}\n\nfloat measureDistance() {\n  long duration;\n  float distance;\n  // Clear the trigger pin\n  digitalWrite(TRIG_PIN, LOW);\n  delayMicroseconds(2);\n\n  // Send a 10µs pulse to trigger the sensor\n  digitalWrite(TRIG_PIN, HIGH);\n  delayMicroseconds(10);\n  digitalWrite(TRIG_PIN, LOW);\n\n  // Measure the time of the echo pulse\n  duration = pulseIn(ECHO_PIN, HIGH);\n\n  // Calculate the distance (speed of sound is 34300 cm/s)\n  distance = (duration * 0.0343) / 2;\n  return distance;\n}\n\n\nSample Output on Serial Monitor\nDistance: 25.34 cm\nDistance: 26.21 cm\nDistance: 25.78 cm\n\n\n\nTask 2: Take Multiple Measurements and Calculate the Average\n\nObjective: Modify the program to take 10 distance measurements and calculate the average to improve accuracy. Display the averaged distance on the Serial Monitor.\n\n\nExample Code(modify the code from above task)\n\n/* pin configurations*/\n\n/* setup goes here*/\n\nvoid loop() {\n  // Print the average distance to the Serial Monitor\n  Serial.print(\"Distance: \");\n  Serial.print(measureDistanceSmooth(10));  // Averaging 10 measurements\n  Serial.println(\" cm\");\n\n  delay(1000);  // Delay before taking another set of measurements\n}\n\n/* Measure Distance Function */\n\nfloat measureDistanceSmooth(int numMeasurements) {\n  float totalDistance = 0.0;\n\n  // Take multiple measurements\n  for (int i = 0; i &lt; numMeasurements; i++) {\n    // Add to the total distance for averaging\n    totalDistance += measureDistance();\n    delay(5);  // Small delay between measurements\n  }\n\n  // return the average distance\n  return totalDistance / numMeasurements;\n}\n\n\nSample Output on Serial Monitor\nDistance: 25.34 cm\nDistance: 25.35 cm\nDistance: 25.33 cm\n\n\n\nTask 3: Calibrate Ultrasonic Sensor and Fade LED with Sensor Measurement\n\nObjective\n\nCalibrate the HC-SR04 sensor by recording minimum and maximum distance readings.\nPerform calibration until a button press is detected using an interrupt.\nControl the brightness of the built-in LED on PA0 (using PWM to fade) based on the measured distance.\n\n\n\n\nSteps\n\nCalibration Phase:\n\nStart taking distance readings and continuously update the minimum and maximum values.\nThe calibration phase continues until the button is pressed, triggering an interrupt.\n\nLED Brightness Control:\n\nAfter calibration, the measured distance is used to control the brightness of the LED on PA0 using PWM.\nThe brightness will vary proportionally between the minimum and maximum measured distances.\n\n\n\n\nCode Example (Include measuring functions from the above task.)\n#define TRIG_PIN 12  // Trigger pin\n#define ECHO_PIN 13  // Echo pin\n#define LED_PIN PB0   // Inbuilt-LED Pin\n#define BUTTON_PIN PC13 // Inbuilt Button pin\n\n\nvolatile bool calibrationComplete = false;\nfloat minDistance = 1000;  // Large initial value for calibration\nfloat maxDistance = 0;     // Small initial value for calibration\n\nvoid setup() {\n  Serial.begin(9600);\n  pinMode(TRIG_PIN, OUTPUT);\n  pinMode(ECHO_PIN, INPUT);\n  pinMode(LED_PIN, OUTPUT);\n  pinMode(BUTTON_PIN, INPUT);\n\n  // Attach interrupt for the button press\n  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), completeCalibration, FALLING);\n\n  // Set up PWM for LED pin\n  analogWriteResolution(8);  // 8-bit resolution (0-255)\n}\n\n\nvoid loop() {\n  if (!calibrationComplete) {\n    float distance = measureDistance();\n\n    // Update min/max distances for calibration\n    if (distance &lt; minDistance) minDistance = distance;\n    if (distance &gt; maxDistance) maxDistance = distance;\n\n    Serial.print(\"Calibrating... Min: \");\n    Serial.print(minDistance);\n    Serial.print(\" cm, Max: \");\n    Serial.println(maxDistance);\n\n    delay(500);  // Slow down calibration readings\n  } else {\n    // After calibration, use distance to control LED brightness\n    float currentDistance = measureDistanceSmooth(10);\n    int brightness = map(currentDistance, minDistance, maxDistance, 0, 255);  // Map distance to brightness\n    brightness = constrain(brightness, 0, 255);  // Ensure the value stays within 0-255 range\n\n    analogWrite(LED_PIN, brightness);  // Set LED brightness\n\n    Serial.print(\"Distance(cm):\");\n    Serial.print(currentDistance);\n    Serial.print(\",LED Brightness:\");\n    Serial.println(brightness);\n\n    delay(200);  // Slow down the readings\n  }\n}\n\n/* Measuring functions*/\n\n// Button interrupt handler to stop calibration\nvoid completeCalibration() {\n  calibrationComplete = true;\n  Serial.println(\"Calibration complete.\");\n}\n\n\nSample Output on Serial Monitor\nCalibrating... Min: 10.34 cm, Max: 58.21 cm\nCalibrating... Min: 9.67 cm, Max: 61.52 cm\nCalibration complete.\nDistance(cm):35.42 cm,LED Brightness:128\nDistance(cm):20.30 cm,LED Brightness:64\n\n\n\n\n\n\nTip\n\n\n\nYou can use serial plotter to view graphs of the serial output. You can use serial plotter in two ways. 1. Just printing comma seperated values in the serial monitor. 2. Using the format {label 1}:{value 1}, {label 2}:{value 2} which will show the labels in the serial plotter.\n\n\n\n\n\nConclusion\n\nInterfacing an Ultrasonic Sensor: The HC-SR04 ultrasonic sensor was interfaced with the STM32 Nucleo-144 F767ZI using the STM32Duino platform.\nSerial Communication: The measured results were displayed on the Serial Monitor using the Serial.print() function, emphasizing the role of serial communication in embedded systems.\nTiming and Control: Concepts such as trigger pulses and delay functions were applied to manage sensor timing and ensure reliable operation.\nButton Interrupts: This task demonstrated how to use button interrupts to stop a calibration phase.\nPWM Control: The PWM output on PA0 was used to control LED brightness based on the distance measured by the ultrasonic sensor.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Ultrasonic sensor Distance Measurement - HC-SR04</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html",
+    "href": "exercises/5_temperature_sensor_i2c.html",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "",
+    "text": "8.1 Objective\nBy the end of this exercise, students will: - Interface the MCP9808 temperature sensor with the STM32 Nucleo-144 F767ZI board using I2C communication. - Measure temperature in both Celsius and Fahrenheit using two methods: 1. Sensor-specific library (Seeed_MCP9808). 2. Direct I2C communication via Wire.h library.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#objective",
+    "href": "exercises/5_temperature_sensor_i2c.html#objective",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "",
+    "text": "Note\n\n\n\nThe Seeed_MCP9808 library can be downloaded as zip from here. You can add this library to the arduino sketch by Sketch-&gt;Include Library-&gt;Add .zip Library.\n\n\n\n\n\n\n\n\nNote",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#materials",
+    "href": "exercises/5_temperature_sensor_i2c.html#materials",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "8.2 Materials",
+    "text": "8.2 Materials\n\nSTM Nucleo-144 F767ZI development board.\nMCP9808 temperature sensor - Datasheet.\nJumper wires.\nCubeIDE or Arduino IDE with STM32Duino.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#wiring-connections",
+    "href": "exercises/5_temperature_sensor_i2c.html#wiring-connections",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "8.3 Wiring Connections",
+    "text": "8.3 Wiring Connections\n\n\n\nMCP9808 Pin\nNucleo-144 Pin\n\n\n\n\nVCC\n3.3V\n\n\nGND\nGND\n\n\nSDA\nD14/SDA\n\n\nSCL\nD15/SCL",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#task-1-using-seeed_mcp9808-library",
+    "href": "exercises/5_temperature_sensor_i2c.html#task-1-using-seeed_mcp9808-library",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "8.4 Task 1: Using Seeed_MCP9808 Library",
+    "text": "8.4 Task 1: Using Seeed_MCP9808 Library\n\nDescription\nIn this task, the MCP9808 sensor is interfaced using the Seeed_MCP9808 library. The library abstracts the I2C communication, to easily read the temperature in Celsius and convert it to Fahrenheit.\n\n\nCode\n#include \"Seeed_MCP9808.h\"\n\nMCP9808 sensor;\n\nvoid setup() {\n  Serial.begin(9600);\n  if (sensor.init()) {\n    Serial.println(\"Sensor init failed.\");\n    return;\n  }\n  Serial.println(\"Sensor init success.\");\n}\n\nvoid loop() {\n  float celsius = 0;\n  sensor.get_temp(&celsius);\n\n  float fahrenheit = celsius * 9 / 5 + 32;\n\n  Serial.print(\"Temperature: \");\n  Serial.print(celsius);\n  Serial.print(\"C/\");\n  Serial.print(fahrenheit);\n  Serial.println(\"F\");\n  delay(1000);\n}\n\n\nKey Steps\n\nInitialize the MCP9808 sensor using the Seeed_MCP9808 library.\nRead the temperature in Celsius, convert it to Fahrenheit, and display both on the serial monitor.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#task-2-using-wire.h-library-for-direct-i2c-communication",
+    "href": "exercises/5_temperature_sensor_i2c.html#task-2-using-wire.h-library-for-direct-i2c-communication",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "8.5 Task 2: Using Wire.h Library for Direct I2C Communication",
+    "text": "8.5 Task 2: Using Wire.h Library for Direct I2C Communication\n\nDescription\nThis task involves using direct I2C communication with the MCP9808 sensor via the Wire.h library. Students will manually configure and communicate with the sensor to read temperature data, without relying on a sensor-specific library.\n\n\nCode\n#include &lt;Wire.h&gt;\n\n#define MCP9808_I2C_ADDRESS 0x18  // Default I2C address for MCP9808\n#define AMBIENT_TEMP_REG 0x05     // Ambient temperature register\n#define RESOLUTION_REG 0x08       // Resolution register\n#define RESOLUTION_0_0625_DEGREE 0x03 // Highest resolution\n\nvoid setup() {\n  Wire.begin();\n  Serial.begin(9600);\n\n  // Initialize the sensor\n  if (initSensor()) {\n    Serial.println(\"Sensor init failed.\");\n  } else {\n    Serial.println(\"Sensor init success.\");\n  }\n}\n\nvoid loop() {\n  float celsius = readTemperature();\n  float fahrenheit = celsius * 9.0 / 5.0 + 32;\n\n  Serial.print(\"Temperature: \");\n  Serial.print(celsius);\n  Serial.print(\" C / \");\n  Serial.print(fahrenheit);\n  Serial.println(\" F\");\n\n  delay(1000);  // Wait 1 second before reading the temperature again\n}\n\n// Function to initialize the sensor\nbool initSensor() {\n  Wire.beginTransmission(MCP9808_I2C_ADDRESS);\n  Wire.write(RESOLUTION_REG);           // Set the resolution register\n  Wire.write(RESOLUTION_0_0625_DEGREE); // Set highest resolution (0.0625°C)\n  return (Wire.endTransmission() != 0); // Check for I2C transmission success\n}\n\n// Function to read temperature from the MCP9808 sensor\nfloat readTemperature() {\n  Wire.beginTransmission(MCP9808_I2C_ADDRESS);\n  Wire.write(AMBIENT_TEMP_REG);  // Set pointer to the temperature register\n  Wire.endTransmission();\n\n  Wire.requestFrom(MCP9808_I2C_ADDRESS, 2);  // Request 2 bytes from sensor\n\n  if (Wire.available() &lt; 2) {\n    return NAN;  // If data not available, return not-a-number (NAN)\n  }\n\n  // Read the 2 bytes of temperature data\n  uint8_t msb = Wire.read();\n  uint8_t lsb = Wire.read();\n\n  // Combine the two bytes into a 16-bit unsigned integer\n  uint16_t rawTemp = ((uint16_t)msb &lt;&lt; 8) | lsb;\n\n  // Mask out the sign bit (bit 12) and calculate the temperature\n  rawTemp &= 0x0FFF;\n  float temp = rawTemp * 0.0625;  // Each increment represents 0.0625°C\n\n  // If the sign bit is set, the temperature is negative\n  if (msb & 0x10) {\n    temp -= 256;\n  }\n\n  return temp;\n}\n\n\n\n\n\n\nTip\n\n\n\nBonus Task: Modify the code from task 2, to read the temperature at a different resolution.(Refer Datasheet for the Resolution Register values.)",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/5_temperature_sensor_i2c.html#conclusion",
+    "href": "exercises/5_temperature_sensor_i2c.html#conclusion",
+    "title": "8  Temperature measurement using I2C - MCP9808",
+    "section": "8.6 Conclusion",
+    "text": "8.6 Conclusion\n\nThe MCP9808 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication.\nTwo methods of communication were explored:\n\nA sensor-specific library (Seeed_MCP9808) for easy implementation.\nDirect I2C communication via the Wire.h library to give a more in-depth understanding of sensor interfacing.\n\nBoth methods demonstrated how to read and process temperature data from the MCP9808 sensor.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Temperature measurement using I2C - MCP9808</span>"
+    ]
+  },
+  {
+    "objectID": "exercises/6_accelgyro_i2c.html",
+    "href": "exercises/6_accelgyro_i2c.html",
+    "title": "9  Accelerometer and Gyroscope - MPU-6050",
+    "section": "",
+    "text": "This exercise introduces interfacing the MPU-6050 accelerometer and gyroscope sensor with the STM32 Nucleo-144 board using the MPU6050 library by Electronic Cats. The sensor readings (acceleration and gyroscope values) will be displayed and averaged over 20 samples.\n\n\n\n\n\n\nNote\n\n\n\nThe MPU6050 library by Electronic Cats can be installed using library manager in the Aruduino IDE.\n\n\n\nObjective:\n\nInterface the MPU-6050 sensor with the STM32 Nucleo-144 board via I2C.\nRead raw acceleration and gyroscope data from the sensor.\nAverage the readings over 20 samples to smooth out the data.\n\n\n\nMaterials:\n\nSTM Nucleo-144 F767ZI development board.\nMPU-6050 sensor.\nJumper wires.\nCubeIDE or Arduino IDE with STM32Duino.\n\n\n\nWiring Connections:\n\n\n\nMPU-6050 Pin\nNucleo-144 Pin\n\n\n\n\nVCC\n3.3V\n\n\nGND\nGND\n\n\nSDA\nPB9\n\n\nSCL\nPB8\n\n\n\n\n\n\nTask 1: Basic Reading of Accelerometer and Gyroscope Data\n\nDescription:\nIn this task, the MPU-6050 sensor will be initialized, and raw acceleration and gyroscope values will be read. The results will be displayed using the serial plotter.\n\n\nCode:\n#include \"Wire.h\"\n#include \"MPU6050.h\"\n\n// class default I2C address is 0x68\nMPU6050 accelgyro;\n\nint16_t ax, ay, az;\nint16_t gx, gy, gz;\n\nvoid setup() {\n  // join I2C bus\n  Wire.begin();\n\n  Serial.begin(115200);\n\n  // initialize device\n  Serial.println(\"Initializing I2C devices...\");\n  accelgyro.initialize();\n  Serial.println(\"Testing device connections...\");\n  Serial.println(accelgyro.testConnection() ? \"MPU6050 connection successful\" : \"MPU6050 connection failed\");\n}\n\nvoid loop() {\n  // read raw accel/gyro measurements from device\n  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);\n\n  // display comma-separated accel/gyro x/y/z values for serial plotter\n  Serial.print(\"ax:\");\n  Serial.print(ax);\n  Serial.print(\",\");\n  Serial.print(\"ay:\");\n  Serial.print(ay);\n  Serial.print(\",\");\n  Serial.print(\"az:\");\n  Serial.print(az);\n  Serial.print(\",\");\n  Serial.print(\"gx:\");\n  Serial.print(gx);\n  Serial.print(\",\");\n  Serial.print(\"gy:\");\n  Serial.print(gy);\n  Serial.print(\",\");\n  Serial.print(\"gz:\");\n  Serial.println(gz);\n}\n\n\nKey Steps:\n\nInitialize the MPU-6050 sensor and check for a successful connection.\nRead and display the raw accelerometer and gyroscope data.\nUse the serial plotter to visualize the x, y, and z axis values.\n\n\n\n\n\nTask 2: Averaging the Readings Over 20 Samples\n\nDescription:\nIn this task, the raw accelerometer and gyroscope data will be averaged over 20 readings to smooth out any noise in the measurements.\n\n\nCode:\n#include \"Wire.h\"\n#include \"MPU6050.h\"\n\nMPU6050 accelgyro;\n\nint16_t ax, ay, az;\nint16_t gx, gy, gz;\n\n\nvoid setup() {\n  Wire.begin();\n  Serial.begin(115200);\n\n  // initialize device\n  Serial.println(\"Initializing I2C devices...\");\n  accelgyro.initialize();\n  Serial.println(\"Testing device connections...\");\n  Serial.println(accelgyro.testConnection() ? \"MPU6050 connection successful\" : \"MPU6050 connection failed\");\n}\n\nvoid loop() {\n\n  getMotion6Smooth(&ax, &ay, &az, &gx, &gy, &gz, 20);\n  // Display averaged values\n  Serial.print(\"ax:\");\n  Serial.print(ax);\n  Serial.print(\",\");\n  Serial.print(\"ay:\");\n  Serial.print(ay);\n  Serial.print(\",\");\n  Serial.print(\"az:\");\n  Serial.print(az);\n  Serial.print(\",\");\n  Serial.print(\"gx:\");\n  Serial.print(gx);\n  Serial.print(\",\");\n  Serial.print(\"gy:\");\n  Serial.print(gy);\n  Serial.print(\",\");\n  Serial.print(\"gz:\");\n  Serial.println(gz);\n  delay(10);\n\n}\n\nvoid getMotion6Smooth(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz, int nSamples) {\n  // Initialize totals\n  long axTotal = 0, ayTotal = 0, azTotal = 0;\n  long gxTotal = 0, gyTotal = 0, gzTotal = 0;\n\n  // Collect 20 samples\n  for (int i = 0; i &lt; nSamples; i++) {\n    accelgyro.getMotion6(ax, ay, az, gx, gy, gz);\n    axTotal += *ax;\n    ayTotal += *ay;\n    azTotal += *az;\n    gxTotal += *gx;\n    gyTotal += *gy;\n    gzTotal += *gz;\n  }\n\n  // Calculate average\n  *ax = axTotal / nSamples;\n  *ay = ayTotal / nSamples;\n  *az = azTotal / nSamples;\n  *gx = gxTotal / nSamples;\n  *gy = gyTotal / nSamples;\n  *gz = gzTotal / nSamples;\n}\n\n\nKey Steps:\n\nCollect 20 samples of accelerometer and gyroscope readings.\nCalculate the average of each axis (x, y, z) for both accelerometer and gyroscope.\nDisplay the averaged readings to reduce noise and obtain more stable values.\n\n\n\n\n\nConclusion:\n\nThe MPU-6050 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication using library.\nRaw accelerometer and gyroscope readings were captured and displayed.\nThe readings from the accelerometer and gyroscope was visualized using serial plotter.\nAveraging over 20 samples was used to smooth the sensor data and reduce noise.",
+    "crumbs": [
+      "**Using Arduino IDE with stm32duino**",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>**Accelerometer and Gyroscope - MPU-6050**</span>"
     ]
   },
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "9  Summary",
+    "title": "10  Summary",
     "section": "",
     "text": "In summary, this book has no content whatsoever.",
     "crumbs": [
-      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Summary</span>"
     ]
   }
 ]
