@@ -1,0 +1,158 @@
+---
+number-depth: 2
+code-copy: true
+---
+
+# GPIO using STM32Duino
+
+## Objectives
+
+- Understand and experiment with **GPIO Digital Output**, **GPIO Digital Input**, and **GPIO Analog Input/Output** on the STM32 Nucleo-144 F767ZI board using **STM32Duino**.
+- Learn to use basic example sketches in Arduino IDE for controlling LEDs and reading inputs.
+
+
+---
+
+## Materials
+- STM32 Nucleo-144 F767ZI development board.
+- Arduino IDE with STM32Duino configured.
+- Jumper wires.
+- Potentiometer (for analog input task).
+
+---
+
+## Part 1: Simple Blink (GPIO Digital Output)
+
+### Steps
+1. In Arduino IDE, go to `File -> Examples -> 01.Basics -> Blink`. A new sketch will open.
+2. Ensure that **Nucleo-144** is selected as the board. If it is not selected, choose it from the dropdown menu.
+3. The code will reference `LED_BUILTIN`, which corresponds to the built-in LED on `PB0 (LD1)` on the Nucleo-F767ZI board.
+4. Upload the sketch to the STM32 Nucleo-144 board.
+
+### Expected Output
+- The built-in LED on **PB0** will blink on and off with a 1-second delay.
+
+### Tasks
+- Modify the sketch to make all built-in LEDs (on `PB0`, `PB7`, and `PB14`) blink.
+
+---
+
+## Part 2: Debounce (GPIO Digital Input)
+
+### Steps
+1. In Arduino IDE, go to `File -> Examples -> 02.Digital -> Debounce`. A new sketch will open.
+2. Ensure the board is correctly selected (Nucleo-144).
+3. Set `btnPin` to `PC13` (the onboard button).
+4. Set `ledPin` to one of the built-in LEDs (e.g., `PB0`).
+5. Upload the sketch to the STM32 board.
+
+### Expected Output
+- The LED will toggle between ON and OFF each time the button is pressed, with debounce logic to filter out noise from the button.
+
+### Tasks
+- Modify the sketch so that each button press cycles through turning `PB0`, `PB7`, and `PB14` on and off in sequence (cycling the built-in LEDs).
+
+---
+
+## Part 3: Fading (GPIO Analog Output)
+
+### Steps
+1. In Arduino IDE, go to `File -> Examples -> 03.Analog -> Fading`. A new sketch will open.
+2. Use `PB0` for the built-in LED (`LED_BUILTIN`).
+3. Upload the sketch to the STM32 board.
+
+### Expected Output
+- The built-in LED will gradually fade in and fade out.
+
+### Task
+- Modify the code to alternately fade `PB0` and `PB7` so that one fades in while the other fades out, and vice versa.
+
+---
+
+## Part 4: Calibration (GPIO Analog Input)
+
+### Steps
+1. In Arduino IDE, go to `File -> Examples -> 03.Analog -> Calibration`. A new sketch will open.
+2. Connect a potentiometer to `A0` for analog input.
+3. Use `PB0` for the LED output.
+5. Use `PB7` to indicate calibration period.
+4. This sketch calibrates the sensor (potentiometer) over the first 5 seconds to detect its minimum and maximum values, then maps the sensor readings to adjust the brightness of the LED on `PB0`.
+6. Change the calibration time to 10 seconds and try turning the potentiometer knob to both extends as possible.
+7. Upload the sketch to the STM32 board.
+
+### Code Example (Modified from the calibration example)
+```c
+const int sensorPin = A0;  // pin that the sensor is attached to
+const int ledPin = PB0;      // pin that the LED is attached to
+const int indicatorLed = PB7;// pin to indicate the calibration period
+// variables:
+int sensorValue = 0;   // the sensor value
+int sensorMin = 1023;  // minimum sensor value
+int sensorMax = 0;     // maximum sensor value
+
+
+void setup() {
+  Serial.begin(115200);
+  // turn on LED to signal the start of the calibration period:
+  pinMode(indicatorLed, OUTPUT);
+  digitalWrite(indicatorLed, HIGH);
+
+  // calibrate during the first five seconds
+  while (millis() < 10000) {
+    sensorValue = analogRead(sensorPin);
+
+    // record the maximum sensor value
+    if (sensorValue > sensorMax) {
+      sensorMax = sensorValue;
+    }
+
+    // record the minimum sensor value
+    if (sensorValue < sensorMin) {
+      sensorMin = sensorValue;
+    }
+    Serial.print("sensorMin:");
+    Serial.print(sensorMin);
+    Serial.print(',');
+    Serial.print("sensorMax:");
+    Serial.print(sensorMax);
+    Serial.print(',');
+    Serial.print("sensorValue:");
+    Serial.println(sensorValue);
+  }  
+  Serial.println("Calibration Done.");
+  // signal the end of the calibration period
+  digitalWrite(indicatorLed, LOW);
+}
+
+void loop() {
+  // read the sensor:
+  sensorValue = analogRead(sensorPin);
+
+  // in case the sensor value is outside the range seen during calibration
+  sensorValue = constrain(sensorValue, sensorMin, sensorMax);
+
+  // apply the calibration to the sensor reading
+  sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);
+
+  // fade the LED using the calibrated value:
+  analogWrite(ledPin, sensorValue);
+}
+```
+### Expected Output
+- During the first 10 seconds, the sensor will calibrate its minimum and maximum values based on the potentiometer input.
+- After calibration, the LED brightness will adjust based on the potentiometer's position, with the sensor values mapped between 0 and 255 to control the PWM output on `P0`.
+
+### Tasks
+- Try modifying the code to calibrate until the user button is presses instead of using a fixed time window.
+
+---
+
+## Conclusion
+This exercise introduces basic GPIO operations using **STM32Duino** on the **STM32 Nucleo-144 F767ZI** board. Students learned how to:
+
+- Control LEDs using **digital output** (Simple Blink).
+- Handle button presses using **digital input** with **debouncing** (Debounce).
+- Create **fading effects** with **analog output** (Fading).
+- Read and map analog input data from a potentiometer to control the brightness of an LED (Calibration). 
+
+These examples serve as foundational tasks to deepen the understanding of GPIO handling in embedded systems.
