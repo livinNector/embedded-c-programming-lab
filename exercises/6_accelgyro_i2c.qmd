@@ -1,1 +1,186 @@
-# Accelerometer and gyroscope - MPU-6050
+---
+number-depth: 2
+code-copy: true
+---
+
+
+### **Accelerometer and Gyroscope - MPU-6050**
+
+This exercise introduces interfacing the MPU-6050 accelerometer and gyroscope sensor with the STM32 Nucleo-144 board using the `MPU6050` library by Electronic Cats. The sensor readings (acceleration and gyroscope values) will be displayed and averaged over 20 samples.
+
+::: {.callout-note}
+The `MPU6050` library by Electronic Cats can be installed using library manager in the Aruduino IDE.
+:::
+
+### **Objective:**
+- Interface the MPU-6050 sensor with the STM32 Nucleo-144 board via I2C.
+- Read raw acceleration and gyroscope data from the sensor.
+- Average the readings over 20 samples to smooth out the data.
+
+### **Materials:**
+- STM Nucleo-144 F767ZI development board.
+- MPU-6050 sensor.
+- Jumper wires.
+- CubeIDE or Arduino IDE with STM32Duino.
+
+### **Wiring Connections:**
+| MPU-6050 Pin | Nucleo-144 Pin |
+|--------------|----------------|
+| VCC          | 3.3V           |
+| GND          | GND            |
+| SDA          | PB9            |
+| SCL          | PB8            |
+
+---
+
+### **Task 1: Basic Reading of Accelerometer and Gyroscope Data**
+
+#### **Description:**
+In this task, the MPU-6050 sensor will be initialized, and raw acceleration and gyroscope values will be read. The results will be displayed using the serial plotter.
+
+#### **Code:**
+```cpp
+#include "Wire.h"
+#include "MPU6050.h"
+
+// class default I2C address is 0x68
+MPU6050 accelgyro;
+
+int16_t ax, ay, az;
+int16_t gx, gy, gz;
+
+void setup() {
+  // join I2C bus
+  Wire.begin();
+
+  Serial.begin(115200);
+
+  // initialize device
+  Serial.println("Initializing I2C devices...");
+  accelgyro.initialize();
+  Serial.println("Testing device connections...");
+  Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+}
+
+void loop() {
+  // read raw accel/gyro measurements from device
+  accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+
+  // display comma-separated accel/gyro x/y/z values for serial plotter
+  Serial.print("ax:");
+  Serial.print(ax);
+  Serial.print(",");
+  Serial.print("ay:");
+  Serial.print(ay);
+  Serial.print(",");
+  Serial.print("az:");
+  Serial.print(az);
+  Serial.print(",");
+  Serial.print("gx:");
+  Serial.print(gx);
+  Serial.print(",");
+  Serial.print("gy:");
+  Serial.print(gy);
+  Serial.print(",");
+  Serial.print("gz:");
+  Serial.println(gz);
+}
+```
+
+#### **Key Steps:**
+- Initialize the MPU-6050 sensor and check for a successful connection.
+- Read and display the raw accelerometer and gyroscope data.
+- Use the serial plotter to visualize the x, y, and z axis values.
+
+---
+
+### **Task 2: Averaging the Readings Over 20 Samples**
+
+#### **Description:**
+In this task, the raw accelerometer and gyroscope data will be averaged over 20 readings to smooth out any noise in the measurements.
+
+#### **Code:**
+```cpp
+#include "Wire.h"
+#include "MPU6050.h"
+
+MPU6050 accelgyro;
+
+int16_t ax, ay, az;
+int16_t gx, gy, gz;
+
+
+void setup() {
+  Wire.begin();
+  Serial.begin(115200);
+
+  // initialize device
+  Serial.println("Initializing I2C devices...");
+  accelgyro.initialize();
+  Serial.println("Testing device connections...");
+  Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+}
+
+void loop() {
+
+  getMotion6Smooth(&ax, &ay, &az, &gx, &gy, &gz, 20);
+  // Display averaged values
+  Serial.print("ax:");
+  Serial.print(ax);
+  Serial.print(",");
+  Serial.print("ay:");
+  Serial.print(ay);
+  Serial.print(",");
+  Serial.print("az:");
+  Serial.print(az);
+  Serial.print(",");
+  Serial.print("gx:");
+  Serial.print(gx);
+  Serial.print(",");
+  Serial.print("gy:");
+  Serial.print(gy);
+  Serial.print(",");
+  Serial.print("gz:");
+  Serial.println(gz);
+  delay(10);
+
+}
+
+void getMotion6Smooth(int16_t* ax, int16_t* ay, int16_t* az, int16_t* gx, int16_t* gy, int16_t* gz, int nSamples) {
+  // Initialize totals
+  long axTotal = 0, ayTotal = 0, azTotal = 0;
+  long gxTotal = 0, gyTotal = 0, gzTotal = 0;
+
+  // Collect 20 samples
+  for (int i = 0; i < nSamples; i++) {
+    accelgyro.getMotion6(ax, ay, az, gx, gy, gz);
+    axTotal += *ax;
+    ayTotal += *ay;
+    azTotal += *az;
+    gxTotal += *gx;
+    gyTotal += *gy;
+    gzTotal += *gz;
+  }
+
+  // Calculate average
+  *ax = axTotal / nSamples;
+  *ay = ayTotal / nSamples;
+  *az = azTotal / nSamples;
+  *gx = gxTotal / nSamples;
+  *gy = gyTotal / nSamples;
+  *gz = gzTotal / nSamples;
+}
+```
+
+#### **Key Steps:**
+- Collect 20 samples of accelerometer and gyroscope readings.
+- Calculate the average of each axis (x, y, z) for both accelerometer and gyroscope.
+- Display the averaged readings to reduce noise and obtain more stable values.
+
+---
+
+### **Conclusion:**
+- The MPU-6050 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication using library.
+- Raw accelerometer and gyroscope readings were captured and displayed.
+- The readings from the accelerometer and gyroscope was visualized using serial plotter.
+- Averaging over 20 samples was used to smooth the sensor data and reduce noise.
