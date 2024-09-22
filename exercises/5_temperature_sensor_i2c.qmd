@@ -1,1 +1,170 @@
+---
+number-depth: 2
+code-copy: true
+---
+
 # Temperature measurement using I2C - MCP9808
+
+## Objective
+By the end of this exercise, students will:
+- Interface the MCP9808 temperature sensor with the STM32 Nucleo-144 F767ZI board using I2C communication.
+- Measure temperature in both Celsius and Fahrenheit using two methods:
+  1. Sensor-specific library (`Seeed_MCP9808`).
+  2. Direct I2C communication via `Wire.h` library.
+
+::: {.callout-note}
+The `Seeed_MCP9808` library can be downloaded as zip from [here](https://github.com/Seeed-Studio/Grove_Temperature_sensor_MCP9808). You can add this library to the arduino sketch by `Sketch->Include Library->Add .zip Library`.
+:::
+
+::: {.callout-note}
+
+:::
+
+## Materials
+- STM Nucleo-144 F767ZI development board.
+- MCP9808 temperature sensor - [Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf).
+- Jumper wires.
+- CubeIDE or Arduino IDE with STM32Duino.
+
+
+## Wiring Connections
+| MCP9808 Pin | Nucleo-144 Pin |
+|-------------|----------------|
+| VCC         | 3.3V           |
+| GND         | GND            |
+| SDA         | D14/SDA        |
+| SCL         | D15/SCL        |
+
+---
+
+## Task 1: Using `Seeed_MCP9808` Library
+
+### Description
+In this task, the MCP9808 sensor is interfaced using the `Seeed_MCP9808` library. The library abstracts the I2C communication, to easily read the temperature in Celsius and convert it to Fahrenheit.
+
+### Code
+```cpp
+#include "Seeed_MCP9808.h"
+
+MCP9808 sensor;
+
+void setup() {
+  Serial.begin(9600);
+  if (sensor.init()) {
+    Serial.println("Sensor init failed.");
+    return;
+  }
+  Serial.println("Sensor init success.");
+}
+
+void loop() {
+  float celsius = 0;
+  sensor.get_temp(&celsius);
+
+  float fahrenheit = celsius * 9 / 5 + 32;
+
+  Serial.print("Temperature: ");
+  Serial.print(celsius);
+  Serial.print("C/");
+  Serial.print(fahrenheit);
+  Serial.println("F");
+  delay(1000);
+}
+```
+
+### Key Steps
+- Initialize the MCP9808 sensor using the `Seeed_MCP9808` library.
+- Read the temperature in Celsius, convert it to Fahrenheit, and display both on the serial monitor.
+
+---
+
+## Task 2: Using `Wire.h` Library for Direct I2C Communication
+
+### Description
+This task involves using direct I2C communication with the MCP9808 sensor via the `Wire.h` library. Students will manually configure and communicate with the sensor to read temperature data, without relying on a sensor-specific library.
+
+### Code
+```cpp
+#include <Wire.h>
+
+#define MCP9808_I2C_ADDRESS 0x18  // Default I2C address for MCP9808
+#define AMBIENT_TEMP_REG 0x05     // Ambient temperature register
+#define RESOLUTION_REG 0x08       // Resolution register
+#define RESOLUTION_0_0625_DEGREE 0x03 // Highest resolution
+
+void setup() {
+  Wire.begin();
+  Serial.begin(9600);
+
+  // Initialize the sensor
+  if (initSensor()) {
+    Serial.println("Sensor init failed.");
+  } else {
+    Serial.println("Sensor init success.");
+  }
+}
+
+void loop() {
+  float celsius = readTemperature();
+  float fahrenheit = celsius * 9.0 / 5.0 + 32;
+
+  Serial.print("Temperature: ");
+  Serial.print(celsius);
+  Serial.print(" C / ");
+  Serial.print(fahrenheit);
+  Serial.println(" F");
+
+  delay(1000);  // Wait 1 second before reading the temperature again
+}
+
+// Function to initialize the sensor
+bool initSensor() {
+  Wire.beginTransmission(MCP9808_I2C_ADDRESS);
+  Wire.write(RESOLUTION_REG);           // Set the resolution register
+  Wire.write(RESOLUTION_0_0625_DEGREE); // Set highest resolution (0.0625°C)
+  return (Wire.endTransmission() != 0); // Check for I2C transmission success
+}
+
+// Function to read temperature from the MCP9808 sensor
+float readTemperature() {
+  Wire.beginTransmission(MCP9808_I2C_ADDRESS);
+  Wire.write(AMBIENT_TEMP_REG);  // Set pointer to the temperature register
+  Wire.endTransmission();
+
+  Wire.requestFrom(MCP9808_I2C_ADDRESS, 2);  // Request 2 bytes from sensor
+
+  if (Wire.available() < 2) {
+    return NAN;  // If data not available, return not-a-number (NAN)
+  }
+
+  // Read the 2 bytes of temperature data
+  uint8_t msb = Wire.read();
+  uint8_t lsb = Wire.read();
+
+  // Combine the two bytes into a 16-bit unsigned integer
+  uint16_t rawTemp = ((uint16_t)msb << 8) | lsb;
+
+  // Mask out the sign bit (bit 12) and calculate the temperature
+  rawTemp &= 0x0FFF;
+  float temp = rawTemp * 0.0625;  // Each increment represents 0.0625°C
+
+  // If the sign bit is set, the temperature is negative
+  if (msb & 0x10) {
+    temp -= 256;
+  }
+
+  return temp;
+}
+```
+:::::: {.callout-tip}
+**Bonus Task**: Modify the code from task 2, to read the temperature at a different resolution.(Refer [Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/MCP9808-0.5C-Maximum-Accuracy-Digital-Temperature-Sensor-Data-Sheet-DS20005095B.pdf) for the Resolution Register values.)
+:::
+
+---
+
+## Conclusion
+- The MCP9808 sensor was interfaced with the STM32 Nucleo-144 board using I2C communication.
+- Two methods of communication were explored:
+  1. A sensor-specific library (`Seeed_MCP9808`) for easy implementation.
+  2. Direct I2C communication via the `Wire.h` library to give a more in-depth understanding of sensor interfacing.
+- Both methods demonstrated how to read and process temperature data from the MCP9808 sensor.
