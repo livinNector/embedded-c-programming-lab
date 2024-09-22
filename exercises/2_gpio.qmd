@@ -1,5 +1,6 @@
 ---
 number-depth: 2
+code-copy: true
 ---
 
 # 3-bit LED Counter Using HAL Delay, Timer Interrupts, and Button Interrupt
