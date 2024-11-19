@@ -97,7 +97,7 @@ void setup() {
   pinMode(indicatorLed, OUTPUT);
   digitalWrite(indicatorLed, HIGH);
 
-  // calibrate during the first five seconds
+  // calibrate during the first 10 seconds
   while (millis() < 10000) {
     sensorValue = analogRead(sensorPin);
 
