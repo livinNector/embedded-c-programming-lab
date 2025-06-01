@@ -377,10 +377,10 @@ Note
 <li>Configure the timer with a <strong>prescaler</strong> and <strong>period</strong> to generate an interrupt every 1 second.</li>
 <li>In the <strong>Parameter Settings</strong>, set the following configuration.
 <ul>
-<li>Prescaler - 40000-1</li>
+<li>Prescaler - 48000-1</li>
 <li>Counter Mode - Up</li>
 <li>Counter Period - 2000-1</li>
-<li><span class="math display">\[\begin{align*}\text{Interrupt Interval} &amp;= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &amp;=\frac{2000 \times 40000}{96\times10^6}=1 \text{s}\end{align*}\]</span></li>
+<li><span class="math display">\[\begin{align*}\text{Interrupt Interval} &amp;= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &amp;=\frac{2000 \times 48000}{96\times10^6}=1 \text{s}\end{align*}\]</span></li>
 </ul></li>
 <li>In the <strong>NVIC Settings</strong>, enable the TIM7 global interrupt.</li>
 </ul>

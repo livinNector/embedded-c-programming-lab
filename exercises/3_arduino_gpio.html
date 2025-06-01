@@ -333,6 +333,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The code will reference <code>LED_BUILTIN</code>, which corresponds to the built-in LED on <code>PB0 (LD1)</code> on the Nucleo-F767ZI board.</li>
 <li>Upload the sketch to the STM32 Nucleo-144 board.</li>
 </ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ensure that the <strong>Board part number</strong> is set as <strong>Nucleo-F767ZI</strong> from the <strong>Tools</strong> menu before uploading.</p>
+</div>
+</div>
 </section>
 <section id="expected-output" class="level3">
 <h3 class="anchored" data-anchor-id="expected-output">Expected Output</h3>
@@ -429,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  pinMode<span class="op">(</span>indicatorLed<span class="op">,</span> OUTPUT<span class="op">);</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  digitalWrite<span class="op">(</span>indicatorLed<span class="op">,</span> HIGH<span class="op">);</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// calibrate during the first five seconds</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// calibrate during the first 10 seconds</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="cf">while</span> <span class="op">(</span>millis<span class="op">()</span> <span class="op">&lt;</span> <span class="dv">10000</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    sensorValue <span class="op">=</span> analogRead<span class="op">(</span>sensorPin<span class="op">);</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
