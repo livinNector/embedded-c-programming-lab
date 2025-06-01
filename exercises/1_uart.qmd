@@ -2,7 +2,14 @@
 number-depth: 2
 code-copy: true
 
+format:
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+
 ---
+
 
 # UART Serial Communication using STM32 HAL
 
@@ -22,16 +29,24 @@ By the end of this exercise, students will:
 - CubeIDE installed on the PC.
 - Serial terminal software (e.g., PuTTY, Tera Term, or the serial monitor in CubeIDE).
 
-:::{.callout-caution}
+## Viewing UART Output
 
-**Caution**: While following the below tutorial to install built-in terminal, in the "Work with" text box(a box that has the text "type or select site"), **select "Eclipse Repository"** and **DO NOT** select "all available sites" this may cause the IDE to stop responding.
-:::
+The output from the UART can be seen in two ways.
 
-::: {.callout-note}
-To install built-in terminal in CubeIDE follow the steps [here](https://community.st.com/t5/stm32cubeide-mcus/does-stm32cubeide-offer-a-serial-terminal-this-functionality-was/m-p/264424/highlight/true#M13550){target=\_blank}.
+1. **Using a Command Shell Console**
+   ![serial_command_shell](/exercises/serial_connection_console.gif)
+2. **Using Terminal Extension**\
+   To install the terminal extensions in CubeIDE follow the steps [here](https://community.st.com/t5/stm32cubeide-mcus/does-stm32cubeide-offer-a-serial-terminal-this-functionality-was/m-p/264424/highlight/true#M13550){target=\_blank}.
+
+   :::{.callout-caution}
+   **Caution**: While following the aboe tutorial to install built-in terminal, in the "Work with" text box(a box that has the text "type or select site"), **select "Eclipse Repository"** and **DO NOT** select "all available sites" this may cause the IDE to stop responding.
+   :::
+
+### Identifying the port
 
 The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/dev/ttyACM0` in linux.
-:::
+
+In Windows, press `Win+x` and then `m` to open the device manager (or search from the start button). In the ports pheripheral you can find the port used by STM32.
 
 ## CubeMX Configuration:
 
@@ -61,10 +76,10 @@ The Serial port name will be usually like `COM 3` or `COM 9` in windows and `/de
 - Enable **TIM7** (can be found under timer category) (or any other available timer).
 - Configure the timer with a **prescaler** and **period** to generate an interrupt every 1 second.
 - In the **Parameter Settings**, set the following configuration.
-  - Prescaler - 40000-1
+  - Prescaler - 48000-1
   - Counter Mode - Up
   - Counter Period - 2000-1
-  - $$\begin{align*}\text{Interrupt Interval} &= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &=\frac{2000 \times 40000}{96\times10^6}=1 \text{s}\end{align*}$$
+  - $$\begin{align*}\text{Interrupt Interval} &= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &=\frac{2000 \times 48000}{96\times10^6}=1 \text{s}\end{align*}$$
 - In the **NVIC Settings**, enable the TIM7 global interrupt.
 
 :::{.callout-note}
@@ -114,7 +129,7 @@ Explanations of these functions can be found in the [UM1850](https://www.st.com/
    - Used to start a timer in interrupt mode, which can be useful for periodic actions like transmitting data every second.
    - Example:
     ```c
-    HAL_TIM_Base_Start_IT(&htim7);  // Start timer 3 in interrupt mode
+    HAL_TIM_Base_Start_IT(&htim7);  // Start timer 7 in interrupt mode
     ```
 5. **HAL_TIM_PeriodElapsedCallback**
    - This function is called when a timer interrupt occurs.

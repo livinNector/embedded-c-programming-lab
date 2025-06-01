@@ -28,8 +28,8 @@ The `MPU6050` library by Electronic Cats can be installed using library manager 
 |--------------|----------------|
 | VCC          | 3.3V           |
 | GND          | GND            |
-| SDA          | PB9            |
-| SCL          | PB8            |
+| SDA          | SDA            |
+| SCL          | SCL            |
 
 ---
 

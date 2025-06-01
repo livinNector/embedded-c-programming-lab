@@ -29,6 +29,10 @@ code-copy: true
 3. The code will reference `LED_BUILTIN`, which corresponds to the built-in LED on `PB0 (LD1)` on the Nucleo-F767ZI board.
 4. Upload the sketch to the STM32 Nucleo-144 board.
 
+::: {.callout-important}
+Ensure that the **Board part number** is set as **Nucleo-F767ZI** from the **Tools** menu before uploading.
+:::
+
 ### Expected Output
 - The built-in LED on **PB0** will blink on and off with a 1-second delay.
 

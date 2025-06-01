@@ -42,10 +42,10 @@ If you are using the default peripheral configuration it should be already set t
 - Enable **TIM7** (or any other available timer).
 - Configure the timer with a **prescaler** and **period** to generate an interrupt every 1 second.
 - In the **Parameter Settings**, set the following configuration.
-  - Prescaler - 40000-1
+  - Prescaler - 48000-1
   - Counter Mode - Up
   - Counter Period - 2000-1
-  - $$\begin{align*}\text{Interrupt Interval} &= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &=\frac{2000 \times 40000}{96\times10^6}=1 \text{s}\end{align*}$$
+  - $$\begin{align*}\text{Interrupt Interval} &= \frac{(\text{Counter Period}+1)\times(\text{Prescaler}+1)}{\text{Clock Source Frequency}}\\ &=\frac{2000 \times 48000}{96\times10^6}=1 \text{s}\end{align*}$$
 - In the **NVIC Settings**, enable the TIM7 global interrupt.
 
 :::{.callout-note}

@@ -1,6 +1,18 @@
 # STMCubeIDE: Getting Started and How-Tos
 
-This tutorial assumes that STMCubeIDE is already installed in the system. If not it can be downloaded and installed from [here](https://www.st.com/en/development-tools/stm32cubeide.html){target=_blank}.
+This tutorial assumes that the latest version of STMCubeIDE is already installed in the system. If not it can be downloaded and installed from [here](https://www.st.com/en/development-tools/stm32cubeide.html){target=_blank}. 
+
+## Logging in into ST-Account
+
+The download of the firmware in STMCubeIDE requires you to be logged in with an MyST account in the IDE. To login, Select **Help -> STMCube Updates -> Connection to MyST**. 
+
+:::{.callout-note}
+If you try to generate code without logging in to the MyST account in your IDE, you won't be able to generate code as the download of the firmware files for the board requires login.
+:::
+
+:::{.callout-caution}
+If you see a small warning icon ![warning-icon](/getting_started/warning_icon.png) in the project icon in the file explorer , it means the project is not properly generated. Check whether you have logged in properly.
+:::
 
 ## Terminology
 
