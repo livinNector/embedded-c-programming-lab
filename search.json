@@ -54,7 +54,7 @@
     "href": "getting_started/stmcube_ide_getting_started.html",
     "title": "2  STMCubeIDE: Getting Started and How-Tos",
     "section": "",
-    "text": "2.1 Logging in into ST-Account\nThe download of the firmware in STMCubeIDE requires you to be logged in with an MyST account in the IDE. To login, Select Help -&gt; STMCube Updates -&gt; Connection to MyST.",
+    "text": "2.1 Logging in into ST-Account\nThis tutorial assumes that the latest version of STMCubeIDE is already installed in the system. If not it can be downloaded and installed from here.\nThe download of the firmware in STMCubeIDE requires you to be logged in with an MyST account in the IDE. To login, Select Help -&gt; STMCube Updates -&gt; Connection to MyST.",
     "crumbs": [
       "**Using STMCubeIDE with STM HAL**",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>STMCubeIDE: Getting Started and How-Tos</span>"
